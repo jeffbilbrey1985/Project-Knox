@@ -605,24 +605,47 @@ if(src)src.addEventListener('error',()=>{vid.style.display='none';});
 addEventListener('pointerdown',()=>{if(vid.paused&&!vid.ended)vid.play().catch(()=>{});},{once:true});
 /* freeze on last frame (no loop) — nothing needed; video holds final frame */
 
-/* ---------- anthem: replay the reveal with sound ---------- */
+/* ---------- anthem: automatic sound with graceful fallback ---------- */
 const soundBtn=document.getElementById('soundBtn'),soundLbl=document.getElementById('soundLbl'),soundIcon=document.getElementById('soundIcon');
 let anthem=false;
+function anthemOn(restart){
+  anthem=true;soundBtn.classList.add('playing');
+  vid.muted=false;vid.volume=.9;
+  if(restart)vid.currentTime=0;
+  vid.play().catch(()=>{});
+  soundIcon.textContent='🔇';soundLbl.textContent='Mute';
+}
+function anthemOff(lbl){
+  anthem=false;soundBtn.classList.remove('playing');vid.muted=true;
+  soundIcon.textContent='🔊';soundLbl.textContent=lbl||'Experience the reveal with sound';
+}
+/* arm: first tap/click/keypress anywhere starts the scored reveal */
+function armFirstGesture(){
+  const arm=e=>{
+    if(e.target&&e.target.closest&&e.target.closest('#soundBtn'))return;
+    removeEventListener('pointerdown',arm,true);removeEventListener('keydown',arm,true);
+    if(scrollY<innerHeight*.7)anthemOn(true); /* still at the hero: restart with score */
+  };
+  addEventListener('pointerdown',arm,true);
+  addEventListener('keydown',arm,true);
+}
+/* attempt unmuted autoplay on load (allowed for returning/engaged visitors) */
+(function(){
+  try{
+    vid.pause();vid.muted=false;vid.volume=.9;vid.currentTime=0;
+    const p=vid.play();
+    if(p&&p.then){
+      p.then(()=>{anthem=true;soundBtn.classList.add('playing');soundIcon.textContent='🔇';soundLbl.textContent='Mute';})
+       .catch(()=>{vid.muted=true;vid.play().catch(()=>{});armFirstGesture();});
+    }else{armFirstGesture();}
+  }catch(err){vid.muted=true;vid.play().catch(()=>{});armFirstGesture();}
+})();
 soundBtn.addEventListener('click',()=>{
-  if(!anthem){
-    anthem=true;
-    soundBtn.classList.add('playing');
-    scrollTo({top:0,behavior:'smooth'});
-    vid.muted=false;vid.volume=.9;vid.currentTime=0;
-    vid.play().catch(()=>{vid.muted=true;vid.play().catch(()=>{});});
-    soundIcon.textContent='🔇';soundLbl.textContent='Mute';
-  }else{
-    anthem=false;vid.muted=true;
-    soundIcon.textContent='🔊';soundLbl.textContent='Experience the reveal with sound';
-  }
+  if(!anthem){scrollTo({top:0,behavior:'smooth'});anthemOn(true);}
+  else anthemOff();
 });
 vid.addEventListener('ended',()=>{
-  if(anthem){anthem=false;vid.muted=true;soundIcon.textContent='🔊';soundLbl.textContent='Replay the reveal with sound';}
+  if(anthem)anthemOff('Replay the reveal with sound');
 });
 
 /* ---------- scene deepens after hero ---------- */
