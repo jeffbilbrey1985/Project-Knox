@@ -1061,7 +1061,8 @@ function armFirstGesture(){
   const arm=e=>{
     if(e.target&&e.target.closest&&(e.target.closest('#soundBtn')||e.target.closest('#skipIntro')))return;
     removeEventListener('pointerdown',arm,true);removeEventListener('keydown',arm,true);
-    if(scrollY<innerHeight*.7)anthemOn(true); /* still at the hero: restart with score */
+    /* join sound in place — only restart if the reveal already ended */
+    if(scrollY<innerHeight*.7)anthemOn(vid.ended);
   };
   addEventListener('pointerdown',arm,true);
   addEventListener('keydown',arm,true);
@@ -1069,7 +1070,8 @@ function armFirstGesture(){
 /* attempt unmuted autoplay on load (allowed for returning/engaged visitors) */
 (function(){
   try{
-    vid.pause();vid.muted=false;vid.volume=.9;vid.currentTime=0;
+    /* no pause/rewind — unmute in place so sound starts with the video */
+    vid.muted=false;vid.volume=.9;
     const p=vid.play();
     if(p&&p.then){
       p.then(()=>{anthem=true;soundBtn.classList.add('playing');soundIcon.textContent='🔇';soundLbl.textContent='Mute';})
