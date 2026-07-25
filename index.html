@@ -1161,16 +1161,21 @@ track.insertAdjacentHTML('beforeend','<div style="display:flex" aria-hidden="tru
 /* wrap originals so both halves are identical flex groups */
 track.innerHTML='<div style="display:flex">'+clone+'</div><div style="display:flex" aria-hidden="true">'+clone+'</div>';
 
-/* ---------- contact -> webhook ---------- */
+/* ---------- contact -> webhook + CRM ---------- */
 document.getElementById('contactForm').addEventListener('submit',e=>{
   e.preventDefault();
   const v=id=>document.getElementById(id).value;
   const btn=e.target.querySelector('button[type="submit"]');
   btn.disabled=true;btn.textContent='Sending…';
+  const lead=JSON.stringify({name:v('name'),business:v('biz'),type:v('type'),email:v('email'),phone:v('phone'),message:v('pain'),source:'getprojectknox.com'});
+  /* CRM record (Knox CRM) — runs alongside the email webhook */
+  fetch('https://knox-crm.higgsfield.app/api/leads',{
+    method:'POST',headers:{'Content-Type':'application/json'},body:lead
+  }).catch(()=>{});
   fetch('https://hooks.zapier.com/hooks/catch/20441079/44gxyjs/',{
     method:'POST',mode:'no-cors',
     headers:{'Content-Type':'text/plain'},
-    body:JSON.stringify({name:v('name'),business:v('biz'),type:v('type'),email:v('email'),phone:v('phone'),message:v('pain'),source:'getprojectknox.com'})
+    body:lead
   }).then(()=>{
     e.target.reset();btn.textContent='Sent ✓';
     const m=document.getElementById('formMsg');
