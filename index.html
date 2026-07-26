@@ -1170,15 +1170,11 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
   const btn=e.target.querySelector('button[type="submit"]');
   btn.disabled=true;btn.textContent='Sending…';
   const lead=JSON.stringify({name:v('name'),business:v('biz'),type:v('type'),email:v('email'),phone:v('phone'),message:v('pain'),source:'getprojectknox.com'});
-  /* CRM record (Knox CRM) — runs alongside the email webhook */
+  /* Knox CRM — saves the lead AND sends the thank-you email directly */
   fetch('https://knox-crm.higgsfield.app/api/leads',{
     method:'POST',headers:{'Content-Type':'application/json'},body:lead
-  }).catch(()=>{});
-  fetch('https://hooks.zapier.com/hooks/catch/20441079/44gxyjs/',{
-    method:'POST',mode:'no-cors',
-    headers:{'Content-Type':'text/plain'},
-    body:lead
-  }).then(()=>{
+  }).then(r=>{
+    if(!r.ok)throw new Error('lead failed');
     e.target.reset();btn.textContent='Sent ✓';
     const m=document.getElementById('formMsg');
     m.textContent="Got it! Check your email — we'll be in touch within 24-48 hours.";
