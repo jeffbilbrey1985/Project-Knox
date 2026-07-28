@@ -739,6 +739,48 @@ body.revealed .scroll-cue{animation:rise 1.1s var(--ease) 2.2s forwards}
 }
 </script>
 <!-- ===== /SEO ===== -->
+<style>
+/* ===== VAULT DEMOS TEASER ===== */
+.vt-sec{position:relative;overflow:hidden}
+.vt-card{position:relative;border-radius:22px;overflow:hidden;border:1px solid rgba(212,175,55,.28);
+  background:linear-gradient(150deg,#0d1b33 0%,#0a1428 60%);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.vt-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:0;align-items:stretch}
+.vt-copy{padding:clamp(28px,4vw,54px)}
+.vt-copy h2{font-size:clamp(1.7rem,3.4vw,2.5rem);margin:.35rem 0 .7rem}
+.vt-copy p{color:var(--cream-dim,#c9d2e2);max-width:46ch;margin:0 0 1.1rem}
+.vt-list{list-style:none;padding:0;margin:0 0 1.5rem;display:grid;gap:.5rem}
+.vt-list li{display:flex;gap:.6rem;align-items:flex-start;color:var(--cream-dim,#c9d2e2);font-size:.96rem}
+.vt-list li::before{content:"";flex:0 0 7px;height:7px;margin-top:.5rem;border-radius:50%;
+  background:var(--gold,#d4af37);box-shadow:0 0 10px rgba(212,175,55,.8)}
+.vt-media{position:relative;min-height:280px;background:#060d1c}
+.vt-media img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92;
+  transition:transform 1.2s var(--ease,cubic-bezier(.16,1,.3,1)),opacity .6s}
+.vt-card:hover .vt-media img{transform:scale(1.06);opacity:1}
+.vt-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,#0a1428 0%,rgba(10,20,40,.35) 42%,rgba(10,20,40,0) 100%)}
+.vt-play{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:74px;height:74px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(212,175,55,.55);background:rgba(10,20,40,.55);backdrop-filter:blur(4px);
+  color:var(--gold,#d4af37);font-size:1.3rem;text-decoration:none;
+  transition:transform .5s var(--ease,cubic-bezier(.16,1,.3,1)),box-shadow .5s}
+.vt-card:hover .vt-play{transform:translate(-50%,-50%) scale(1.09);box-shadow:0 0 0 12px rgba(212,175,55,.08)}
+.vt-play::before{content:"";position:absolute;inset:-1px;border-radius:50%;
+  border:1px solid rgba(212,175,55,.35);animation:vtPulse 2.8s ease-out infinite}
+@keyframes vtPulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.55);opacity:0}}
+.vt-chips{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.4rem}
+.vt-chip{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;padding:.34rem .7rem;
+  border-radius:999px;border:1px solid rgba(212,175,55,.3);color:var(--gold-soft,#f0c75e);
+  background:rgba(212,175,55,.07)}
+@media(max-width:860px){
+  .vt-grid{grid-template-columns:1fr}
+  .vt-media{min-height:210px;order:-1}
+  .vt-media::after{background:linear-gradient(180deg,rgba(10,20,40,0) 40%,#0a1428 100%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .vt-media img,.vt-play{transition:none}
+  .vt-play::before{animation:none}
+}
+</style>
 </head>
 <body class="intro">
 
@@ -767,6 +809,7 @@ body.revealed .scroll-cue{animation:rise 1.1s var(--ease) 2.2s forwards}
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#industries">Industries</a></li>
       <li><a href="#how">How It Works</a></li>
+      <li><a href="#vault-teaser">The Vault</a></li>
       <li><a class="btn btn-gold" href="#contact">Contact Us</a></li>
     </ul>
     <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -954,6 +997,39 @@ body.revealed .scroll-cue{animation:rise 1.1s var(--ease) 2.2s forwards}
       <!-- KNOX_3D_END -->
     </div>
     <div class="emblem-cap">Give it a spin — we build in 3D too</div>
+  </div>
+</section>
+
+<!-- ============ VAULT DEMOS TEASER ============ -->
+<section id="vault-teaser" class="lined vt-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">See it before you buy it</span>
+      <h2>Step inside <span class="gold-text">the Vault.</span></h2>
+    </div>
+    <div class="vt-card reveal d1">
+      <div class="vt-grid">
+        <div class="vt-copy">
+          <div class="vt-chips">
+            <span class="vt-chip">Live demos</span>
+            <span class="vt-chip">Working CRM</span>
+            <span class="vt-chip">No signup needed</span>
+          </div>
+          <h2 class="serif">Real sites. <span class="gold-text">Real tools.</span></h2>
+          <p>We built a vault of working examples so you can see exactly what your business would get &mdash; then try the tools yourself.</p>
+          <ul class="vt-list">
+            <li>Walk through finished websites built for businesses like yours</li>
+            <li>Send yourself a test request and watch it land in the CRM</li>
+            <li>Move it through the pipeline and see what happens automatically</li>
+          </ul>
+          <a class="btn btn-gold" href="https://knox-vault.higgsfield.app" target="_blank" rel="noopener">Enter the Vault &rarr;</a>
+        </div>
+        <a class="vt-media" href="https://knox-vault.higgsfield.app" target="_blank" rel="noopener" aria-label="Enter the Project Knox demo vault">
+          <img src="knox-demos-poster.jpg" alt="A vault door opening onto glowing gold treasure" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="vt-play" aria-hidden="true">&#9654;</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
