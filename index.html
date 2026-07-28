@@ -239,6 +239,25 @@ body.revealed .scroll-cue{animation:rise 1.1s var(--ease) 2.2s forwards}
   .btn-ghost{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(11,16,38,.7)}
   .emblem-stage{height:280px}
 }
+
+/* ============ VAULT DRAWERS STRIP ============ */
+.vtd-head{display:flex;align-items:baseline;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:54px 0 20px}
+.vtd-head h3{font-family:'Fraunces',serif;font-size:clamp(20px,2.2vw,26px);color:var(--cream)}
+.vtd-head a{color:var(--gold);text-decoration:none;font-size:14px;letter-spacing:.04em;border-bottom:1px solid rgba(227,185,83,.35);padding-bottom:2px;transition:border-color .25s var(--ease)}
+.vtd-head a:hover{border-color:var(--gold)}
+.vtd-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(228px,1fr))}
+.vtd-card{position:relative;display:flex;flex-direction:column;gap:8px;padding:22px 20px 20px;background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;text-decoration:none;color:inherit;overflow:hidden;transition:transform .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease)}
+.vtd-card.is-live:hover,.vtd-card.is-live:focus-visible{transform:translateY(-4px);border-color:rgba(227,185,83,.5);background:rgba(20,27,63,.72)}
+.vtd-card.is-soon{opacity:.6}
+.vtd-tag{position:absolute;top:14px;right:14px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--glass-border);color:var(--cream-faint)}
+.vtd-card.is-live .vtd-tag{color:var(--night);background:var(--gold);border-color:var(--gold);font-weight:600}
+.vtd-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
+.vtd-title{font-family:'Fraunces',serif;font-size:19px;line-height:1.25;color:var(--cream);padding-right:74px}
+.vtd-line{font-size:14px;line-height:1.55;color:var(--cream-faint)}
+.vtd-go{margin-top:6px;font-size:13px;letter-spacing:.04em;color:var(--gold)}
+.vtd-go span{display:inline-block;transition:transform .3s var(--ease)}
+.vtd-card.is-live:hover .vtd-go span{transform:translateX(4px)}
+@media (prefers-reduced-motion:reduce){.vtd-card,.vtd-card.is-live:hover{transform:none}.vtd-go span{transition:none}}
 </style>
 <style>
 /* ============ ENRICH: ambient animation layer ============ */
@@ -1028,6 +1047,46 @@ body.revealed .scroll-cue{animation:rise 1.1s var(--ease) 2.2s forwards}
           <img src="knox-demos-poster.jpg" alt="A vault door opening onto glowing gold treasure" width="1280" height="720" loading="lazy" decoding="async">
           <span class="vt-play" aria-hidden="true">&#9654;</span>
         </a>
+      </div>
+    </div>
+
+    <div class="vtd-head reveal">
+      <h3>Or go straight to a drawer</h3>
+      <a href="https://knox-vault.higgsfield.app" target="_blank" rel="noopener">See all demos &rarr;</a>
+    </div>
+    <div class="vtd-grid reveal d1">
+      <a class="vtd-card is-live" href="https://knox-chops.higgsfield.app" target="_blank" rel="noopener">
+        <span class="vtd-tag">Open</span>
+        <span class="vtd-kicker">Drawer 02</span>
+        <span class="vtd-title">Barbershop</span>
+        <span class="vtd-line">Knox Chops: a real booking flow. Pick a service, stack add&nbsp;ons, and watch the appointment build itself into a timeline.</span>
+        <span class="vtd-go">Open demo <span>&rarr;</span></span>
+      </a>
+      <a class="vtd-card is-live" href="https://knox-vault.higgsfield.app/demo/lawncare" target="_blank" rel="noopener">
+        <span class="vtd-tag">Open</span>
+        <span class="vtd-kicker">Drawer 01</span>
+        <span class="vtd-title">Lawn &amp; Landscape</span>
+        <span class="vtd-line">A one&nbsp;page site built around a single job: turn a stranger into a booked quote.</span>
+        <span class="vtd-go">Open demo <span>&rarr;</span></span>
+      </a>
+      <a class="vtd-card is-live" href="https://knox-vault.higgsfield.app/demo/crm" target="_blank" rel="noopener">
+        <span class="vtd-tag">Open</span>
+        <span class="vtd-kicker">The Vault Floor</span>
+        <span class="vtd-title">The Knox CRM</span>
+        <span class="vtd-line">The engine room. Move a lead through the pipeline and watch what fires at each step.</span>
+        <span class="vtd-go">Open demo <span>&rarr;</span></span>
+      </a>
+      <div class="vtd-card is-soon">
+        <span class="vtd-tag">Fitting out</span>
+        <span class="vtd-kicker">Drawer 03</span>
+        <span class="vtd-title">Chiropractic</span>
+        <span class="vtd-line">Online intake, insurance answers and a new&nbsp;patient offer that fills the schedule.</span>
+      </div>
+      <div class="vtd-card is-soon">
+        <span class="vtd-tag">Fitting out</span>
+        <span class="vtd-kicker">Drawer 04</span>
+        <span class="vtd-title">Nail Salon</span>
+        <span class="vtd-line">Service menu, an art portfolio that loads instantly, and one&nbsp;tap booking.</span>
       </div>
     </div>
   </div>
