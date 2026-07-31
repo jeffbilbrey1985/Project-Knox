@@ -27,7 +27,7 @@
   "telephone": "+1-615-992-8855",
   "email": "jeffbilbrey@getprojectknox.com",
   "slogan": "Built by hand. Run by Knox.",
-  "description": "Custom websites, CRM systems, follow-up automation, online booking and AI tools for local service businesses, on a monthly subscription.",
+  "description": "Custom websites, CRM systems, follow-up automation, online booking and smart tools for local service businesses, on a monthly subscription.",
   "address": { "@type": "PostalAddress", "addressLocality": "Glen Ellyn", "addressRegion": "IL", "addressCountry": "US" },
   "areaServed": [
     { "@type": "City", "name": "Glen Ellyn" },
@@ -204,6 +204,14 @@ video.film[data-done]{opacity:0}
 }
 .soundCue svg{width:16px;height:16px;flex:none}
 .soundCue[hidden]{display:none}
+/* Once sound is on the invitation becomes the way to turn it off, and follows
+   the visitor down the page so it is always reachable while a voice is going. */
+.soundCue[data-on]{
+  position:fixed;top:auto;left:16px;transform:none;z-index:76;
+  bottom:calc(env(safe-area-inset-bottom) + 84px);
+  animation:none;border-color:var(--line);color:var(--steel);font-size:12.5px;padding:9px 15px;
+}
+@media (min-width:900px){.soundCue[data-on]{bottom:20px;left:20px}}
 @keyframes cuePulse{0%,100%{box-shadow:0 0 0 0 rgba(201,169,97,.42)}50%{box-shadow:0 0 0 12px rgba(201,169,97,0)}}
 @media (prefers-reduced-motion:reduce){.soundCue{animation:none}}
 
@@ -242,6 +250,7 @@ video.film[data-done]{opacity:0}
 .listen .bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--gold);transition:width .2s linear}
 .listen svg{width:14px;height:14px;flex:none}
 .heroListen{width:auto;padding:0 20px;display:inline-flex}
+.heroListen[hidden]{display:none}   /* explicit display beats the hidden attribute */
 
 /* ───────────────────────── 2 · what you get ───────────────────────── */
 .what{padding:clamp(48px,9vw,88px) 0 clamp(34px,6vw,52px)}
@@ -533,20 +542,18 @@ footer a:hover{color:var(--gold)}
     <video class="film" id="film" muted playsinline preload="auto" aria-hidden="true" tabindex="-1" hidden></video>
 
     <div class="heroCopy" id="heroCopy">
-      <div class="kicker">Websites &middot; CRM &middot; Automation &middot; AI</div>
+      <div class="kicker">Websites &middot; CRM &middot; Booking &middot; Automation</div>
       <h1>Everything your business runs on, behind one door.</h1>
       <p>Knox builds your website, your booking, your customer list and your follow&#8209;up &mdash; then runs all of it for you. One price, every month.</p>
       <div class="heroBtns">
         <a class="btnGold" href="#vault">Open the Vault</a>
         <a class="btnGhost" href="#plans">See the plans</a>
       </div>
-      <div class="heroBtns">
-        <button class="listen heroListen" data-audio="assets/vo/vo-01-hero.mp3" data-label="Hear what Knox does &middot; 0:21">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <span>Hear what Knox does &middot; 0:21</span><span class="bar"></span>
-        </button>
-      </div>
-      <div class="heroFoot">From $250 a month &middot; No agency &middot; No account manager</div>
+      <button class="listen heroListen" hidden aria-hidden="true" tabindex="-1" data-audio="assets/vo/vo-01-hero.mp3" data-label="Hear what Knox does &middot; 0:21">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <span>Hear what Knox does &middot; 0:21</span><span class="bar"></span>
+      </button>
+      <div class="heroFoot">From $250 a month &middot; Everything in writing &middot; No account managers</div>
     </div>
 
     <button class="soundCue" id="soundCue" hidden>
@@ -563,7 +570,7 @@ footer a:hover{color:var(--gold)}
   <div class="wrap">
     <div class="eyebrow rv">What you get</div>
     <h2 class="rv">Four things. All of them, all the time.</h2>
-    <p class="lede rv" style="margin-top:16px">Most shops buy these one at a time from four different companies, then spend their evenings trying to make them talk to each other. This is all four, from one person, for one price.</p>
+    <p class="lede rv" style="margin-top:16px">Most shops buy these one at a time from four different companies, then spend their evenings trying to make them talk to each other. This is all four, from one place, for one price.</p>
 
     <div class="whatRows">
       <div class="bolt-row">
@@ -580,7 +587,7 @@ footer a:hover{color:var(--gold)}
       </div>
       <div class="bolt-row">
         <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 20.5v3a2 2 0 0 1-2.2 2 20 20 0 0 1-8.6-3.1 19.6 19.6 0 0 1-6-6A20 20 0 0 1 2.1 7.8 2 2 0 0 1 4.1 5.6h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1l-1.2 1.3a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/><path d="M24 6.5a7 7 0 0 1 0 9.5M27 3.5a11 11 0 0 1 0 15.5" opacity=".7"/></svg>
-        <div><b>A phone that's always answered.</b><span>An A.I. that picks up at nine at night, books the appointment, and has it on your calendar before you lock up. <em style="color:var(--gold);font-style:normal">(Enterprise)</em></span></div>
+        <div><b>A phone that's always answered.</b><span>Your line gets picked up at nine at night, the appointment gets booked, and it's on your calendar before you lock up. <em style="color:var(--gold);font-style:normal">(Enterprise)</em></span></div>
       </div>
     </div>
 
@@ -664,7 +671,7 @@ footer a:hover{color:var(--gold)}
         <ul class="bullets foldable" id="f1">
           <li>Google Workspace email at your own domain &mdash; you@yourshop.com, not a Gmail</li>
           <li>SEO, so people searching your trade in your town find you</li>
-          <li>Up to two updates a month &mdash; text me, it's done</li>
+          <li>Up to two updates a month &mdash; just ask, it's done</li>
         </ul>
         <div class="cardActions">
           <button class="listen" data-audio="assets/vo/vo-02-foundation.mp3" data-label="Hear what's in it &middot; 0:19">
@@ -722,7 +729,7 @@ footer a:hover{color:var(--gold)}
         <div class="price">$1,000<sub>/month</sub></div>
         <div class="setup">+ $1,000 one&#8209;time setup &mdash; <button class="setupBtn" aria-expanded="false">what's this for?</button></div>
         <div class="foldable setupBody" style="margin-top:10px">
-          <p style="font-size:14.5px;color:var(--steel);margin:0">Everything in the Growth setup, plus building a CRM shaped around how your business actually runs, the multilingual chatbot, and standing up the 24/7 A.I. phone line. Charged once, at the start.</p>
+          <p style="font-size:14.5px;color:var(--steel);margin:0">Everything in the Growth setup, plus building a CRM shaped around how your business actually runs, the multilingual chatbot, and standing up the round-the-clock answering line. Charged once, at the start.</p>
         </div>
         <div class="hr"></div>
         <div class="promise">It runs while you sleep.</div>
@@ -749,7 +756,7 @@ footer a:hover{color:var(--gold)}
         <ul class="bullets">
           <li>A fully customisable CRM, built to fit <em style="font-style:normal;color:var(--struck)">your</em> business specifically</li>
           <li>A fully customisable website with chatbots that answer your customers in multiple languages</li>
-          <li>An automated phone system &mdash; an A.I. agent answering 24/7, booking appointments and scheduling callbacks, even when you're closed</li>
+          <li>An automated phone system &mdash; your line answered around the clock, booking appointments and scheduling callbacks, even when you're closed</li>
         </ul>
         <ul class="bullets foldable" id="f3">
           <li>Additional services on request to drive more traffic and keep your business running as intended &mdash; even while your competitors sleep</li>
@@ -791,36 +798,36 @@ footer a:hover{color:var(--gold)}
     </video>
 
     <div class="steps">
-      <div class="step rv"><i>01</i><div><b>We talk. Twenty minutes.</b><span>In your shop or on the phone, whichever you prefer. I ask what eats your day. There's no slide deck and no "discovery process."</span></div></div>
-      <div class="step rv"><i>02</i><div><b>You get it in writing.</b><span>What's being built, what it costs, when it's finished, and exactly what I need from you. Before a dollar changes hands.</span></div></div>
-      <div class="step rv"><i>03</i><div><b>I build it. You keep working.</b><span>I need about an hour of your time in total: your prices, your hours, your logo. I do the rest.</span></div></div>
-      <div class="step rv"><i>04</i><div><b>It goes live, and I run it.</b><span>You text me when something changes. I don't send you a ticket number.</span></div></div>
+      <div class="step rv"><i>01</i><div><b>We talk. Twenty minutes.</b><span>In your shop or on the phone, whichever you prefer. We ask what eats your day. There's no slide deck and no "discovery process."</span></div></div>
+      <div class="step rv"><i>02</i><div><b>You get it in writing.</b><span>What's being built, what it costs, when it's finished, and exactly what we need from you. Before a dollar changes hands.</span></div></div>
+      <div class="step rv"><i>03</i><div><b>We build it. You keep working.</b><span>We need about an hour of your time in total: your prices, your hours, your logo. We do the rest.</span></div></div>
+      <div class="step rv"><i>04</i><div><b>It goes live, and we run it.</b><span>Tell us when something changes. You won't get a ticket number.</span></div></div>
     </div>
 
-    <div class="gloss rv" style="margin-top:26px"><b>What I need from you: about an hour, once.</b> Your prices, your hours, and someone who can say yes. That's the whole ask.</div>
+    <div class="gloss rv" style="margin-top:26px"><b>What we need from you: about an hour, once.</b> Your prices, your hours, and someone who can say yes. That's the whole ask.</div>
   </div>
 </section>
 
 <!-- ───────────── 6 · who ───────────── -->
 <section id="who" class="who">
   <div class="wrap">
-    <div class="eyebrow rv">Who's behind this</div>
-    <h2 class="rv">One person. That's the whole company.</h2>
+    <div class="eyebrow rv">Why Knox</div>
+    <h2 class="rv">Built to work on the worst day, not the best one.</h2>
 
     <div class="whoGrid" style="margin-top:24px">
       <div class="rv">
-        <p>Project Knox is one builder, not an agency. No team, no call centre, no project manager who forwards your email to someone in another time zone.</p>
-        <p>I spent my career building systems inside Fortune&nbsp;500 companies &mdash; the kind of software that has to work at eight in the morning whether anyone feels like it or not. Knox is that same work, for the shops on my own street.</p>
-        <p style="margin-bottom:0">You won't find a stock photo of a team that doesn't exist on this page. What you'll find is the work, and a number that rings a real phone.</p>
+        <p>Knox comes out of enterprise software &mdash; the kind that has to work at eight in the morning whether anyone feels like it or not. We build for local shops with exactly that discipline.</p>
+        <p>No call centre. No account manager. No ticket queue that swallows your email. You reach us directly, and we answer.</p>
+        <p style="margin-bottom:0">You won't find stock photos of people you'll never meet on this page. What you'll find is the work, and a number that rings.</p>
         <a class="phoneBig" href="tel:+16159928855">(615)&nbsp;992&#8209;8855</a>
       </div>
       <div class="rv">
         <div class="honest">
-          <h3>What I'm not going to show you</h3>
-          <p style="color:var(--steel);font-size:15.5px">A wall of five&#8209;star reviews I haven't earned yet, or a row of client logos I have no business putting on a page. <b style="color:var(--ivory);font-weight:500">Project Knox is new, and I'd rather you heard that from me.</b> Here's what I <em style="font-style:normal;color:var(--struck)">can</em> put in front of you:</p>
+          <h3>What we're not going to show you</h3>
+          <p style="color:var(--steel);font-size:15.5px">A wall of five&#8209;star reviews we haven't earned yet, or a row of client logos we have no business putting on a page. <b style="color:var(--ivory);font-weight:500">Project Knox is new, and you should hear that from us.</b> Here's what we <em style="font-style:normal;color:var(--struck)">can</em> put in front of you:</p>
           <ul>
             <li><b>Six working businesses you can use right now.</b> Book an appointment. Place an order. Pay for it. They're real software, not pictures, and you'll get a real email back.</li>
-            <li><b>A phone number that rings a person</b>, at the top of this page and the bottom of it.</li>
+            <li><b>A phone number that rings</b>, at the top of this page and the bottom of it.</li>
             <li><b>Everything in writing before you pay anything.</b> What's being built, what it costs, when it's done.</li>
             <li><b>Your things stay yours.</b> The domain is registered in your name. The Google profile is your account. The customer list is your data.</li>
           </ul>
@@ -834,7 +841,7 @@ footer a:hover{color:var(--gold)}
 <section id="contact" class="contact">
   <div class="wrap">
     <div class="eyebrow rv">Open the Vault</div>
-    <h2 class="rv">Tell me what you'd fix first.</h2>
+    <h2 class="rv">Tell us what you'd fix first.</h2>
     <p class="lede rv" style="margin-top:16px">Two minutes. Your first consultation is free &mdash; no pressure, no jargon.</p>
 
     <div class="slot rv">
@@ -855,21 +862,21 @@ footer a:hover{color:var(--gold)}
         </div>
         <div class="field"><label for="fphone">Phone</label><input id="fphone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
         <div class="field"><label for="femail">Email</label><input id="femail" name="email" type="email" inputmode="email" autocomplete="email" required></div>
-        <div class="field"><label for="fabout">Tell me about your business</label><textarea id="fabout" name="about" rows="3" placeholder="What you do, how long you&#39;ve been at it, who your customers are &mdash; whatever you&#39;d tell me if I walked in the door."></textarea></div>
+        <div class="field"><label for="fabout">Tell us about your business</label><textarea id="fabout" name="about" rows="3" placeholder="What you do, how long you&#39;ve been at it, who your customers are &mdash; whatever you&#39;d tell us if we walked in the door."></textarea></div>
         <div class="field"><label for="fmsg">What's the one thing you wish your business did by itself?</label><textarea id="fmsg" name="message" rows="2"></textarea></div>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btnGold" style="width:100%" type="submit" id="submitBtn">Open the Vault</button>
-        <div class="formNote">No sales script. No "discovery process." I'll text or call you today.</div>
+        <div class="formNote">No sales script. No "discovery process." We'll text or call you today.</div>
         <a class="orCall" href="tel:+16159928855">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-          Or just call me &mdash; (615) 992&#8209;8855
+          Or just call us &mdash; (615) 992&#8209;8855
         </a>
-        <div class="formNote" style="text-align:center">jeffbilbrey@getprojectknox.com &middot; Glen Ellyn, Illinois &mdash; I'll come to your shop.</div>
+        <div class="formNote" style="text-align:center">jeffbilbrey@getprojectknox.com &middot; Glen Ellyn, Illinois &mdash; we'll come to your shop.</div>
       </form>
 
       <div class="receipt" id="receipt">
         <b>Filed.</b>
-        <p style="color:#dfe3ec">Check your email &mdash; there's a note from me already in there. I'll call or text you today.</p>
+        <p style="color:#dfe3ec">Check your email &mdash; there's a note from us already in there. We'll call or text you today.</p>
         <p style="color:var(--steel);font-size:14.5px;margin-bottom:0">That email you just got? Your customers would get one like it, in your voice, from your address.</p>
         <a class="orCall" href="tel:+16159928855" style="margin-top:16px">If it's urgent &mdash; (615) 992&#8209;8855</a>
       </div>
@@ -919,7 +926,7 @@ footer a:hover{color:var(--gold)}
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
     </button>
   </form>
-  <div class="askDisc">I'm Jeff's assistant, not Jeff. For anything important, call (615) 992-8855.</div>
+  <div class="askDisc">I'm the Knox assistant, not a person. For anything important, call (615) 992-8855.</div>
 </div>
 
 <script>
@@ -976,7 +983,8 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   function finish(){
     reveal();
     v.setAttribute('data-done','');
-    if(cue) cue.hidden = true;
+    /* Whether the cue disappears or becomes the mute control is decided by the
+       sound-unlock block, which is the only thing that knows if audio is on. */
     document.dispatchEvent(new CustomEvent('knox:film-ended'));
   }
   v.addEventListener('ended', finish);
@@ -1104,13 +1112,27 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   if(unlocked || RM || !v){ if(cue) cue.hidden = true; return; }
   if(cue) cue.hidden = false;
 
-  function speak(){ heroBtn.click(); }   /* the pill owns one-voice-at-a-time */
+  function speak(){ heroBtn.click(); }   /* the hidden pill owns one-voice-at-a-time */
+
+  function isSpeaking(){
+    var s = heroBtn.querySelector('span:not(.bar)');
+    return s && /Playing/.test(s.textContent);
+  }
+  function muteAll(){
+    try { v.muted = true; } catch(err){}
+    if(isSpeaking()) heroBtn.click();     /* pressing again stops it */
+    if(cue) cue.hidden = true;
+  }
 
   function unlockNow(){
     if(unlocked) return;
     unlocked = true;
     try { sessionStorage.setItem('knox.vo','1'); } catch(err){}
-    if(cue) cue.hidden = true;
+    /* The invitation now becomes the mute control. */
+    if(cue){
+      cue.setAttribute('data-on','');
+      cue.querySelector('span').textContent = 'Sound on \u2014 tap to mute';
+    }
     /* Rewind if they've missed the best of it, so the tap actually pays off. */
     try {
       v.muted = false;
@@ -1134,10 +1156,19 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
 
   document.addEventListener('pointerdown', onTap, true);
   document.addEventListener('keydown', onTap, true);
+  if(cue) cue.addEventListener('click', function(e){
+    if(cue.hasAttribute('data-on')){ e.stopPropagation(); muteAll(); }
+  });
+  document.addEventListener('knox:voice-ended', function(){ if(cue) cue.hidden = true; });
   document.addEventListener('knox:film-ended', function(){
+    if(filmOver) return;
     filmOver = true;
-    if(unlocked) speak();                /* the safe has opened — Knox speaks */
-    else detach();
+    if(unlocked){
+      speak();                           /* the safe has opened — Knox speaks */
+    } else {
+      if(cue) cue.hidden = true;         /* never taken up; stop asking */
+      detach();
+    }
   });
 })();
 
@@ -1181,12 +1212,17 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
         /* Starting any clip stops every other one. */
         if(current){ current.pause(); reset(currentBtn); }
         try { sessionStorage.setItem('knox.vo','1'); } catch(err){}
-        var sc = document.getElementById('soundCue'); if(sc) sc.hidden = true;
+        /* The cue's visibility is owned solely by the sound-unlock block. Hiding
+           it here used to make sense when it was only an invitation; now it is
+           also the mute control, and hiding it on play strands the visitor. */
         var a = new Audio(btn.dataset.audio);
         a.preload = 'auto';
         current = a; currentBtn = btn;
         btn.querySelector('svg').innerHTML = '<path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>';
-        a.addEventListener('ended', function(){ reset(btn); current = null; currentBtn = null; });
+        a.addEventListener('ended', function(){
+          reset(btn); current = null; currentBtn = null;
+          document.dispatchEvent(new CustomEvent('knox:voice-ended'));
+        });
         a.play().catch(function(){ reset(btn); });   /* synchronous, inside the gesture */
         if(!raf) raf = requestAnimationFrame(tick);
       });
@@ -1344,25 +1380,25 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     {k:['squarespace','wix','godaddy','20 a month','$20','cheaper site','build it myself','diy'],
      a:"Because $20 buys you software and $250 buys you the work. With Squarespace you're still the one building the pages, writing the copy, claiming the Google profile, setting up booking, and fixing it at 9pm when it breaks. Foundation covers all of that, done for you, plus two changes a month.\n\nIf you've got the time and the interest to run it yourself, Squarespace is genuinely the right call — I'd rather say that than sell you something."},
     {k:['stop paying','cancel','lose my website','leave','quit','what happens if i stop'],
-     a:"Fair thing to ask, and I'm not going to give you a fuzzy answer. Jeff spells out exactly what happens to the site, the domain and your data in the written agreement before you sign anything — but I don't want to state the specific terms here and get them wrong.\n\nAsk him directly on the free consult. It's a completely reasonable thing to lead with."},
+     a:"Fair thing to ask, and you shouldn't accept a fuzzy answer. It's spelled out in the written agreement — exactly what happens to the site, the domain and your data — before you sign anything. I don't want to state the specific terms here and get them slightly wrong.\n\nRaise it on the free consult. It's a completely reasonable thing to lead with."},
     {k:['own my website','who owns','ownership','own the domain','domain in my name'],
      a:"The domain is registered in your name, the Google profile is your account, and the customer list is your data.\n\nThe full ownership language is written into the agreement before work starts, so you'll see it in plain English rather than taking my word for it — and push on it. Anyone who gets vague about domain ownership is telling you something."},
     {k:['one guy','hit by a bus','solo','just you','one person','get sick','bus'],
-     a:"You're right, and I won't soften it — Project Knox is one person, and one person can get sick or get slammed.\n\nWhat blunts it is that nothing is locked in a proprietary box: your domain, your Google Business Profile and your Workspace are all in your name and your accounts. Worst case you hand another developer the keys and keep going. That's a real difference from an agency that hosts everything under its own account."},
+     a:"Fair question, and the answer isn't 'trust us.' Nothing Knox builds is locked in a proprietary box. Your domain, your Google Business Profile and your Workspace are registered in your name and live in your accounts.\n\nSo if you ever had to hand the whole thing to someone else, you could — tomorrow, without asking permission. That's a real difference from an agency that hosts everything under its own account and gives you a login."},
     {k:['vacation','too busy','other clients','neglected','how many clients'],
-     a:"Straight answer: Knox is taking on new businesses right now, which means you'd have his full attention rather than being slotted behind a queue. That changes as he takes on more, which is why the commitments live in writing rather than in good intentions.\n\nWorth asking him on the consult what his support turnaround is — and if he won't answer that, that's your answer."},
+     a:"Straight answer: Knox is taking on new businesses right now, so you'd get real attention rather than a place in a queue. That changes as the book fills, which is exactly why the commitments live in writing rather than in good intentions.\n\nWorth asking on the consult what the support turnaround actually is — and if you don't get a straight answer, that's your answer."},
     {k:['12 month','twelve month','contract','locked in','trap','commitment','year long'],
-     a:"It's honest about how the work actually lands. The build is front-loaded — site, Google profile, booking, all of it — and the SEO and review side takes months to compound.\n\nMonth-to-month would mean pricing the setup much higher up front to cover that risk, which is worse for you. The 12 months is what lets the setup fee be one month instead of five. What you should press Jeff on is what happens if he doesn't deliver."},
+     a:"It's honest about how the work actually lands. The build is front-loaded — site, Google profile, booking, all of it — and the SEO and review side takes months to compound.\n\nMonth-to-month would mean pricing the setup much higher up front to cover that risk, which is worse for you. The 12 months is what lets the setup fee be one month instead of five. What you should press us on is what happens if we don't deliver."},
     {k:['setup fee','one time','upfront','up front','what is the setup'],
      a:"The heaviest month of work. Claiming and building out your Google Business Profile, registering the domain, setting up Workspace and your email, and building the actual site — structure, copy, photos, booking, calendar sync.\n\nOn Growth it also covers standing up your CRM, the payment integration and the review automation. It's the same as one month's subscription, which is deliberately low for that amount of build."},
     {k:['guarantee','first on google','rank first','number one','top of google','seo guarantee'],
      a:"No. Nobody can, and anyone who tells you otherwise is either lying or doesn't understand how it works — Google doesn't sell placement in local results.\n\nWhat can be done is everything that actually moves it: a claimed and complete Business Profile, a fast site Google can read, real service pages, consistent business details everywhere, and on Growth a steady flow of genuine reviews. That's the honest version."},
     {k:['how long','results','how soon','timeline','when will i see'],
-     a:"Depends which result. The Google Business Profile work often shows up fastest, because most shops have a profile that's half-empty and fixing it changes what people see almost immediately.\n\nRanking and organic traffic are slower — months, not weeks. I'm not going to hand you a number I can't stand behind; Jeff can be specific about your market on the consult."},
+     a:"Depends which result. The Google Business Profile work often shows up fastest, because most shops have a profile that's half-empty and fixing it changes what people see almost immediately.\n\nRanking and organic traffic are slower — months, not weeks. I'm not going to hand you a number I can't stand behind; we can be specific about your market on the consult."},
     {k:['nephew','my son','friend builds','cousin','know a guy'],
      a:"If he's good and reliable, that's a real option and you should take it.\n\nTwo things to weigh: the website is the smallest part of this — the Google profile, booking, reviews, CRM and someone maintaining it month after month is the actual job. And family work has a way of going quiet around month four. If he wants to build the site, fine; the question is who runs it in February."},
     {k:['already have a website','got a site','have a site'],
-     a:"Then the question isn't whether you have one, it's whether it's doing anything.\n\nCan a customer book on it from their phone at 9pm? Does it show up when someone searches your trade plus your town? Is your Google profile claimed and complete? If yes to all three, you may not need this. If no, Jeff will tell you on the free consult whether it's worth rebuilding or just fixing."},
+     a:"Then the question isn't whether you have one, it's whether it's doing anything.\n\nCan a customer book on it from their phone at 9pm? Does it show up when someone searches your trade plus your town? Is your Google profile claimed and complete? If yes to all three, you may not need this. If no, we'll tell you on the free consult whether it's worth rebuilding or just fixing."},
     {k:['already pay','99 a month','seo company','seo guy','paying someone'],
      a:"Then ask them one question: which search terms are you ranking for now that you weren't twelve months ago? A good provider answers that in about ten seconds with Search Console open. If you get a PDF full of charts instead, you've got your answer.\n\nWorth noting $99 SEO is usually just SEO — no site, no booking, no reviews, no CRM."},
     {k:['real client','see your work','portfolio','references','who else','case study','examples'],
@@ -1374,43 +1410,43 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     {k:['vagaro','booksy','square appointments','mindbody','schedulicity','booking app'],
      a:"Booking is one line on the Foundation list — so you'd be comparing your $30 tool to a fraction of a $250 service.\n\nAlso worth pricing what you'd actually need on those platforms: base plan, per-staff fees, the website add-on, the QuickBooks connector, a separate review tool. It adds up faster than people expect, and you're still the one running it. And on a marketplace like Booksy, the client relationship partly belongs to the platform. Here it's yours."},
     {k:['data safe','security','where does it live','hosting','breach','secure'],
-     a:"Right thing to ask. The systems run on Cloudflare's network with the security work done at the application level — login lockouts, hashed credentials, rate limiting on public forms.\n\nOn the specifics of hosting region, retention and what's in writing about your data, I'd rather Jeff answered precisely than have me approximate it. One thing I can tell you flatly: your customer list is yours."},
+     a:"Right thing to ask. The systems run on Cloudflare's network with the security work done at the application level — login lockouts, hashed credentials, rate limiting on public forms.\n\nOn the specifics of hosting region, retention and what's in writing about your data, I'd rather that came from the agreement than from me approximating it. One thing I can tell you flatly: your customer list is yours."},
     {k:['sell my list','market to my customers','my customer list','share my data'],
      a:"No. Your customers are your customers — the list is your data and it stays that way."},
     {k:['change something','update','edit the site','new prices','change hours','two updates','third update'],
-     a:"You text or email Jeff and it gets changed. Two updates a month are included on every plan — new prices, new photos, changed hours, a service added or dropped, a promo up or down.\n\nIt isn't a ticket system with a queue. For the exact turnaround and what happens on a third update in a month, ask Jeff — I don't want to invent a policy."},
+     a:"You text or email us and it gets changed. Two updates a month are included on every plan — new prices, new photos, changed hours, a service added or dropped, a promo up or down.\n\nIt isn't a ticket system with a queue. For the exact turnaround and what happens on a third update in a month, ask on the consult — I don't want to invent a policy."},
     {k:['review request','google review','gating','trouble','against policy','review automation','asking for reviews'],
      a:"Good instinct, because plenty of tools do get people in trouble. Google's line is clear: asking every customer for an honest review is allowed and encouraged. Three things are not — filtering so only happy customers get the link (that's review gating), offering anything of value in exchange, and telling people what to write.\n\nKnox sends the same request to every customer, no incentive, no script, linking straight to your Google page. Inside the rules, and it's also what actually works."},
     {k:['buy reviews','fake reviews','hundred reviews','purchase reviews'],
      a:"No, and you shouldn't buy them anywhere. Google removes fake reviews and suspends profiles for repeat offences, and a suspended profile costs you far more than the reviews were worth.\n\nThe slow version — asking every customer, every time, automatically — gets you there in months and it stays."},
     {k:['ai phone','phone agent','answer the phone','24/7','receptionist','after hours','robot answer'],
-     a:"For a defined job, yes: answering common questions, booking an appointment, taking a callback request. It's not a receptionist and it won't handle a complicated or emotional call — those need you.\n\nThe way to think about it is that it's competing with your voicemail at 8pm on a Sunday, not with you. That's on the Enterprise plan."},
+     a:"For a defined job, yes: answering common questions, booking an appointment, taking a callback request. It isn't a receptionist and it won't handle a complicated or emotional call — those need you.\n\nThe way to think about it is that it's competing with your voicemail at 8pm on a Sunday, not with you. That's on the Enterprise plan."},
     {k:['ai says something wrong','wrong answer','ai mistake','liability','bot wrong'],
      a:"It works from what you give it — your services, prices, hours, policies — and it's built to say \"let me have someone call you back\" rather than guess. Same rule I'm running under right now.\n\nIt can still be wrong, so it gets reviewed and corrected like anything else. If a mistake would be genuinely expensive in your trade — quoting a repair, saying anything medical — the right build refuses those outright and books a callback instead."},
     {k:['not technical','how much work','my time','learn','complicated','computer'],
      a:"Not much, and it's front-loaded. Your service list and prices, your hours, some photos of the shop and your work, your logo if you have one, and about an hour answering questions.\n\nAfter that it's whatever you feel like changing. You don't log into anything, you don't maintain anything, and there's nothing to learn — bookings show up in the same Google Calendar that's already on your phone."},
     {k:['upgrade','downgrade','switch plans','change plan','move up'],
-     a:"Jeff handles tier changes directly, and I don't want to state the mechanics wrong — whether it's mid-term or at renewal, and how the setup fee difference works, is something he'll confirm.\n\nPractical suggestion: start at the tier that fits today. He'll tell you if you're reaching for more than you need."},
+     a:"We handle tier changes directly, and I don't want to state the mechanics wrong — whether it's mid-term or at renewal, and how the setup fee difference works, is worth confirming on the call.\n\nPractical suggestion: start at the tier that fits today. We'll tell you if you're reaching for more than you need."},
     {k:['what do you need','to start','get started','begin','onboarding','from me'],
      a:"Short list:\n\n• Your services and prices\n• Your hours\n• Photos of your shop and your work\n• Your logo, if you have one\n• Access to your domain and Google profile, if they already exist\n• About an hour of your time\n\nThat's the bulk of it. Jeff does the rest."},
     {k:['outside illinois','out of state','where are you','location','service area','near me','glen ellyn'],
-     a:"Jeff's based in Glen Ellyn, Illinois. Almost all of this is remote work anyway — the local piece is mostly whether he can come stand in your shop.\n\nFor whether he's taking clients in your area specifically, ask him on the consult. It's a one-minute answer."},
+     a:"Knox is based in Glen Ellyn, Illinois. Almost all of this is remote work anyway — the local piece is mostly whether we can come stand in your shop.\n\nFor whether we're taking clients in your area specifically, ask on the consult. It's a one-minute answer."},
     {k:['trust a chatbot','why should i trust','are you a bot','you are ai','robot'],
-     a:"You shouldn't trust me, particularly. I'm a bot on Jeff's website — I'll tell you that any time you ask.\n\nWhat I'm built not to do is invent a client, quote a price that isn't published, or promise you a Google ranking. When I don't know something I say so. If you want a person, that's the free consult, and it's the better move anyway."},
+     a:"You shouldn't trust me, particularly. I'm a bot on the Knox website — I'll tell you that any time you ask.\n\nWhat I'm built not to do is invent a client, quote a price that isn't published, or promise you a Google ranking. When I don't know something I say so. If you want a person, that's the free consult, and it's the better move anyway."},
     {k:['discount','best price','cheaper','negotiate','deal','lower price','pay yearly','pay up front'],
-     a:"The prices are fixed — $250, $500 and $1,000 a month — and they're the same for everyone who walks in. No negotiating means nobody is quietly paying more than you are.\n\nWhat Jeff will do is tell you honestly if a lower tier covers what you actually need."},
+     a:"The prices are fixed — $250, $500 and $1,000 a month — and they're the same for everyone who walks in. No negotiating means nobody is quietly paying more than you are.\n\nWhat we will do is tell you honestly if a lower tier covers what you actually need."},
     {k:['just the website','only the website','without the crm','no crm','website only'],
      a:"That's Foundation — $250 a month plus $250 setup. Website, your own domain and email, Google Business Profile, search setup, and online booking, with two changes a month.\n\nThe CRM, review automation, payments and accounting sync start at Growth."},
     {k:['what is a crm','crm mean','what does crm'],
      a:"It just means the place your customer information lives. That's all it means — names, phone numbers, what they bought, and when they're due back.\n\nOn Growth it also handles the bookings, the invoices, and chasing people who've gone quiet."},
     {k:['what do you do','what is project knox','what is this','explain','who are you','tell me about'],
-     a:"Project Knox is Jeff Bilbrey in Glen Ellyn, Illinois. He builds your website, your booking, your customer list and your follow-up by hand — then runs all of it for you, for one monthly price.\n\nThree plans: Foundation $250, Growth $500, Enterprise $1,000, each with a one-time setup fee the same as the monthly price.\n\nBest thing you can do is open the Vault and drive one of the six live demo sites yourself."},
+     a:"Project Knox is a websites, CRM and automation shop in Glen Ellyn, Illinois. We build your website, your booking, your customer list and your follow-up by hand — then we run all of it for you, for one monthly price.\n\nThree plans: Foundation $250, Growth $500, Enterprise $1,000, each with a one-time setup fee the same as the monthly price.\n\nBest thing you can do is open the Vault and drive one of the six live demo sites yourself."},
     {k:['price','cost','how much','pricing','plans','what are the plans','tiers'],
-     a:"Three plans, and these are the only prices:\n\n• Foundation — $250/mo + $250 setup. Website, your own domain and email, Google Business Profile, search setup, online booking.\n• Growth — $500/mo + $500 setup. All of Foundation, plus the full CRM, automatic review requests and replies, payments, expenses, and QuickBooks sync.\n• Enterprise — $1,000/mo + $1,000 setup. All of the above, plus a custom-built CRM, a multilingual chatbot, and a 24/7 A.I. phone line that books appointments.\n\nEvery plan is a 12-month partnership, billed monthly, everything in writing first."},
+     a:"Three plans, and these are the only prices:\n\n• Foundation — $250/mo + $250 setup. Website, your own domain and email, Google Business Profile, search setup, online booking.\n• Growth — $500/mo + $500 setup. All of Foundation, plus the full CRM, automatic review requests and replies, payments, expenses, and QuickBooks sync.\n• Enterprise — $1,000/mo + $1,000 setup. All of the above, plus a custom-built CRM, a multilingual chatbot, and a round-the-clock answering line that books appointments.\n\nEvery plan is a 12-month partnership, billed monthly, everything in writing first."},
     {k:['vault','demo','demos','see examples','try it','live sites'],
      a:"The Vault is six complete businesses I built — a barbershop, a taquería, an auto garage, a nail salon, a chiropractor and a lawn crew — plus a working CRM you can drive yourself.\n\nThey're real software, not pictures. Book a haircut, order tacos, price a brake job. You'll get a real confirmation email in about ten seconds. There's an Enter the Vault button on this page."},
     {k:['book','consult','consultation','talk to jeff','call','speak to someone','contact'],
-     a:"Easiest thing is to call him: " + PHONE + ". He answers his own phone.\n\nOr fill in the form on this page — name, business and a number — and he'll call or text you today. First consultation is free, about twenty minutes, no slide deck."}
+     a:"Easiest thing is to call: " + PHONE + ".\n\nOr fill in the form on this page — name, business and a number — and we'll call or text you today. First consultation is free, about twenty minutes, no slide deck."}
   ];
 
   var OPENERS = [
@@ -1457,7 +1493,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
       if(s > bestScore){ bestScore = s; best = e; }
     });
     if(best && bestScore >= 4) return best.a;
-    return "That's a good question and I'd rather Jeff answered it properly than have me guess.\n\nCall him on " + PHONE + " — he answers his own phone — or leave your number in the form on this page and he'll get back to you today.\n\nIn the meantime I can cover the plans, what's in each one, the setup fee, the 12-month term, how the build works, or the demos in the Vault.";
+    return "That's a good question, and I'd rather a person answered it properly than have me guess.\n\nCall " + PHONE + ", or leave your number in the form on this page and we'll get back to you today.\n\nIn the meantime I can cover the plans, what's in each one, the setup fee, the 12-month term, how the build works, or the demos in the Vault.";
   }
   function ask(q){
     add(q, 'me');
@@ -1468,7 +1504,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
       if(turns >= 2 && !offered){
         offered = true;
         setTimeout(function(){
-          add("Want Jeff to just call you? Easiest is " + PHONE + ", or drop your name and number in the form on this page and he'll ring you today.", 'bot');
+          add("Want us to just call you? Easiest is " + PHONE + ", or drop your name and number in the form on this page and we'll ring you today.", 'bot');
         }, 500);
       }
       setChips(OPENERS);
@@ -1479,7 +1515,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     panel.setAttribute('data-open','');
     if(!greeted){
       greeted = true;
-      add("Hi — I'm Knox's assistant, not Jeff. I can tell you what's in each plan, what the setup fee covers, why it's a 12-month deal, or point you at the demos.\n\nWhat would you like to know?", 'bot');
+      add("Hi — I'm the Knox assistant, not a person. I can tell you what's in each plan, what the setup fee covers, why it's a 12-month deal, or point you at the demos.\n\nWhat would you like to know?", 'bot');
       setChips(OPENERS);
     }
     setTimeout(function(){ input.focus(); }, 60);
