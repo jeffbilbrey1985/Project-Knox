@@ -195,7 +195,7 @@ video.film[data-done]{opacity:0}
 /* The sound invitation. Sits over the film, pulses, and disappears the
    moment audio has been unlocked. */
 .soundCue{
-  position:absolute;left:50%;bottom:calc(11dvh + 232px);transform:translateX(-50%);z-index:4;
+  position:absolute;left:50%;top:calc(var(--navh) + 16px);transform:translateX(-50%);z-index:5;
   display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
   background:rgba(5,7,15,.72);border:1px solid var(--gold);border-radius:999px;
   color:var(--struck);font-family:var(--ui);font-size:13.5px;font-weight:400;
@@ -535,15 +535,15 @@ footer a:hover{color:var(--gold)}
     <div class="heroCopy" id="heroCopy">
       <div class="kicker">Websites &middot; CRM &middot; Automation &middot; AI</div>
       <h1>Everything your business runs on, behind one door.</h1>
-      <p>I build your website, your booking, your customer list and your follow&#8209;up &mdash; then I run all of it for you. One price, every month.</p>
+      <p>Knox builds your website, your booking, your customer list and your follow&#8209;up &mdash; then runs all of it for you. One price, every month.</p>
       <div class="heroBtns">
         <a class="btnGold" href="#vault">Open the Vault</a>
         <a class="btnGhost" href="#plans">See the plans</a>
       </div>
       <div class="heroBtns">
-        <button class="listen heroListen" data-audio="assets/vo/vo-01-hero.mp3" data-label="Hear it from Jeff &middot; 0:34">
+        <button class="listen heroListen" data-audio="assets/vo/vo-01-hero.mp3" data-label="Hear what Knox does &middot; 0:21">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <span>Hear it from Jeff &middot; 0:34</span><span class="bar"></span>
+          <span>Hear what Knox does &middot; 0:21</span><span class="bar"></span>
         </button>
       </div>
       <div class="heroFoot">From $250 a month &middot; No agency &middot; No account manager</div>
@@ -622,9 +622,9 @@ footer a:hover{color:var(--gold)}
     <p class="vaultNote rv">Go on &mdash; book something. In about ten seconds you'll get a confirmation email, sent by the very same system that would be emailing your customers.</p>
 
     <div class="vaultListen rv">
-      <button class="listen" data-audio="assets/vo/vo-05-vault-tour.mp3" data-label="Take the tour &middot; 0:53">
+      <button class="listen" data-audio="assets/vo/vo-05-vault-tour.mp3" data-label="Take the tour &middot; 0:25">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-        <span>Take the tour &middot; 0:53</span><span class="bar"></span>
+        <span>Take the tour &middot; 0:25</span><span class="bar"></span>
       </button>
     </div>
   </div>
@@ -667,9 +667,9 @@ footer a:hover{color:var(--gold)}
           <li>Up to two updates a month &mdash; text me, it's done</li>
         </ul>
         <div class="cardActions">
-          <button class="listen" data-audio="assets/vo/vo-02-foundation.mp3" data-label="Hear what's in it &middot; 0:34">
+          <button class="listen" data-audio="assets/vo/vo-02-foundation.mp3" data-label="Hear what's in it &middot; 0:19">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-            <span>Hear what's in it &middot; 0:34</span><span class="bar"></span>
+            <span>Hear what's in it &middot; 0:19</span><span class="bar"></span>
           </button>
           <button class="expander" aria-expanded="false" aria-controls="f1">See everything included <span class="car">&#8964;</span></button>
           <a class="btnGold" href="#contact">Start with Foundation</a>
@@ -707,9 +707,9 @@ footer a:hover{color:var(--gold)}
           <li>Sync the CRM to QuickBooks or your accounting software &mdash; clean P&amp;L in and out</li>
         </ul>
         <div class="cardActions">
-          <button class="listen" data-audio="assets/vo/vo-03-growth.mp3" data-label="Hear what's in it &middot; 0:32">
+          <button class="listen" data-audio="assets/vo/vo-03-growth.mp3" data-label="Hear what's in it &middot; 0:26">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-            <span>Hear what's in it &middot; 0:32</span><span class="bar"></span>
+            <span>Hear what's in it &middot; 0:26</span><span class="bar"></span>
           </button>
           <button class="expander" aria-expanded="false" aria-controls="f2">See everything included <span class="car">&#8964;</span></button>
           <a class="btnGold" href="#contact">Start with Growth</a>
@@ -755,9 +755,9 @@ footer a:hover{color:var(--gold)}
           <li>Additional services on request to drive more traffic and keep your business running as intended &mdash; even while your competitors sleep</li>
         </ul>
         <div class="cardActions">
-          <button class="listen" data-audio="assets/vo/vo-04-enterprise.mp3" data-label="Hear what's in it &middot; 0:36">
+          <button class="listen" data-audio="assets/vo/vo-04-enterprise.mp3" data-label="Hear what's in it &middot; 0:18">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-            <span>Hear what's in it &middot; 0:36</span><span class="bar"></span>
+            <span>Hear what's in it &middot; 0:18</span><span class="bar"></span>
           </button>
           <button class="expander" aria-expanded="false" aria-controls="f3">See everything included <span class="car">&#8964;</span></button>
           <a class="btnGold" href="#contact">Start with Enterprise</a>
@@ -931,10 +931,14 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
    The film opens the site: the vault swings, the light floods, the mark is
    revealed, and it crossfades to the business running inside.
 
-   The copy is NEVER gated on the film finishing. Whichever of these comes
-   first reveals it: the film ends, the visitor scrolls, 4.5s elapse, or the
-   film fails to play at all. Under reduced motion the film is never inserted
-   into the DOM, so none of its bytes are fetched.                          */
+   Sound is a three-beat sequence, and the order matters:
+     1. the film plays MUTED (the only way a browser will autoplay it)
+     2. the first tap unmutes it, so you hear the safe
+     3. when the film ends, Knox speaks
+
+   The copy is NEVER gated on any of that. Whichever comes first reveals it:
+   7 seconds, the first scroll, or the film failing to play. Under reduced
+   motion the film is never inserted into the DOM at all.                    */
 (function film(){
   var stage = document.getElementById('stage');
   var v     = document.getElementById('film');
@@ -949,11 +953,6 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     revealed = true;
     copy.setAttribute('data-in','');
     stage.style.setProperty('--scrim','1');
-    if(v) v.setAttribute('data-done','');
-    /* The invitation is only open while the film is on screen. After that the
-       listen pill is the only way to start audio. */
-    if(cue) cue.hidden = true;
-    document.dispatchEvent(new CustomEvent('knox:hero-done'));
   }
 
   if(RM || !v){
@@ -974,13 +973,21 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   v.hidden = false;
   v.load();
 
-  v.addEventListener('ended', reveal);
-  v.addEventListener('error', reveal);
-  var p = v.play();
-  if(p && p.catch) p.catch(reveal);      /* autoplay refused → show the words */
+  function finish(){
+    reveal();
+    v.setAttribute('data-done','');
+    if(cue) cue.hidden = true;
+    document.dispatchEvent(new CustomEvent('knox:film-ended'));
+  }
+  v.addEventListener('ended', finish);
+  v.addEventListener('error', finish);
 
-  setTimeout(reveal, 7000);              /* words land while the film finishes */
-  setTimeout(function(){ if(v.paused || !v.currentTime) reveal(); }, 1800);
+  var p = v.play();
+  if(p && p.catch) p.catch(finish);      /* autoplay refused → show the words */
+
+  setTimeout(reveal, 5200);              /* words land while the film finishes */
+  setTimeout(function(){ if(v.paused && !v.currentTime) finish(); }, 2200);
+  setTimeout(finish, 15000);             /* hard backstop */
   window.addEventListener('scroll', function once(){
     reveal(); window.removeEventListener('scroll', once);
   }, {passive:true, once:true});
@@ -1078,40 +1085,60 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
 })();
 
 /* ═══════════ 3b · sound unlock ═══════════
-   Browsers refuse audio before a real gesture, so the page opens silent and
-   the FIRST tap anywhere starts Jeff's voiceover. play() is called
-   synchronously inside that gesture — deferring it into rAF or a promise
-   chain loses the audio outright. Once per session; the pill still works as
-   an explicit control, and any listen button cancels the auto-start.        */
+   Browsers refuse audio before a real gesture. The first tap unmutes the film
+   so the safe is heard, and Knox speaks once the film ends. If they tap after
+   the door is already open, Knox speaks straight away instead.
+
+   Both the invitation and the tap-anywhere behaviour end with the film — past
+   that point only the listen pills start audio, so no ordinary tap ever
+   triggers a voice out of nowhere.                                          */
 (function unlock(){
   var cue = document.getElementById('soundCue');
+  var v   = document.getElementById('film');
   var heroBtn = document.querySelector('.heroListen');
   if(!heroBtn) return;
-  var used = false;
-  try { used = sessionStorage.getItem('knox.vo') === '1'; } catch(e){}
 
-  if(used){ if(cue) cue.hidden = true; return; }
+  var unlocked = false, filmOver = false;
+  try { unlocked = sessionStorage.getItem('knox.vo') === '1'; } catch(e){}
+
+  if(unlocked || RM || !v){ if(cue) cue.hidden = true; return; }
   if(cue) cue.hidden = false;
 
-  function fire(e){
-    if(used) return;
-    /* Let a real control do its own job rather than hijacking the tap. */
-    var el = e.target.closest && e.target.closest('a,button,input,textarea,select,.listen');
-    if(el && el !== cue) { detach(); if(cue) cue.hidden = true; return; }
-    used = true;
+  function speak(){ heroBtn.click(); }   /* the pill owns one-voice-at-a-time */
+
+  function unlockNow(){
+    if(unlocked) return;
+    unlocked = true;
     try { sessionStorage.setItem('knox.vo','1'); } catch(err){}
     if(cue) cue.hidden = true;
-    heroBtn.click();                 /* synchronous, inside the gesture */
+    /* Rewind if they've missed the best of it, so the tap actually pays off. */
+    try {
+      v.muted = false;
+      if(v.currentTime > 2.5) v.currentTime = 0;
+      var pr = v.play(); if(pr && pr.catch) pr.catch(function(){});
+    } catch(err){}
+    if(filmOver) speak();
     detach();
   }
-  function detach(){
-    document.removeEventListener('pointerdown', fire, true);
-    document.removeEventListener('keydown', fire, true);
+
+  function onTap(e){
+    /* Let a real control do its own job rather than hijacking the tap. */
+    var el = e.target.closest && e.target.closest('a,button,input,textarea,select');
+    if(el && el !== cue){ detach(); if(cue) cue.hidden = true; return; }
+    unlockNow();
   }
-  document.addEventListener('pointerdown', fire, true);
-  document.addEventListener('keydown', fire, true);
-  document.addEventListener('knox:hero-done', detach);
-  if(cue) cue.addEventListener('click', function(){ if(cue) cue.hidden = true; });
+  function detach(){
+    document.removeEventListener('pointerdown', onTap, true);
+    document.removeEventListener('keydown', onTap, true);
+  }
+
+  document.addEventListener('pointerdown', onTap, true);
+  document.addEventListener('keydown', onTap, true);
+  document.addEventListener('knox:film-ended', function(){
+    filmOver = true;
+    if(unlocked) speak();                /* the safe has opened — Knox speaks */
+    else detach();
+  });
 })();
 
 /* ═══════════ 4 · the voice ═══════════
