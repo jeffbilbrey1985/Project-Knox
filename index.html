@@ -80,7 +80,7 @@ body{
   font-family:var(--ui);font-weight:300;font-size:17px;line-height:1.6;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
-img,video{max-width:100%;display:block}
+img,video{max-width:100%;display:block;height:auto}
 a{color:var(--gold);text-decoration:none}
 h1,h2,h3{margin:0;font-family:var(--display);font-weight:600;line-height:1.06;letter-spacing:-.01em}
 h1{font-size:clamp(38px,8.5vw,74px)}
@@ -157,71 +157,60 @@ footer .brand img{width:40px;height:40px;border-radius:9px}
   .navmob{display:none}
 }
 
-/* ───────────────────────── hero / THE DOOR ───────────────────────── */
-.doorTrack{position:relative;height:100dvh}
-.doorTrack[data-motion="on"]{height:200dvh}
-@media (min-width:900px){.doorTrack[data-motion="on"]{height:250dvh}}
-.doorStage{
-  position:sticky;top:0;height:100dvh;overflow:hidden;
-  background:var(--black);display:grid;align-items:end;justify-items:center;
-  --p:0; --iris:0%; --spin:0deg; --bolt:0px; --copy:1;
-}
-/* The scrim the headline sits on. The copy is NEVER gated on the animation —
-   a visitor who doesn't scroll still reads the whole proposition. */
-.doorStage::after{
-  content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
-  background:linear-gradient(180deg,rgba(5,7,15,.72) 0%,rgba(5,7,15,.12) 22%,rgba(5,7,15,.55) 52%,rgba(5,7,15,.94) 78%,var(--night) 100%);
-}
-.doorLayer{position:absolute;inset:0}
-.doorLayer img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
-/* the interior — always present, it is the payoff and the no-JS state */
+/* ───────────────────────── hero / THE VAULT FILM ───────────────────────── */
+.hero{position:relative;height:100dvh;min-height:560px;overflow:hidden;background:var(--black)}
+.heroStage{position:absolute;inset:0;display:grid;align-items:end;justify-items:center}
+.heroLayer{position:absolute;inset:0}
+.heroLayer img,.heroLayer video,video.film{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
 .inside::after{
   content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 62%,rgba(11,16,38,0) 0%,rgba(11,16,38,.55) 55%,rgba(5,7,15,.92) 100%);
+  background:radial-gradient(ellipse at 50% 62%,rgba(11,16,38,0) 0%,rgba(11,16,38,.5) 55%,rgba(5,7,15,.9) 100%);
 }
-/* the door — irises open to reveal the interior */
-.door{
-  -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,transparent var(--iris),#000 calc(var(--iris) + 1.2%));
-  mask-image:radial-gradient(circle closest-side at 50% 50%,transparent var(--iris),#000 calc(var(--iris) + 1.2%));
+/* The film sits above the interior and crossfades away when it ends. */
+video.film{position:absolute;inset:0;opacity:1;transition:opacity .9s var(--ease)}
+video.film[data-done]{opacity:0}
+/* The scrim the headline sits on. Copy is never gated on the film finishing —
+   a 4.5s timer, the first scroll, or a playback failure all reveal it early. */
+.heroStage::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:linear-gradient(180deg,rgba(5,7,15,.62) 0%,rgba(5,7,15,.06) 26%,rgba(5,7,15,.5) 54%,rgba(5,7,15,.93) 80%,var(--night) 100%);
+  opacity:var(--scrim,.35);transition:opacity .9s var(--ease);
 }
-/* the light seam at the opening edge */
-.seamLight{
-  position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(circle closest-side at 50% 50%,
-    rgba(232,206,147,0) calc(var(--iris) - 1.5%),
-    rgba(232,206,147,.72) var(--iris),
-    rgba(201,169,97,0) calc(var(--iris) + 3%));
-  opacity:calc(min(1, var(--p) * 3));
-  mix-blend-mode:screen;
-}
-/* The dial sits ABOVE the copy block, never behind it — a spinning dial
-   under a headline turns the headline into noise. */
-.dialWrap{
-  position:absolute;top:15%;left:50%;width:min(27vmin,158px);aspect-ratio:1;
-  transform:translate(-50%,-50%);pointer-events:none;z-index:2;
-  opacity:calc(.72 * (1 - min(1, max(0, (var(--p) - .18) / .12))));
-}
-@media (min-width:900px){.dialWrap{top:18%;width:min(18vmin,140px)}}
-.dialWrap svg{width:100%;height:100%;overflow:visible}
-.dialSpin{transform-box:fill-box;transform-origin:center;transform:rotate(var(--spin))}
 .heroCopy{
-  position:relative;z-index:3;text-align:center;padding:0 var(--pad) 13dvh;max-width:840px;
-  transform:translateY(calc((1 - var(--copy)) * -14px));
+  position:relative;z-index:3;text-align:center;padding:0 var(--pad) 11dvh;max-width:840px;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease);
 }
+.heroCopy[data-in]{opacity:1;transform:none}
 .heroCopy .kicker{
   font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);
-  font-weight:500;margin-bottom:18px;
+  font-weight:500;margin-bottom:16px;
 }
-.heroCopy h1{margin-bottom:18px;text-shadow:0 2px 40px rgba(5,7,15,.9)}
-.heroCopy p{color:#cfd4e0;font-size:clamp(16px,3.8vw,20px);max-width:44ch;margin:0 auto 26px;text-shadow:0 2px 24px rgba(5,7,15,.9)}
-.heroBtns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:18px}
-/* Keep clear of the Ask Knox launcher in the bottom-right corner. */
+.heroCopy h1{margin-bottom:16px;text-shadow:0 2px 40px rgba(5,7,15,.95)}
+.heroCopy p{color:#cfd4e0;font-size:clamp(16px,3.8vw,20px);max-width:44ch;margin:0 auto 22px;text-shadow:0 2px 24px rgba(5,7,15,.95)}
+.heroBtns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:14px}
 .heroFoot{font-size:13px;color:var(--steel);letter-spacing:.02em;padding:0 62px;line-height:1.5}
 @media (min-width:900px){.heroFoot{padding:0}}
+
+/* The sound invitation. Sits over the film, pulses, and disappears the
+   moment audio has been unlocked. */
+.soundCue{
+  position:absolute;left:50%;bottom:calc(11dvh + 232px);transform:translateX(-50%);z-index:4;
+  display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  background:rgba(5,7,15,.72);border:1px solid var(--gold);border-radius:999px;
+  color:var(--struck);font-family:var(--ui);font-size:13.5px;font-weight:400;
+  padding:11px 20px;cursor:pointer;backdrop-filter:blur(6px);
+  animation:cuePulse 2.6s ease-in-out infinite;
+}
+.soundCue svg{width:16px;height:16px;flex:none}
+.soundCue[hidden]{display:none}
+@keyframes cuePulse{0%,100%{box-shadow:0 0 0 0 rgba(201,169,97,.42)}50%{box-shadow:0 0 0 12px rgba(201,169,97,0)}}
+@media (prefers-reduced-motion:reduce){.soundCue{animation:none}}
+
 .scrollCue{
-  position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:3;
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:3;
   font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);
-  opacity:calc(1 - min(1, var(--p) * 4));
+  transition:opacity .4s;
 }
 
 /* ───────────────────────── buttons ───────────────────────── */
@@ -530,41 +519,18 @@ footer a:hover{color:var(--gold)}
 
 <main id="main">
 
-<!-- ───────────── 1 · THE DOOR ───────────── -->
-<section id="top" class="doorTrack" aria-label="Introduction">
-  <div class="doorStage" id="stage">
+<!-- ───────────── 1 · THE VAULT FILM ───────────── -->
+<section id="top" class="hero" aria-label="Introduction">
+  <div class="heroStage" id="stage">
 
-    <div class="doorLayer inside">
+    <div class="heroLayer inside">
       <picture>
         <source media="(max-width:640px)" srcset="assets/img/inside-p.webp">
         <img src="assets/img/inside-w.webp" alt="Inside a small business at night: a counter, a screen showing a full appointment calendar, a phone, and a stack of paid invoices." fetchpriority="high" width="1376" height="768">
       </picture>
     </div>
 
-    <div class="doorLayer door" id="doorLayer" hidden>
-      <picture>
-        <source media="(max-width:640px)" data-srcset="assets/img/door-p.webp">
-        <img data-src="assets/img/door-w.webp" alt="" aria-hidden="true" width="1376" height="768">
-      </picture>
-    </div>
-
-    <div class="seamLight" id="seam" hidden></div>
-
-    <div class="dialWrap" id="dial" hidden>
-      <svg viewBox="0 0 200 200" aria-hidden="true">
-        <g id="bolts"></g>
-        <circle cx="100" cy="100" r="74" fill="none" stroke="#C9A961" stroke-width="1.1" opacity=".55"/>
-        <g class="dialSpin">
-          <g id="ticks"></g>
-          <g stroke="#C9A961" stroke-width="2.6" stroke-linecap="round">
-            <path d="M70 100h60M100 70v60M79 79l42 42M121 79l-42 42" opacity=".9"/>
-          </g>
-          <circle cx="100" cy="100" r="17" fill="#05070F" stroke="#C9A961" stroke-width="2"/>
-          <circle cx="100" cy="100" r="6" fill="#C9A961"/>
-        </g>
-        <path d="M100 18l5 9h-10z" fill="#E8CE93"/>
-      </svg>
-    </div>
+    <video class="film" id="film" muted playsinline preload="auto" aria-hidden="true" tabindex="-1" hidden></video>
 
     <div class="heroCopy" id="heroCopy">
       <div class="kicker">Websites &middot; CRM &middot; Automation &middot; AI</div>
@@ -583,7 +549,12 @@ footer a:hover{color:var(--gold)}
       <div class="heroFoot">From $250 a month &middot; No agency &middot; No account manager</div>
     </div>
 
-    <div class="scrollCue" aria-hidden="true">Scroll</div>
+    <button class="soundCue" id="soundCue" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>
+      <span>Tap anywhere for sound</span>
+    </button>
+
+    <div class="scrollCue" id="scrollCue" aria-hidden="true">Scroll</div>
   </div>
 </section>
 
@@ -884,6 +855,7 @@ footer a:hover{color:var(--gold)}
         </div>
         <div class="field"><label for="fphone">Phone</label><input id="fphone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
         <div class="field"><label for="femail">Email</label><input id="femail" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+        <div class="field"><label for="fabout">Tell me about your business</label><textarea id="fabout" name="about" rows="3" placeholder="What you do, how long you&#39;ve been at it, who your customers are &mdash; whatever you&#39;d tell me if I walked in the door."></textarea></div>
         <div class="field"><label for="fmsg">What's the one thing you wish your business did by itself?</label><textarea id="fmsg" name="message" rows="2"></textarea></div>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btnGold" style="width:100%" type="submit" id="submitBtn">Open the Vault</button>
@@ -955,104 +927,67 @@ footer a:hover{color:var(--gold)}
 "use strict";
 var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ═══════════ 1 · THE DOOR ═══════════
-   Native sticky stage. One rAF-throttled scroll handler writes a single
-   custom property; everything else is CSS reading it. No pin library, so it
-   survives a window resize and leaves no blank band.                        */
-(function door(){
-  var track = document.getElementById('top');
+/* ═══════════ 1 · THE VAULT FILM ═══════════
+   The film opens the site: the vault swings, the light floods, the mark is
+   revealed, and it crossfades to the business running inside.
+
+   The copy is NEVER gated on the film finishing. Whichever of these comes
+   first reveals it: the film ends, the visitor scrolls, 4.5s elapse, or the
+   film fails to play at all. Under reduced motion the film is never inserted
+   into the DOM, so none of its bytes are fetched.                          */
+(function film(){
   var stage = document.getElementById('stage');
-  if(!track || !stage) return;
+  var v     = document.getElementById('film');
+  var copy  = document.getElementById('heroCopy');
+  var cue   = document.getElementById('soundCue');
+  var scrl  = document.getElementById('scrollCue');
+  if(!stage || !copy) return;
 
-  var doorLayer = document.getElementById('doorLayer');
-  var seam = document.getElementById('seam');
-  var dial = document.getElementById('dial');
-
-  /* Build the dial ticks and bolts in their FINAL CORRECT state, so animation
-     only ever perturbs a finished drawing. */
-  var ticks = document.getElementById('ticks'), bolts = document.getElementById('bolts'), i, a, ns='http://www.w3.org/2000/svg';
-  if(ticks){
-    for(i=0;i<24;i++){
-      a = (i/24)*Math.PI*2;
-      var major = i%6===0, r0 = 100 - (major?30:22), r1 = 100-12;
-      var ln = document.createElementNS(ns,'line');
-      ln.setAttribute('x1', (100+Math.cos(a)*r0).toFixed(2));
-      ln.setAttribute('y1', (100+Math.sin(a)*r0).toFixed(2));
-      ln.setAttribute('x2', (100+Math.cos(a)*r1).toFixed(2));
-      ln.setAttribute('y2', (100+Math.sin(a)*r1).toFixed(2));
-      ln.setAttribute('stroke', major?'#C9A961':'#8A93A8');
-      ln.setAttribute('stroke-width', major?'2.4':'1.2');
-      ln.setAttribute('stroke-linecap','round');
-      if(!major) ln.setAttribute('opacity','.65');
-      ticks.appendChild(ln);
-    }
-  }
-  if(bolts){
-    [45,135,225,315].forEach(function(deg){
-      var rad = deg*Math.PI/180, d = 88;
-      var r = document.createElementNS(ns,'rect');
-      r.setAttribute('x', (100+Math.cos(rad)*d-7).toFixed(2));
-      r.setAttribute('y', (100+Math.sin(rad)*d-7).toFixed(2));
-      r.setAttribute('width','14'); r.setAttribute('height','14'); r.setAttribute('rx','3');
-      r.setAttribute('fill','#05070F'); r.setAttribute('stroke','#C9A961'); r.setAttribute('stroke-width','1.6');
-      r.setAttribute('class','boltPin');
-      bolts.appendChild(r);
-    });
+  var revealed = false;
+  function reveal(){
+    if(revealed) return;
+    revealed = true;
+    copy.setAttribute('data-in','');
+    stage.style.setProperty('--scrim','1');
+    if(v) v.setAttribute('data-done','');
+    /* The invitation is only open while the film is on screen. After that the
+       listen pill is the only way to start audio. */
+    if(cue) cue.hidden = true;
+    document.dispatchEvent(new CustomEvent('knox:hero-done'));
   }
 
-  /* Reduced motion (and no-JS) get the payoff: the interior, headline visible,
-     door never added to the DOM, so its bytes are never fetched. */
-  if(RM){
-    stage.style.setProperty('--copy','1');
+  if(RM || !v){
+    if(v) v.remove();          /* not display:none — that still fetches */
+    reveal();
+    if(cue) cue.hidden = true;
     return;
   }
 
-  track.setAttribute('data-motion','on');
-  doorLayer.hidden = false; seam.hidden = false; dial.hidden = false;
+  /* Only now, with motion confirmed, do the film's bytes get requested. */
+  var portrait = window.matchMedia('(max-width: 640px)').matches;
+  var s = document.createElement('source');
+  s.src = portrait ? 'assets/video/vault-open-p.mp4' : 'assets/video/vault-open.mp4';
+  s.type = 'video/mp4';
+  v.setAttribute('poster', portrait ? 'assets/video/vault-open-p-poster.webp'
+                                    : 'assets/video/vault-open-poster.webp');
+  v.appendChild(s);
+  v.hidden = false;
+  v.load();
 
-  /* Now that motion is confirmed, let the door plates load. */
-  var src = doorLayer.querySelector('img[data-src]');
-  var srcset = doorLayer.querySelector('source[data-srcset]');
-  if(srcset) srcset.setAttribute('srcset', srcset.getAttribute('data-srcset'));
-  if(src) src.setAttribute('src', src.getAttribute('data-src'));
+  v.addEventListener('ended', reveal);
+  v.addEventListener('error', reveal);
+  var p = v.play();
+  if(p && p.catch) p.catch(reveal);      /* autoplay refused → show the words */
 
-  var pinList = bolts ? bolts.querySelectorAll('.boltPin') : [];
-  var ticking = false, lastP = -1;
+  setTimeout(reveal, 7000);              /* words land while the film finishes */
+  setTimeout(function(){ if(v.paused || !v.currentTime) reveal(); }, 1800);
+  window.addEventListener('scroll', function once(){
+    reveal(); window.removeEventListener('scroll', once);
+  }, {passive:true, once:true});
 
-  function seg(v,a,b){ return Math.max(0, Math.min(1, (v-a)/(b-a))); }
-
-  function apply(){
-    ticking = false;
-    var r = track.getBoundingClientRect();
-    var total = r.height - window.innerHeight;
-    var p = total > 0 ? Math.max(0, Math.min(1, -r.top / total)) : 0;
-    if(Math.abs(p - lastP) < 0.0015) return;
-    lastP = p;
-
-    /* 0.00–0.14 dial · 0.14–0.24 bolts · 0.20–0.82 iris.
-       The copy only RISES — it is never faded from zero, so it is readable
-       at every scroll position including the very top. */
-    var spinT = seg(p, 0, 0.14);
-    var spin = -1080 * (1 - (1 - Math.pow(1-spinT,3)));
-    var boltT = seg(p, 0.14, 0.24);
-    var iris  = seg(p, 0.20, 0.82);
-    var copy  = seg(p, 0.20, 0.70);
-
-    stage.style.setProperty('--spin', spin.toFixed(1) + 'deg');
-    stage.style.setProperty('--iris', (iris * 132).toFixed(2) + '%');
-    stage.style.setProperty('--p', p.toFixed(4));
-    stage.style.setProperty('--copy', copy.toFixed(3));
-
-    for(var k=0;k<pinList.length;k++){
-      var off = -13 * boltT;
-      pinList[k].style.transform = 'translate(' + (off*Math.cos((45+k*90)*Math.PI/180)).toFixed(2) + 'px,' + (off*Math.sin((45+k*90)*Math.PI/180)).toFixed(2) + 'px)';
-    }
-  }
-
-  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(apply); } }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', onScroll, {passive:true});
-  apply();
+  window.addEventListener('scroll', function(){
+    if(scrl) scrl.style.opacity = window.scrollY > 40 ? '0' : '';
+  }, {passive:true});
 })();
 
 /* ═══════════ 2 · reveals ═══════════
@@ -1142,6 +1077,43 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   });
 })();
 
+/* ═══════════ 3b · sound unlock ═══════════
+   Browsers refuse audio before a real gesture, so the page opens silent and
+   the FIRST tap anywhere starts Jeff's voiceover. play() is called
+   synchronously inside that gesture — deferring it into rAF or a promise
+   chain loses the audio outright. Once per session; the pill still works as
+   an explicit control, and any listen button cancels the auto-start.        */
+(function unlock(){
+  var cue = document.getElementById('soundCue');
+  var heroBtn = document.querySelector('.heroListen');
+  if(!heroBtn) return;
+  var used = false;
+  try { used = sessionStorage.getItem('knox.vo') === '1'; } catch(e){}
+
+  if(used){ if(cue) cue.hidden = true; return; }
+  if(cue) cue.hidden = false;
+
+  function fire(e){
+    if(used) return;
+    /* Let a real control do its own job rather than hijacking the tap. */
+    var el = e.target.closest && e.target.closest('a,button,input,textarea,select,.listen');
+    if(el && el !== cue) { detach(); if(cue) cue.hidden = true; return; }
+    used = true;
+    try { sessionStorage.setItem('knox.vo','1'); } catch(err){}
+    if(cue) cue.hidden = true;
+    heroBtn.click();                 /* synchronous, inside the gesture */
+    detach();
+  }
+  function detach(){
+    document.removeEventListener('pointerdown', fire, true);
+    document.removeEventListener('keydown', fire, true);
+  }
+  document.addEventListener('pointerdown', fire, true);
+  document.addEventListener('keydown', fire, true);
+  document.addEventListener('knox:hero-done', detach);
+  if(cue) cue.addEventListener('click', function(){ if(cue) cue.hidden = true; });
+})();
+
 /* ═══════════ 4 · the voice ═══════════
    One voice at a time, anywhere on the page. play() is called SYNCHRONOUSLY
    inside the click handler — never inside rAF or a promise chain. That has
@@ -1181,6 +1153,8 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
         }
         /* Starting any clip stops every other one. */
         if(current){ current.pause(); reset(currentBtn); }
+        try { sessionStorage.setItem('knox.vo','1'); } catch(err){}
+        var sc = document.getElementById('soundCue'); if(sc) sc.hidden = true;
         var a = new Audio(btn.dataset.audio);
         a.preload = 'auto';
         current = a; currentBtn = btn;
@@ -1297,6 +1271,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
       businessType: picked,
       email: f.email.value.trim(),
       phone: f.phone.value.trim(),
+      about: f.about.value.trim(),
       message: f.message.value.trim(),
       dedupeKey: 'pk-' + Date.now() + '-' + Math.random().toString(36).slice(2,8)
     };
@@ -1315,7 +1290,8 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
       var body = encodeURIComponent(
         'Name: ' + payload.name + '\nBusiness: ' + payload.business +
         '\nType: ' + payload.businessType + '\nPhone: ' + payload.phone +
-        '\nEmail: ' + payload.email + '\n\n' + payload.message);
+        '\nEmail: ' + payload.email + '\n\nAbout the business:\n' + payload.about +
+        '\n\nBiggest time sink:\n' + payload.message);
       window.location.href = 'mailto:jeffbilbrey@getprojectknox.com?subject=' +
         encodeURIComponent('New enquiry from getprojectknox.com') + '&body=' + body;
       done();
