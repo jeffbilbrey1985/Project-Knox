@@ -24,7 +24,7 @@
   "@id": "https://getprojectknox.com/#business",
   "name": "Project Knox",
   "url": "https://getprojectknox.com/",
-  "telephone": "+1-615-992-8855",
+  "telephone": "+1-331-291-7400",
   "email": "jeffbilbrey@getprojectknox.com",
   "slogan": "Built by hand. Run by Knox.",
   "description": "Custom websites, CRM systems, follow-up automation, online booking and smart tools for local service businesses, on a monthly subscription.",
@@ -498,6 +498,25 @@ video.film[data-done]{opacity:0}
 }
 .chip[aria-pressed="true"]{border-color:var(--gold);color:var(--struck);background:rgba(201,169,97,.1)}
 .hp{position:absolute;left:-9999px}
+/* Consent. Both boxes ship UNCHECKED and neither gates submission — a form
+   that will not submit without the SMS box is a carrier-registration failure
+   and a plaintiff's first exhibit. */
+.consent{margin:16px 0 4px;border:1px solid var(--line-soft);border-radius:12px;padding:14px;background:rgba(5,7,15,.4)}
+.consent label{display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;cursor:pointer;padding:6px 0;min-height:44px}
+.consent label + label{margin-top:10px;padding-top:14px;border-top:1px solid rgba(138,147,168,.14)}
+.consent input[type=checkbox]{width:22px;height:22px;margin:2px 0 0;accent-color:var(--gold);flex:none}
+.consent b{display:block;color:var(--ivory);font-weight:500;font-size:15px;margin-bottom:3px}
+.consent span{display:block;color:#A9B1C4;font-weight:400;font-size:12.5px;line-height:1.5}
+.consent a{text-decoration:underline;text-underline-offset:2px}
+.consent .opt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin-left:6px}
+.textRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.textRow a{
+  display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;
+  border:1px solid var(--line);border-radius:12px;color:var(--struck);font-size:15px;font-weight:400;
+  transition:border-color .2s,background .2s
+}
+.textRow a:hover,.textRow a:active{border-color:var(--gold);background:rgba(201,169,97,.08)}
+.textRow svg{width:18px;height:18px}
 .formNote{font-size:13.5px;color:var(--steel);margin-top:12px}
 .orCall{
   display:flex;align-items:center;justify-content:center;gap:10px;
@@ -592,12 +611,12 @@ footer a:hover{color:var(--gold)}
     <a href="#vault">The Vault</a>
     <a href="#plans">Plans</a>
     <a href="#contact">Contact</a>
-    <a href="tel:+16159928855" style="color:var(--struck)">(615) 992-8855</a>
+    <a href="tel:+13312917400" style="color:var(--struck)">(331) 291-7400</a>
     <a class="btnGold" style="padding:11px 20px;font-size:12px" href="#contact">Book a call</a>
   </div>
   <div class="navlinks navmob">
     <a href="#plans">Plans</a>
-    <a class="navcall" href="tel:+16159928855" aria-label="Call Project Knox">
+    <a class="navcall" href="tel:+13312917400" aria-label="Call Project Knox">
       <svg viewBox="0 0 24 24" fill="none" stroke="#C9A961" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
     </a>
   </div>
@@ -948,7 +967,7 @@ footer a:hover{color:var(--gold)}
     <div class="slot rv">
       <form id="leadForm" novalidate>
         <div class="field"><label for="fname">Your name</label><input id="fname" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="fbiz">Your business</label><input id="fbiz" name="business" placeholder="Main Street Barbers" autocomplete="organization"></div>
+        <div class="field"><label for="fbiz">Your business</label><input id="fbiz" name="business" placeholder="Main Street Barbers" autocomplete="organization" required></div>
         <div class="field">
           <label>What kind of business</label>
           <div class="chips" id="typeChips">
@@ -961,25 +980,57 @@ footer a:hover{color:var(--gold)}
             <button type="button" class="chip" aria-pressed="false">Something else</button>
           </div>
         </div>
-        <div class="field"><label for="fphone">Phone</label><input id="fphone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
+        <div class="field"><label for="fphone">Phone <span style="text-transform:none;letter-spacing:0;color:var(--steel)">(mobile, if you want a text back)</span></label><input id="fphone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
         <div class="field"><label for="femail">Email</label><input id="femail" name="email" type="email" inputmode="email" autocomplete="email" required></div>
         <div class="field"><label for="fabout">Tell us about your business</label><textarea id="fabout" name="about" rows="3" placeholder="What you do, how long you&#39;ve been at it, who your customers are &mdash; whatever you&#39;d tell us if we walked in the door."></textarea></div>
         <div class="field"><label for="fmsg">What's the one thing you wish your business did by itself?</label><textarea id="fmsg" name="message" rows="2"></textarea></div>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="consent">
+          <label for="cSms">
+            <input type="checkbox" id="cSms" name="sms_consent" value="yes">
+            <span>
+              <b>Text me.<span class="opt">Optional</span></b>
+              I agree that Project Knox may text me at the mobile number above, sent from
+              (331)&nbsp;291&#8209;7400 &mdash; about my inquiry, and with marketing about Project Knox
+              services and offers. Consent is not a condition of purchase. Message frequency varies
+              (about 2&ndash;6 messages a month). Message and data rates may apply. Reply STOP to cancel
+              or HELP for help. See <a href="sms-terms.html">SMS Terms</a> and
+              <a href="privacy.html">Privacy Policy</a>.
+            </span>
+          </label>
+          <label for="cEmail">
+            <input type="checkbox" id="cEmail" name="email_consent" value="yes">
+            <span>
+              <b>Email me.<span class="opt">Optional</span></b>
+              I agree to receive marketing emails from Project Knox about services and offers.
+              You can unsubscribe from any email. See <a href="privacy.html">Privacy Policy</a>.
+            </span>
+          </label>
+        </div>
+        <div class="formNote" style="margin-bottom:14px">Neither box is required. We&rsquo;ll still reply to your inquiry either way.</div>
+
         <button class="btnGold" style="width:100%" type="submit" id="submitBtn">Send this to Knox</button>
         <div class="formNote">No sales script. No "discovery process." We'll text or call you today.</div>
-        <a class="orCall" href="tel:+16159928855">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-          Or just call us &mdash; (615) 992&#8209;8855
-        </a>
-        <div class="formNote" style="text-align:center">jeffbilbrey@getprojectknox.com &middot; Glen Ellyn, Illinois &mdash; we'll come to your shop.</div>
+        <div class="textRow">
+          <a href="tel:+13312917400">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            Call us
+          </a>
+          <a href="sms:+13312917400">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.3-.6L3 21l1.8-5.2A8.3 8.3 0 0 1 4 11.5 8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+            Text us
+          </a>
+        </div>
+        <div class="formNote" style="text-align:center">(331) 291&#8209;7400 &mdash; a real person, either way.</div>
+        <div class="formNote" style="text-align:center">jeffbilbrey@getprojectknox.com &middot; Glen Ellyn, Illinois &mdash; we'll come to your shop.<br><a href="privacy.html" style="color:var(--steel);text-decoration:underline">Privacy</a> &middot; <a href="sms-terms.html" style="color:var(--steel);text-decoration:underline">SMS Terms</a></div>
       </form>
 
       <div class="receipt" id="receipt">
         <b>Filed.</b>
         <p style="color:#dfe3ec">Check your email &mdash; there's a note from us already in there. We'll call or text you today.</p>
         <p style="color:var(--steel);font-size:14.5px;margin-bottom:0">That email you just got? Your customers would get one like it, in your voice, from your address.</p>
-        <a class="orCall" href="tel:+16159928855" style="margin-top:16px">If it's urgent &mdash; (615) 992&#8209;8855</a>
+        <a class="orCall" href="tel:+13312917400" style="margin-top:16px">If it's urgent &mdash; (331) 291&#8209;7400</a>
       </div>
     </div>
   </div>
@@ -994,14 +1045,15 @@ footer a:hover{color:var(--gold)}
       <b style="color:var(--ivory)">Project Knox</b>
     </div>
     <div class="tagline">Built by hand. Run by Knox.</div>
-    <p style="margin-bottom:6px"><a href="tel:+16159928855">(615) 992-8855</a> &middot; <a href="mailto:jeffbilbrey@getprojectknox.com">jeffbilbrey@getprojectknox.com</a></p>
+    <p style="margin-bottom:6px"><a href="tel:+13312917400">(331) 291-7400</a> &middot; <a href="mailto:jeffbilbrey@getprojectknox.com">jeffbilbrey@getprojectknox.com</a></p>
     <p style="margin-bottom:6px">Glen Ellyn, Illinois &middot; <a href="https://knox-vault.higgsfield.app" target="_blank" rel="noopener">The Vault</a></p>
+    <p style="margin-bottom:6px"><a href="privacy.html">Privacy Policy</a> &middot; <a href="sms-terms.html">SMS Terms</a></p>
     <p style="opacity:.7;margin:0">&copy; 2026 Project Knox &middot; Websites, CRM &amp; automation for local businesses</p>
   </div>
 </footer>
 
 <div class="bottomBar" id="bottomBar">
-  <a class="call" href="tel:+16159928855">
+  <a class="call" href="tel:+13312917400">
     <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
     Call
   </a>
@@ -1028,7 +1080,7 @@ footer a:hover{color:var(--gold)}
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
     </button>
   </form>
-  <div class="askDisc">I'm the Knox assistant, not a person. For anything important, call (615) 992-8855.</div>
+  <div class="askDisc">I'm the Knox assistant, not a person. For anything important, call (331) 291-7400.</div>
 </div>
 
 <script>
@@ -1407,7 +1459,14 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   document.documentElement.style.setProperty('scroll-padding-top', '78px');
 })();
 
-/* ═══════════ 7 · the form ═══════════ */
+/* ═══════════ 7 · the form ═══════════
+   Posts to /api/leads — the endpoint that actually CREATES a lead. The older
+   /api/demo-lead is now only a mail relay for the demo estate and deliberately
+   writes no rows, so a form pointed at it looks like it worked and produces
+   nothing.
+
+   Consent is sent as an explicit boolean. The CRM never infers it: an absent
+   field leaves the number at 'pending' and nothing ever texts it.           */
 (function form(){
   var f = document.getElementById('leadForm');
   var chips = document.getElementById('typeChips');
@@ -1425,45 +1484,61 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   f.addEventListener('submit', function(e){
     e.preventDefault();
     if(f.website.value) return;                       /* honeypot */
-    if(!f.name.value.trim() || !f.email.value.trim()){
-      (f.name.value.trim() ? f.email : f.name).focus();
-      return;
+
+    /* Name, business and email only. Neither consent box may EVER gate this —
+       a form that refuses to submit without the SMS box ticked fails carrier
+       registration and reads as coerced consent. */
+    var need = ['name','business','email'];
+    for(var i=0;i<need.length;i++){
+      if(!f[need[i]].value.trim()){ f[need[i]].focus(); return; }
     }
+
     btn.disabled = true; btn.textContent = 'Sending…';
 
+    var about = f.about.value.trim();
+    var msg   = f.message.value.trim();
+    var body  = [
+      about ? 'About the business:\n' + about : '',
+      msg ? 'Biggest time sink:\n' + msg : ''
+    ].filter(Boolean).join('\n\n');
+
     var payload = {
-      demo: 'project-knox',
-      source: 'getprojectknox.com',
-      name: f.name.value.trim(),
+      name:     f.name.value.trim(),
       business: f.business.value.trim(),
-      businessType: picked,
-      email: f.email.value.trim(),
-      phone: f.phone.value.trim(),
-      about: f.about.value.trim(),
-      message: f.message.value.trim(),
-      dedupeKey: 'pk-' + Date.now() + '-' + Math.random().toString(36).slice(2,8)
+      type:     picked,
+      email:    f.email.value.trim(),
+      phone:    f.phone.value.trim(),
+      message:  body,
+      source:   'getprojectknox.com',
+      website:  '',
+      /* Explicit booleans. Never "truthy if present". */
+      sms_consent:   document.getElementById('cSms').checked === true,
+      email_consent: document.getElementById('cEmail').checked === true
     };
 
-    /* CORS-simple request: text/plain, no custom headers, so no preflight.
-       The CRM's origin allowlist already includes getprojectknox.com. */
-    fetch('https://knox-crm.higgsfield.app/api/demo-lead', {
+    fetch('https://knox-crm.higgsfield.app/api/leads', {
       method: 'POST',
-      headers: {'Content-Type':'text/plain;charset=UTF-8'},
+      headers: {'Content-Type':'application/json'},
       body: JSON.stringify(payload)
-    }).then(function(r){
-      if(!r.ok) throw new Error('bad status');
-      done();
-    }).catch(function(){
-      /* Never lose a lead silently — fall back to a prefilled email. */
-      var body = encodeURIComponent(
-        'Name: ' + payload.name + '\nBusiness: ' + payload.business +
-        '\nType: ' + payload.businessType + '\nPhone: ' + payload.phone +
-        '\nEmail: ' + payload.email + '\n\nAbout the business:\n' + payload.about +
-        '\n\nBiggest time sink:\n' + payload.message);
-      window.location.href = 'mailto:jeffbilbrey@getprojectknox.com?subject=' +
-        encodeURIComponent('New inquiry from getprojectknox.com') + '&body=' + body;
-      done();
-    });
+    }).then(function(r){ return r.json().catch(function(){ return {ok:r.ok}; }); })
+      .then(function(res){
+        if(!res || res.ok !== true) throw new Error('rejected');
+        done();
+      })
+      .catch(function(){
+        /* Never lose a lead silently — fall back to a prefilled email. */
+        var lines =
+          'Name: ' + payload.name + '\nBusiness: ' + payload.business +
+          '\nType: ' + payload.type + '\nPhone: ' + payload.phone +
+          '\nEmail: ' + payload.email +
+          '\nOK to text: ' + (payload.sms_consent ? 'yes' : 'no') +
+          '\nOK to email: ' + (payload.email_consent ? 'yes' : 'no') +
+          '\n\n' + body;
+        window.location.href = 'mailto:jeffbilbrey@getprojectknox.com?subject=' +
+          encodeURIComponent('New inquiry from getprojectknox.com') +
+          '&body=' + encodeURIComponent(lines);
+        done();
+      });
 
     function done(){
       f.style.display = 'none';
@@ -1551,7 +1626,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
    Google ranking. When it doesn't know, it hands off to Jeff — which is a
    success, not a failure.                                                   */
 (function askKnox(){
-  var PHONE = '(615) 992-8855';
+  var PHONE = '(331) 291-7400';
   var KB = [
     {k:['squarespace','wix','godaddy','20 a month','$20','cheaper site','build it myself','diy'],
      a:"Because $20 buys you software and $250 buys you the work. With Squarespace you're still the one building the pages, writing the copy, claiming the Google profile, setting up booking, and fixing it at 9pm when it breaks. Foundation covers all of that, done for you, plus two changes a month.\n\nIf you've got the time and the interest to run it yourself, Squarespace is genuinely the right call — I'd rather say that than sell you something."},
@@ -1621,6 +1696,10 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
      a:"Three plans, and these are the only prices:\n\n• Foundation — $250/mo + $250 setup. Website, your own domain and email, Google Business Profile, search setup, online booking.\n• Growth — $500/mo + $500 setup. All of Foundation, plus the full CRM, automatic review requests and replies, payments, expenses, and QuickBooks sync.\n• Enterprise — $1,000/mo + $1,000 setup. All of the above, plus a custom-built CRM, a multilingual chatbot, and a round-the-clock answering line that books appointments.\n\nEvery plan is a 12-month partnership, billed monthly, everything in writing first."},
     {k:['vault','demo','demos','see examples','try it','live sites'],
      a:"The Vault is six complete businesses I built — a barbershop, a taquería, an auto garage, a nail salon, a chiropractor and a lawn crew — plus a working CRM you can drive yourself.\n\nThey're real software, not pictures. Book a haircut, order tacos, price a brake job. You'll get a real confirmation email in about ten seconds. There's an Enter the Vault button on this page."},
+    {k:['text me','texting','sms','do you text','stop texts','unsubscribe','opt out','text messages'],
+     a:"Only if you tick the box. The SMS box on the form is optional and unticked by default \u2014 leave it alone and we will never text you, and your inquiry gets answered exactly the same.\n\nIf you do tick it: messages come from (331) 291-7400, roughly 2 to 6 a month, and you can reply STOP at any time to end it. Message and data rates may apply. Full detail is on the SMS Terms page linked at the bottom of this site."},
+    {k:['sell my number','share my number','who gets my data','give my info','third parties'],
+     a:"Nobody. Your mobile information is not shared with third parties or affiliates for marketing or promotional purposes \u2014 that is written into the privacy policy on this site, not just said here.\n\nThe only outside services that touch it are the ones needed to actually deliver a message or an email, and they cannot use it for their own marketing."},
     {k:['book','consult','consultation','talk to jeff','call','speak to someone','contact'],
      a:"Easiest thing is to call: " + PHONE + ".\n\nOr fill in the form on this page — name, business and a number — and we'll call or text you today. First consultation is free, about twenty minutes, no slide deck."}
   ];
