@@ -32,8 +32,8 @@ const CLEAN = [
   [/href="\/privacy\.html"/g, 'href="/privacy"'],
   [/href="sms-terms\.html"/g, 'href="/sms-terms"'],
   [/href="\/sms-terms\.html"/g, 'href="/sms-terms"'],
-  [/href="thevault\.html"/g, 'href="/thevault"'],
-  [/href="\/thevault\.html"/g, 'href="/thevault"'],
+  // Fragments matter: the homepage teaser chips deep-link to /thevault#chops.
+  [/href="\/?thevault\.html(#[a-z-]*)?"/g, 'href="/thevault$1"'],
   [/href="index\.html"/g, 'href="/"'],
 ];
 
