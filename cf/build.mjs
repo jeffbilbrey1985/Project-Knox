@@ -12,6 +12,20 @@ import path from "node:path";
 
 // SRC is the repo root (pages with .html links, the GitHub Pages standby).
 // DIST is what wrangler uploads. Override either with an env var.
+// ── HOW THIS RUNS IN WORKERS BUILDS ────────────────────────────────────────
+// Cloudflare builds this repo on every push to main. The dashboard's build
+// command sets BOTH variables explicitly:
+//
+//   KNOX_SRC=. KNOX_DIST=cf/dist node cf/build.mjs
+//   npx wrangler deploy --config cf/wrangler.jsonc
+//
+// Neither is optional. The defaults below are absolute paths from the machine
+// this script was written on and exist nowhere else, so a build that forgets
+// them reads from a directory that is not there. And the deploy MUST carry
+// --config: wrangler.jsonc lives in cf/, not at the repo root, and its
+// `main` and `assets.directory` resolve relative to itself — pointing wrangler
+// anywhere else silently drops src/router.js, which is what serves all seven
+// /thevault/<demo> mounts.
 const SRC = process.env.KNOX_SRC || "/home/claude/build";
 const DIST = process.env.KNOX_DIST || "/home/claude/cf-site/dist";
 
