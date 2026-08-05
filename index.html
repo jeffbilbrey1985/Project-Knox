@@ -2,15 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8LBV2N9FTC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8LBV2N9FTC');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Project Knox | Websites, CRM &amp; Automation for Local Businesses</title>
-<meta name="description" content="Project Knox builds your website, booking, customer list and follow-up by hand, then runs all of it for you. One monthly price, from $250. Glen Ellyn, Illinois.">
+<title>Small Business Websites &amp; CRM in Glen Ellyn, IL | Project Knox</title>
+<meta name="description" content="Websites, CRM, booking and Google Business Profile setup for local businesses in Glen Ellyn and DuPage County. From $250/month. Six live demos, no signup.">
 <meta name="author" content="Project Knox">
 <meta name="theme-color" content="#0B1026">
 <link rel="canonical" href="https://getprojectknox.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getprojectknox.com/">
-<meta property="og:title" content="Project Knox | Websites, CRM &amp; Automation for Local Businesses">
+<meta property="og:title" content="Small Business Websites &amp; CRM in Glen Ellyn, IL | Project Knox">
 <meta property="og:description" content="Everything your business runs on, behind one door. Built by hand. Run by Knox.">
 <meta property="og:image" content="https://getprojectknox.com/assets/img/inside-w.webp">
 <meta name="twitter:card" content="summary_large_image">
@@ -20,32 +29,75 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "@id": "https://getprojectknox.com/#business",
-  "name": "Project Knox",
-  "url": "https://getprojectknox.com/",
-  "telephone": "+1-331-291-7400",
-  "email": "jeffbilbrey@getprojectknox.com",
-  "slogan": "Built by hand. Run by Knox.",
-  "description": "Custom websites, CRM systems, follow-up automation, online booking and smart tools for local service businesses, on a monthly subscription.",
-  "address": { "@type": "PostalAddress", "addressLocality": "Glen Ellyn", "addressRegion": "IL", "addressCountry": "US" },
-  "areaServed": [
-    { "@type": "City", "name": "Glen Ellyn" },
-    { "@type": "City", "name": "Wheaton" },
-    { "@type": "City", "name": "Naperville" },
-    { "@type": "City", "name": "Lombard" },
-    { "@type": "City", "name": "Downers Grove" }
-  ],
-  "priceRange": "$$",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Website, CRM and Automation Plans",
-    "itemListElement": [
-      { "@type": "Offer", "name": "Foundation", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "250", "priceCurrency": "USD", "unitCode": "MON" } },
-      { "@type": "Offer", "name": "Growth", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "500", "priceCurrency": "USD", "unitCode": "MON" } },
-      { "@type": "Offer", "name": "Enterprise", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "1000", "priceCurrency": "USD", "unitCode": "MON" } }
-    ]
-  }
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://getprojectknox.com/#business",
+      "name": "Project Knox",
+      "url": "https://getprojectknox.com/",
+      "logo": "https://getprojectknox.com/assets/img/knox-logo.webp",
+      "image": [
+        "https://getprojectknox.com/assets/img/inside-w.webp",
+        "https://getprojectknox.com/assets/img/vault-ajar-w.webp"
+      ],
+      "telephone": "+1-331-291-7400",
+      "email": "jeffbilbrey@getprojectknox.com",
+      "slogan": "Built by hand. Run by Knox.",
+      "description": "Project Knox builds and runs websites, CRM, online booking, Google Business Profile setup and customer follow-up for local service businesses in Glen Ellyn, Illinois and across DuPage County, on a monthly subscription.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Glen Ellyn",
+        "addressRegion": "IL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "DuPage County, Illinois" },
+        { "@type": "City", "name": "Glen Ellyn" },
+        { "@type": "City", "name": "Wheaton" },
+        { "@type": "City", "name": "Naperville" },
+        { "@type": "City", "name": "Lombard" },
+        { "@type": "City", "name": "Downers Grove" }
+      ],
+      "knowsAbout": [
+        "Small business website design",
+        "Google Business Profile optimization",
+        "Local SEO",
+        "Customer relationship management",
+        "Online appointment booking",
+        "Google review automation"
+      ],
+      "priceRange": "$$",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Website, CRM and Automation Plans",
+        "itemListElement": [
+          {
+            "@type": "Offer", "name": "Foundation",
+            "description": "Website on your own domain, Google Business Profile setup, SEO, Google Workspace email and a booking site synced to Google Calendar.",
+            "priceSpecification": { "@type": "UnitPriceSpecification", "price": "250", "priceCurrency": "USD", "unitCode": "MON" }
+          },
+          {
+            "@type": "Offer", "name": "Growth",
+            "description": "Everything in Foundation, plus a full CRM with booking, invoicing and cold-lead follow-up, automated Google review requests and replies, payments and QuickBooks sync.",
+            "priceSpecification": { "@type": "UnitPriceSpecification", "price": "500", "priceCurrency": "USD", "unitCode": "MON" }
+          },
+          {
+            "@type": "Offer", "name": "Enterprise",
+            "description": "Everything in Foundation and Growth, plus a fully customizable CRM, a multilingual website chatbot and a phone line answered around the clock.",
+            "priceSpecification": { "@type": "UnitPriceSpecification", "price": "1000", "priceCurrency": "USD", "unitCode": "MON" }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://getprojectknox.com/#website",
+      "url": "https://getprojectknox.com/",
+      "name": "Project Knox",
+      "publisher": { "@id": "https://getprojectknox.com/#business" },
+      "inLanguage": "en-US"
+    }
+  ]
 }
 </script>
 
@@ -193,6 +245,7 @@ video.film[data-done]{opacity:0}
   font-weight:500;margin-bottom:16px;
 }
 .heroCopy h1{margin-bottom:16px;text-shadow:0 2px 40px rgba(5,7,15,.95)}
+.h1sub{display:block;font-family:var(--ui);font-size:clamp(15px,3.6vw,19px);font-weight:400;color:#cfd4e0;margin-top:14px;letter-spacing:0;line-height:1.5;text-shadow:0 2px 24px rgba(5,7,15,.95)}
 .heroCopy p{color:#cfd4e0;font-size:clamp(16px,3.8vw,20px);max-width:44ch;margin:0 auto 22px;text-shadow:0 2px 24px rgba(5,7,15,.95)}
 .heroBtns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:14px}
 .heroFoot{font-size:13px;color:var(--steel);letter-spacing:.02em;padding:0 24px;line-height:1.5}
@@ -607,7 +660,7 @@ footer a:hover{color:var(--gold)}
   </a>
   <div class="navlinks navdesk">
     <a href="#what">What you get</a>
-    <a href="#find">Getting found</a>
+    <a href="#find">Getting found on Google</a>
     <a href="#vault">The Vault</a>
     <a href="#plans">Plans</a>
     <a href="#contact">Contact</a>
@@ -639,8 +692,7 @@ footer a:hover{color:var(--gold)}
 
     <div class="heroCopy" id="heroCopy">
       <div class="kicker">Websites &middot; CRM &middot; Booking &middot; Automation</div>
-      <h1>Everything your business runs on, behind one door.</h1>
-      <p>Knox builds your website, your booking, your customer list and your follow&#8209;up &mdash; then runs all of it for you. One price, every month.</p>
+      <h1>Everything your business runs on, behind one door.<span class="h1sub">Websites, CRM, online booking and Google Business Profile setup for local businesses in Glen Ellyn, Illinois &mdash; from $250 a month.</span></h1>
       <div class="heroBtns">
         <a class="btnGold" href="#vault">Open the Vault</a>
         <a class="btnGhost" href="#plans">See the plans</a>
@@ -665,7 +717,7 @@ footer a:hover{color:var(--gold)}
 <section id="what" class="what">
   <div class="wrap">
     <div class="eyebrow rv">What you get</div>
-    <h2 class="rv">Four things. One bill.</h2>
+    <h2 class="rv">Four things every local business needs. One bill.</h2>
     <p class="lede rv" style="margin-top:16px">Most shops buy these one at a time from four different companies, then spend their evenings trying to make them talk to each other. This is all four, from one place, for one price.</p>
 
     <div class="whatRows">
@@ -696,7 +748,7 @@ footer a:hover{color:var(--gold)}
 <section id="find" class="find">
   <div class="wrap">
     <div class="eyebrow rv">How customers find you</div>
-    <h2 class="rv">Everybody Googles. Almost nobody scrolls.</h2>
+    <h2 class="rv">Getting found on Google: everybody Googles, almost nobody scrolls.</h2>
     <p class="lede rv" style="margin-top:16px">Search <em style="font-style:normal;color:var(--ivory)">barbershops near me</em> and Google hands back a long list. Add one word &mdash; <em style="font-style:normal;color:var(--struck)">best</em> barbershops near me &mdash; and the list gets short. Try it:</p>
 
     <div class="serp rv" id="serp" data-q="broad">
@@ -775,7 +827,7 @@ footer a:hover{color:var(--gold)}
 <section id="vault" class="vault">
   <div class="vaultInner">
     <div class="eyebrow rv">The Vault</div>
-    <h2 class="rv">Don&rsquo;t take our word for it. Go and use it.</h2>
+    <h2 class="rv">Six live demo businesses. Don&rsquo;t take our word for it &mdash; go and use one.</h2>
     <p class="lede rv">Behind this door are six complete businesses we built &mdash; a barbershop, a taquer&iacute;a, an auto garage, a nail salon, a chiropractor and a lawn crew. Not screenshots. Book a haircut in one and a real confirmation email lands in your inbox in about ten seconds.</p>
 
       <video class="dialVid rv" muted playsinline aria-hidden="true" tabindex="-1"
@@ -791,7 +843,7 @@ footer a:hover{color:var(--gold)}
       </picture>
       <span class="seamGlow" aria-hidden="true"></span>
       <div class="vaultDoorCta">
-        <a class="btnVault" href="https://knox-vault.higgsfield.app" target="_blank" rel="noopener">
+        <a class="btnVault" href="/thevault">
           <i>Enter the Vault</i>
           <em>Six live sites &middot; no signup</em>
         </a>
@@ -799,11 +851,19 @@ footer a:hover{color:var(--gold)}
     </div>
 
     <div class="vaultChips rv">
-      <a href="https://knox-chops.higgsfield.app" target="_blank" rel="noopener">Book a haircut</a>
-      <a href="https://knox-guac.higgsfield.app" target="_blank" rel="noopener">Order tacos</a>
-      <a href="https://knox-knocks.higgsfield.app" target="_blank" rel="noopener">Price a brake job</a>
-      <a href="https://knox-vault.higgsfield.app/demo/crm" target="_blank" rel="noopener">Drive the CRM</a>
+      <a href="/thevault#chops">Book a haircut</a>
+      <a href="/thevault#guac">Order tacos</a>
+      <a href="/thevault#knocks">Price a brake job</a>
+      <a href="/thevault#crm">Drive the CRM</a>
     </div>
+
+    <p class="vaultNote rv" style="max-width:60ch;margin-top:26px">
+      <b style="color:var(--struck);font-weight:500">Serving Glen Ellyn and DuPage County.</b>
+      We&rsquo;re in Glen Ellyn and we&rsquo;ll come to your shop. We work with businesses in Wheaton,
+      Naperville, Lombard, Downers Grove, Villa Park, Carol Stream, Elmhurst and across DuPage
+      County &mdash; barbershops, salons and nail studios, auto shops, chiropractors, lawn and home
+      services, and restaurants.
+    </p>
 
     <div class="vaultListen rv">
       <button class="listen" data-audio="assets/vo/vo-05-vault-tour.mp3" data-label="Take the tour &middot; 0:25">
@@ -818,7 +878,7 @@ footer a:hover{color:var(--gold)}
 <section id="plans" class="plans">
   <div class="wrap">
     <div class="eyebrow rv">Plans</div>
-    <h2 class="rv">Three ways in.</h2>
+    <h2 class="rv">Plans and pricing: three ways in, from $250 a month.</h2>
     <p class="lede rv" style="margin-top:16px">Start where it makes sense. Moving up later doesn't mean rebuilding anything &mdash; it's the same system, with more of it switched on.</p>
 
     <div class="chooser rv">
@@ -961,7 +1021,7 @@ footer a:hover{color:var(--gold)}
 <section id="contact" class="contact">
   <div class="wrap">
     <div class="eyebrow rv">Open the Vault</div>
-    <h2 class="rv">Tell us what you'd fix first.</h2>
+    <h2 class="rv">Get a free consultation &mdash; tell us what you'd fix first.</h2>
     <p class="lede rv" style="margin-top:16px">Two minutes. Your first consultation is free &mdash; no pressure, no jargon.</p>
 
     <div class="slot rv">
@@ -1041,12 +1101,12 @@ footer a:hover{color:var(--gold)}
 <footer>
   <div class="wrap">
     <div class="brand" style="display:inline-flex">
-      <img src="assets/img/knox-logo.webp" alt="" width="40" height="40" decoding="async">
+      <img src="assets/img/knox-logo.webp" alt="Project Knox" width="40" height="40" decoding="async">
       <b style="color:var(--ivory)">Project Knox</b>
     </div>
     <div class="tagline">Built by hand. Run by Knox.</div>
     <p style="margin-bottom:6px"><a href="tel:+13312917400">(331) 291-7400</a> &middot; <a href="mailto:jeffbilbrey@getprojectknox.com">jeffbilbrey@getprojectknox.com</a></p>
-    <p style="margin-bottom:6px">Glen Ellyn, Illinois &middot; <a href="https://knox-vault.higgsfield.app" target="_blank" rel="noopener">The Vault</a></p>
+    <p style="margin-bottom:6px">Glen Ellyn, Illinois &middot; <a href="/thevault">The Vault</a></p>
     <p style="margin-bottom:6px"><a href="privacy.html">Privacy Policy</a> &middot; <a href="sms-terms.html">SMS Terms</a></p>
     <p style="opacity:.7;margin:0">&copy; 2026 Project Knox &middot; Websites, CRM &amp; automation for local businesses</p>
   </div>
@@ -1629,7 +1689,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   var PHONE = '(331) 291-7400';
   var KB = [
     {k:['squarespace','wix','godaddy','20 a month','$20','cheaper site','build it myself','diy'],
-     a:"Because $20 buys you software and $250 buys you the work. With Squarespace you're still the one building the pages, writing the copy, claiming the Google profile, setting up booking, and fixing it at 9pm when it breaks. Foundation covers all of that, done for you, plus two changes a month.\n\nIf you've got the time and the interest to run it yourself, Squarespace is genuinely the right call — I'd rather say that than sell you something."},
+     a:"Because $20 buys you software and $250 buys you the work. With Squarespace you're still the one building the pages, writing the copy, claiming the Google profile, setting up booking, and fixing it at 9pm when it breaks. Foundation covers all of that, done for you, plus two changes a month.\n\nIf you've got the time and the interest to run it yourself, Squarespace is genuinely the right call — We'd rather say that than sell you something."},
     {k:['stop paying','cancel','lose my website','leave','quit','what happens if i stop'],
      a:"Fair thing to ask, and you shouldn't accept a fuzzy answer. It's spelled out in the written agreement — exactly what happens to the site, the domain and your data — before you sign anything. I don't want to state the specific terms here and get them slightly wrong.\n\nRaise it on the free consult. It's a completely reasonable thing to lead with."},
     {k:['own my website','who owns','ownership','own the domain','domain in my name'],
@@ -1653,7 +1713,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     {k:['already pay','99 a month','seo company','seo guy','paying someone'],
      a:"Then ask them one question: which search terms are you ranking for now that you weren't twelve months ago? A good provider answers that in about ten seconds with Search Console open. If you get a PDF full of charts instead, you've got your answer.\n\nWorth noting $99 SEO is usually just SEO — no site, no booking, no reviews, no CRM."},
     {k:['real client','see your work','portfolio','references','who else','case study','examples'],
-     a:"Knox is new, and I'm not going to pad a client list to make it look otherwise.\n\nWhat there is instead is working proof: six complete businesses built and running in the Vault, plus a live CRM you can drive yourself — all clickable, no signup. Open the barbershop on your phone and book yourself a haircut, or order tacos from the taquería and pay for them. You'll learn more in two minutes than from a list of names you can't verify anyway."},
+     a:"Knox is new, and we're not going to pad a client list to make it look otherwise.\n\nWhat there is instead is working proof: six complete businesses built and running in the Vault, plus a live CRM you can drive yourself — all clickable, no signup. Open the barbershop on your phone and book yourself a haircut, or order tacos from the taquería and pay for them. You'll learn more in two minutes than from a list of names you can't verify anyway."},
     {k:['guinea pig','first client','early','test subject'],
      a:"Early client, yes. Guinea pig, no — the systems are already built and running, which is exactly what the Vault demos and the CRM sandbox are there to prove.\n\nWhat being early gets you is that you're not account #340 at an agency. What it costs you is a long client list to check references against. That's the honest trade."},
     {k:['housecall','jobber','servicetitan','field service'],
@@ -1695,7 +1755,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     {k:['price','cost','how much','pricing','plans','what are the plans','tiers'],
      a:"Three plans, and these are the only prices:\n\n• Foundation — $250/mo + $250 setup. Website, your own domain and email, Google Business Profile, search setup, online booking.\n• Growth — $500/mo + $500 setup. All of Foundation, plus the full CRM, automatic review requests and replies, payments, expenses, and QuickBooks sync.\n• Enterprise — $1,000/mo + $1,000 setup. All of the above, plus a custom-built CRM, a multilingual chatbot, and a round-the-clock answering line that books appointments.\n\nEvery plan is a 12-month partnership, billed monthly, everything in writing first."},
     {k:['vault','demo','demos','see examples','try it','live sites'],
-     a:"The Vault is six complete businesses I built — a barbershop, a taquería, an auto garage, a nail salon, a chiropractor and a lawn crew — plus a working CRM you can drive yourself.\n\nThey're real software, not pictures. Book a haircut, order tacos, price a brake job. You'll get a real confirmation email in about ten seconds. There's an Enter the Vault button on this page."},
+     a:"The Vault is six complete businesses we built — a barbershop, a taquería, an auto garage, a nail salon, a chiropractor and a lawn crew — plus a working CRM you can drive yourself.\n\nThey're real software, not pictures. Book a haircut, order tacos, price a brake job. You'll get a real confirmation email in about ten seconds. The Vault lives at getprojectknox.com/thevault \u2014 there's an Enter the Vault button on this page that takes you straight there."},
     {k:['text me','texting','sms','do you text','stop texts','unsubscribe','opt out','text messages'],
      a:"Only if you tick the box. The SMS box on the form is optional and unticked by default \u2014 leave it alone and we will never text you, and your inquiry gets answered exactly the same.\n\nIf you do tick it: messages come from (331) 291-7400, roughly 2 to 6 a month, and you can reply STOP at any time to end it. Message and data rates may apply. Full detail is on the SMS Terms page linked at the bottom of this site."},
     {k:['sell my number','share my number','who gets my data','give my info','third parties'],

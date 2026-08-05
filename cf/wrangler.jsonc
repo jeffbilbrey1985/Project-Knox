@@ -1,0 +1,18 @@
+{
+  "name": "knox-site",
+  "compatibility_date": "2026-08-05",
+  "routes": [
+    // Custom Domains (not Routes): they manage the DNS record and the cert.
+    // The www CNAME had to be deleted first — Cloudflare refuses a Custom
+    // Domain on a hostname that already has a CNAME, and it fails quietly.
+    { "pattern": "getprojectknox.com", "custom_domain": true },
+    { "pattern": "www.getprojectknox.com", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./dist",
+    // "auto-trailing-slash" is the default and is what makes /thevault serve
+    // thevault.html without a redirect or a Worker script.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,101 +1,121 @@
-# getprojectknox.com — the rebuilt site
+# getprojectknox.com
 
-Drop-in replacement for the current `index.html`. No build step, no dependencies,
-no server. GitHub Pages will ship it about 40 seconds after you commit.
+The live site. **Cloudflare Workers is the origin now — not GitHub Pages.**
 
-## How to put it live
+## Where the site actually runs
 
-1. In your `jeffbilbrey1985/Project-Knox` repo, replace `index.html` with the one
-   in this folder.
-2. Copy the whole `assets/` folder into the repo root.
-3. **Keep your existing `CNAME` file** — don't delete it, that's what holds the
-   custom domain.
-4. Commit and push to `main`.
+| | |
+|---|---|
+| Origin | Cloudflare Worker `knox-site` (Workers Static Assets) |
+| Account | `9947123923527e8d6dbb9c5b80c19ead` |
+| Zone | `getprojectknox.com` (`30a5e3c67a844963f1dea00844d42725`) |
+| Custom domains | `getprojectknox.com`, `www.getprojectknox.com` |
+| DNS | Cloudflare-managed `AAAA 100::` placeholders, proxied — created and owned by wrangler |
 
-Your repo root should end up looking like this:
+This repo is the **source of truth and the hot standby**. Every page here uses
+`.html` links, so if Cloudflare ever has to be abandoned you can re-point the
+apex at GitHub Pages and the site works unchanged. The Cloudflare build rewrites
+those to clean URLs at deploy time.
+
+## Deploying a change
 
 ```
-CNAME
-index.html          ← replaced
-robots.txt          ← keep yours
-sitemap.xml         ← keep yours
-assets/
-  fonts/    7 files   228 KB   self-hosted Cinzel, Cormorant Garamond, Inter
-  img/      4 files   180 KB   vault door + interior, landscape and portrait
-  motion/   9 files   604 KB   three Remotion pieces (webm + mp4 + poster each)
-  vo/       5 files   3.0 MB   Arthur's voiceover clips
+# 1. edit the page here
+# 2. build the clean-URL copy and ship it
+node cf/build.mjs          # reads this repo, writes cf-site/dist
+cd cf-site && npx wrangler deploy
 ```
 
-Old files you can delete once it's live: `knox-logo.png`, `vault-frame.jpg`,
-`knox-demos-poster.jpg`, `knox-vault-reveal.mp4`.
+`cf/build.mjs` rewrites `privacy.html` → `/privacy` (and the same for
+`sms-terms`, `thevault`, `index`) in both `href`s and the absolute canonical /
+`og:url` tags, then **throws if a single stale `.html` link survives**. That
+check is the whole point of the script: the site used to exist as two
+hand-maintained copies and they drifted.
+
+`cf/wrangler.jsonc` sets `html_handling: "auto-trailing-slash"` (so `/privacy`
+is canonical and `/privacy.html` 307s to it) and `not_found_handling:
+"404-page"` (so a bad URL gets the branded 404, not Cloudflare's).
+
+## Routes
+
+| URL | File |
+|---|---|
+| `/` | `index.html` |
+| `/thevault` | `thevault.html` |
+| `/privacy` | `privacy.html` |
+| `/sms-terms` | `sms-terms.html` |
+| anything else | `404.html`, with a real 404 status |
+
+## The Vault
+
+`/thevault` is the only way into the demos. The homepage links **no demo
+directly** — the door button and all four teaser chips land on `/thevault`
+(the chips deep-link to `#chops`, `#guac`, `#knocks`, `#crm`). That's enforced
+by a test, because the demo list on the homepage was exactly the thing that let
+visitors skip the vault.
+
+## Tests
+
+```
+node test/verify.mjs           # 41 assertions on the homepage
+node test/verify-vault.mjs     # 12 assertions on /thevault + the funnel
+VERIFY_ROOT=/home/claude/cf-site/dist node test/verify.mjs   # test what ships
+```
+
+Both run headless Chromium against a local static server that mimics the
+Worker's URL handling. They cover the failure modes that actually bit this site:
+
+- reveals must read `armed` **before** any scrolling — a dead reveal engine
+  leaves cards invisible *and unclickable*
+- with JavaScript off, **nothing** may be hidden (all copy is CSS-visible by
+  default; `:root[data-js]` opts into the animation)
+- with reduced motion on, **zero** video bytes are fetched
+- no motion graphic sits letterboxed in a too-tall box
+- the form posts to `/api/leads`, never the mail relay that writes no rows
+- both consent boxes ship unchecked and neither is required to submit
+- no "AI" wording, no solo-operator framing, no old phone number
 
 ## Weight
 
-**309 KB on first load on a phone.** The 3 MB of voiceover only downloads when
-someone actually taps a listen button, and the motion graphics only download
-when they scroll into view. A visitor with reduced motion turned on, or with
-JavaScript off, fetches **zero** video bytes and zero door-plate bytes — the
-posters and the interior photograph are the whole graphic.
-
-## The one thing to check
-
-The contact form posts to your CRM at
-`https://knox-crm.higgsfield.app/api/demo-lead`. I matched the payload to the
-pattern the demos use, but **I could not verify the field names against the
-live endpoint**, so please submit the form once and confirm the row lands in the
-CRM the way you expect.
-
-If it fails for any reason, the form falls back to opening a prefilled email to
-`jeffbilbrey@getprojectknox.com` — so a lead is never silently lost — but you'd
-want the CRM path working properly.
+**309 KB on first load on a phone.** The 3 MB of voiceover streams only when
+Knox actually speaks; the motion graphics load when scrolled into view. Reduced
+motion or JS off fetches zero video bytes.
 
 ## Ask Knox
 
-The chatbot answers from a fixed knowledge base of ~35 questions written into
-`index.html`. It is **deterministic** — it cannot invent a client, quote a price
-that isn't $250/$500/$1,000, or promise you a Google ranking. When it doesn't
-know something it says so and hands off to your phone number.
+A deterministic knowledge base of ~37 questions, written into `index.html`.
+It cannot invent a client, quote a price that isn't $250/$500/$1,000, or promise
+a Google ranking. When it doesn't know, it says so and hands off to the phone.
 
-That's a deliberate choice for a static site: there's no server here to run a
-language model, and for a marketing FAQ the guaranteed-correct version is worth
-more than the clever one. When the site moves to Cloudflare (per the migration
-plan) it becomes a one-file swap to put Claude behind it — the knowledge base
-and the guardrails are already written, in
-`ask-knox-chatbot-brain.md` in the project.
-
-To edit an answer: search `index.html` for `var KB = [`. Each entry is a list of
+To edit an answer, search `index.html` for `var KB = [` — each entry is a list of
 trigger keywords and the answer text.
 
-## Things I still need from you
+Now that the site is on Workers, putting a real model behind it is a one-file
+change; the knowledge base and the guardrails are already written, in
+`ask-knox-chatbot-brain.md` in the project.
 
-Everything on the page is true as it stands. These would each make it stronger:
+## The contact form
 
-1. **Your Fortune 500 years.** The copy says "I spent my career building systems
-   inside Fortune 500 companies." If you want a number in there, say the word.
-2. **The exit terms.** The 12-month band says what it says. If you'd let someone
-   out early, that converts *better* than a defended term — tell me the real
-   policy and I'll write it.
-3. **Two updates a month:** what happens on the third? Ask Knox punts to you on
-   that one right now, deliberately.
-4. **What "24/7" means on Enterprise.** The A.I. phone line answers around the
-   clock — but if a human callback has a stated window, the bot should say so.
+Posts to `https://knox-crm.higgsfield.app/api/leads` with
+`{name, business, type, email, phone, message, source, website, sms_consent, email_consent}`.
+Verified end to end — a test lead landed in the CRM. If the POST fails it falls
+back to a prefilled email so a lead is never silently lost.
 
-**No client is named anywhere on this site, and no photograph of you appears on
-it.** The page makes its case with the six working demos, the written agreement,
-and a phone number that rings a person. That's the whole argument, and every
-word of it is checkable.
+The SMS consent disclosure string in the page is **byte-identical** to
+`SMS_CONSENT_DISCLOSURE` in the CRM (`app/src/routes/api.leads.ts`, version
+`2026-08-03b`). If you change one, change the other — the stored consent record
+is only a defense if it quotes what the person actually saw.
 
-## What changed from the old site
+## Still open
 
-Gone: the six emoji service cards, the seven industry chips, the three stat
-counters that said "0", the "Fortune 500 pedigree" badges, the spinning 3D
-object, the autoplay hero video, the `$500` headline that contradicted the
-pricing, and the personal Gmail address.
+1. **Fortune 500 years** — the copy doesn't state a number. Say the word.
+2. **Exit terms before month 12** — a real early-exit policy converts better
+   than a defended term.
+3. **Two updates a month** — what happens on the third? Ask Knox punts today.
+4. **What "24/7" means on Enterprise** — if a human callback has a window, say so.
+5. **Registered legal entity name** for the 10DLC campaign registration.
+6. **Does the Enterprise phone line record calls?** Illinois is an all-party
+   consent state (720 ILCS 5/14-2) and getting this wrong is a Class 4 felony.
+   If it records, it must announce that it records.
 
-Added: your phone number in four places, a sticky Call / Enter the Vault bar on
-mobile, real ownership language, and a hero that makes the argument instead of
-decorating it.
-
-Twelve sections became six. The Vault is now the single biggest moment on the
-page after the hero — one door, one button, no way to skip past it into a demo
-list.
+No client is named anywhere on this site and no photograph of Jeff appears on it.

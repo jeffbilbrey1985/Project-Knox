@@ -1,0 +1,12 @@
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/img/*
+  Cache-Control: public, max-age=2592000
+/assets/motion/*
+  Cache-Control: public, max-age=2592000
+/assets/vo/*
+  Cache-Control: public, max-age=2592000
+/assets/video/*
+  Cache-Control: public, max-age=2592000
+/*.html
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400
