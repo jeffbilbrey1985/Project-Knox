@@ -1,6 +1,8 @@
 {
   "name": "knox-site",
   "compatibility_date": "2026-08-05",
+  "main": "./src/router.js",
+
   "routes": [
     // Custom Domains (not Routes): they manage the DNS record and the cert.
     // The www CNAME had to be deleted first — Cloudflare refuses a Custom
@@ -8,11 +10,47 @@
     { "pattern": "getprojectknox.com", "custom_domain": true },
     { "pattern": "www.getprojectknox.com", "custom_domain": true }
   ],
+
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     // "auto-trailing-slash" is the default and is what makes /thevault serve
-    // thevault.html without a redirect or a Worker script.
+    // thevault.html without a redirect.
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
-  }
+    "not_found_handling": "404-page",
+
+    // The asset router runs FIRST by default, and with not_found_handling
+    // "404-page" it would answer every /thevault/<demo> URL with this site's
+    // 404 before the Worker ever saw it. These globs hand those paths to the
+    // Worker instead. /thevault itself is NOT listed — it is a real static
+    // page here and must keep being served from dist.
+    "run_worker_first": [
+      "/thevault/barbershop",
+      "/thevault/barbershop/*",
+      "/thevault/restaurant",
+      "/thevault/restaurant/*",
+      "/thevault/auto-repair",
+      "/thevault/auto-repair/*",
+      "/thevault/nail-salon",
+      "/thevault/nail-salon/*",
+      "/thevault/chiropractor",
+      "/thevault/chiropractor/*",
+      "/thevault/lawn-care",
+      "/thevault/lawn-care/*",
+      "/thevault/crm",
+      "/thevault/crm/*"
+    ]
+  },
+
+  // The seven demos, reached in-runtime rather than over the public internet.
+  // Each is built with its mount as its basepath, so requests forward unchanged.
+  "services": [
+    { "binding": "BARBERSHOP", "service": "knox-chops" },
+    { "binding": "RESTAURANT", "service": "knox-guac" },
+    { "binding": "AUTO_REPAIR", "service": "knox-knocks" },
+    { "binding": "NAIL_SALON", "service": "knox-nails" },
+    { "binding": "CHIROPRACTOR", "service": "knox-pops" },
+    { "binding": "LAWN_CARE", "service": "knox-vault" },
+    { "binding": "CRM_DEMO", "service": "knox-crm-demo" }
+  ]
 }
