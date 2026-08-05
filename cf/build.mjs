@@ -67,8 +67,11 @@ for (const p of PAGES) {
 }
 
 for (const f of VERBATIM) {
-  const src = path.join(SRC, f);
-  if (!fs.existsSync(src)) {
+  // _headers is Cloudflare-only config and lives in cf/ in the repo, but at
+  // the source root in the working tree. Look in both, or a fresh clone
+  // deploys without it and silently loses the immutable font caching.
+  const src = [path.join(SRC, f), path.join(SRC, "cf", f)].find((p) => fs.existsSync(p));
+  if (!src) {
     console.warn(`skip (missing): ${f}`);
     continue;
   }
