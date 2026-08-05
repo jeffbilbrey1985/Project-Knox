@@ -87,21 +87,63 @@ const ok = (c, label, extra = '') => {
     document.documentElement.scrollWidth - document.documentElement.clientWidth);
   ok(overflow <= 0, 'zero horizontal overflow at 390px', `overflow ${overflow}px`);
 
-  // Internal links must not 404 and must not point back at .html URLs.
+  /* Internal links must not 404 and must not point back at .html URLs.
+   *
+   * The seven demo paths are the exception, and they need explaining. They are
+   * not files: cf/src/router.js dispatches them to separate Workers over
+   * SERVICE BINDINGS, so nothing under /thevault/<slug>/ exists in dist and a
+   * static file server is right to 404 them. This check used to fail on all
+   * seven, every run, for that reason — and a test that is always red is a test
+   * nobody reads, which is worse than not having it.
+   *
+   * So the assertion is split by what is actually knowable here. A demo link is
+   * checked against the router's own MOUNTS table, which is the thing that
+   * would really break if a slug were mistyped. Everything else still has to
+   * resolve on disk. */
+  const routerPath = new URL('../cf/src/router.js', import.meta.url).pathname;
+  const mounts = [...fs.readFileSync(routerPath, 'utf8')
+    .matchAll(/\["(\/thevault\/[a-z-]+)",/g)].map(m => m[1]);
+  ok(mounts.length === 7, 'the router still declares seven demo mounts', String(mounts.length));
+
   const internal = await page.$$eval('a[href^="/"]', a => [...new Set(a.map(x => x.getAttribute('href')))]);
   const bad = [];
   for (const href of internal) {
     if (/\.html$/.test(href)) { bad.push(href + ' (stale .html)'); continue; }
-    const r = await page.request.get(BASE + href.split('#')[0]);
+    const clean = href.split('#')[0];
+    const mounted = mounts.find(m => clean === m || clean === m + '/' || clean.startsWith(m + '/'));
+    if (mounted) continue;
+    const r = await page.request.get(BASE + clean);
     if (!r.ok()) bad.push(`${href} → ${r.status()}`);
   }
   ok(bad.length === 0, 'every internal link on the vault page resolves', bad.join(', ') || internal.join(' '));
+
+  // And every mount must be reachable FROM this page, or a demo is orphaned.
+  const linked = internal.map(h => h.split('#')[0]);
+  const orphan = mounts.filter(m => !linked.some(h => h === m || h === m + '/' || h.startsWith(m + '/')));
+  ok(orphan.length === 0, 'every demo the router mounts is linked from the vault', orphan.join(', ') || 'all seven');
 
   const phone = await page.$$eval('a[href^="tel:"], a[href^="sms:"]', a => a.map(x => x.getAttribute('href')));
   ok(phone.length >= 2 && phone.every(h => h.includes('13312917400')),
      'vault page offers call and text on the current number', phone.join(' '));
 
   ok(/G-8LBV2N9FTC/.test(await page.content()), 'Google tag present on the vault page');
+  await ctx.close();
+}
+
+/* ── Reduced motion pays for no video ──────────────────────────────
+   The page claims in its own comments that a visitor who has asked for less
+   movement downloads none of the motion. `preload="none"` plus a script that
+   never calls load() is what makes that true, and it is exactly the kind of
+   thing that survives a refactor in appearance only. */
+{
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  const media = [];
+  page.on('request', r => { if (/\.(webm|mp4|mp3)$/.test(r.url())) media.push(r.url()); });
+  await page.goto(BASE + '/thevault', { waitUntil: 'networkidle' });
+  await page.waitForTimeout(600);
+  ok(media.length === 0, 'reduced motion fetches ZERO video bytes on the vault',
+     media.map(u => u.split('/').pop()).join(', ') || 'none');
   await ctx.close();
 }
 

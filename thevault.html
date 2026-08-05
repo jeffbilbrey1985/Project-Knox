@@ -20,70 +20,222 @@
 <meta property="og:url" content="https://getprojectknox.com/thevault">
 <meta property="og:title" content="The Vault &mdash; Six Live Demo Websites | Project Knox">
 <meta property="og:description" content="Not screenshots. Six working businesses you can book, order and pay from right now.">
-<meta property="og:image" content="https://getprojectknox.com/assets/img/vault-ajar-w.webp">
+<meta property="og:image" content="https://getprojectknox.com/assets/img/vault/hero-w.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.png" sizes="180x180">
 <link rel="apple-touch-icon" href="/favicon.png">
+
+<!-- The hero is the largest contentful paint on this page and it is an image,
+     so it is preloaded at the size the viewport will actually use. Two links
+     with matching media queries, never one unconditional preload: an
+     unconditional one downloads the 1376px landscape on a phone that will then
+     display the portrait, and pays for both. -->
+<link rel="preload" as="image" href="/assets/img/vault/hero-w.webp" media="(min-width:900px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/img/vault/hero-p.webp" media="(max-width:899px)" fetchpriority="high">
+
 <style>
 @font-face{font-family:'Cinzel';src:url('/assets/fonts/Cinzel-600.woff2') format('woff2');font-weight:600;font-display:swap}
 @font-face{font-family:'Cormorant Garamond';src:url('/assets/fonts/CormorantGaramond-600.woff2') format('woff2');font-weight:600;font-display:swap}
 @font-face{font-family:'Inter';src:url('/assets/fonts/Inter-300.woff2') format('woff2');font-weight:300;font-display:swap}
 @font-face{font-family:'Inter';src:url('/assets/fonts/Inter-400.woff2') format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:'Inter';src:url('/assets/fonts/Inter-500.woff2') format('woff2');font-weight:500;font-display:swap}
-:root{--night:#0B1026;--black:#05070F;--gold:#C9A961;--struck:#E8CE93;--ivory:#F2EFE8;--steel:#8A93A8;
- --line:rgba(201,169,97,.24);--line-soft:rgba(138,147,168,.2);--ease:cubic-bezier(.2,.7,.2,1);--pad:clamp(20px,5vw,48px)}
+
+:root{
+  --night:#0B1026;--black:#05070F;--gold:#C9A961;--struck:#E8CE93;--ivory:#F2EFE8;--steel:#8A93A8;
+  --line:rgba(201,169,97,.24);--line-soft:rgba(138,147,168,.2);
+  --ease:cubic-bezier(.2,.7,.2,1);--pad:clamp(20px,5vw,48px);
+  /* Every drawer band and the floor read this to tint their own glow. Set per
+     section rather than hard-coded into six near-identical rules. */
+  --accent:var(--gold);
+}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--night);color:var(--ivory);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
  font-weight:300;font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{max-width:100%;display:block;height:auto}
+img,video{max-width:100%;display:block;height:auto}
 a{color:var(--gold);text-decoration:none}
-.wrap{max-width:900px;margin:0 auto;padding:0 var(--pad)}
-header{position:sticky;top:0;z-index:20;height:56px;display:flex;align-items:center;justify-content:space-between;
+.wrap{max-width:1100px;margin:0 auto;padding:0 var(--pad)}
+:focus-visible{outline:2px solid var(--struck);outline-offset:3px;border-radius:6px}
+
+/* ── Chrome ─────────────────────────────────────────────────────────────── */
+header{position:sticky;top:0;z-index:30;height:56px;display:flex;align-items:center;justify-content:space-between;
  padding:0 var(--pad);background:rgba(11,16,38,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .brand{display:inline-flex;align-items:center;gap:10px;color:var(--ivory)}
 .brand img{width:32px;height:32px;border-radius:8px}
 .brand b{font-family:'Cinzel',serif;font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase}
-header a.call{font-size:13px;color:var(--struck);padding:12px 0}
-.hero{position:relative;text-align:center;padding:clamp(38px,8vw,70px) 0 clamp(26px,5vw,40px);overflow:hidden}
+header a.call{font-size:13px;color:var(--struck);display:inline-flex;align-items:center;min-height:44px}
+
+/* ── THE ARRIVAL ────────────────────────────────────────────────────────────
+   The door is a photograph, not a video, and the motion on top of it is a
+   ~165 KB alpha WebM of the dial turning. That split is deliberate: a
+   full-frame video of this scene would be several megabytes and would still
+   look worse than the still, because the still is where all the detail is.
+   The eye reads the dial turning and infers that the whole thing is moving.
+   ───────────────────────────────────────────────────────────────────────── */
+/* ── THE ARRIVAL ────────────────────────────────────────────────────────────
+   A SPLIT, not an overlay, and that is the second attempt.
+
+   The first version laid the headline over the photograph. It failed twice:
+   once with the type over the blazing doorway, where ivory on hot gold is
+   nearly unreadable and the word "real" in --struck all but disappeared, and
+   again after nudging the crop, because a 1100px content column centred in a
+   1440px viewport puts its right-hand cell in the MIDDLE of the frame — which
+   is exactly where the light is. Every fix was a scrim, and every scrim took
+   more of the gold out of the only colourful thing on the page.
+
+   So the frame is divided instead. The photograph keeps its whole dynamic
+   range on the left; the type sits on flat --night on the right and is legible
+   by construction rather than by tuning. The two meet at a feathered edge, so
+   it reads as light falling off into a dark room rather than as two boxes.
+   ───────────────────────────────────────────────────────────────────────── */
+.arrive{position:relative;overflow:hidden;background:var(--night)}
+.arrive-inner{max-width:1400px;margin:0 auto;display:grid;align-items:stretch;gap:0}
+.arrive-art{position:relative;min-height:clamp(300px,56vw,560px)}
+.arrive-art img{width:100%;height:100%;object-fit:cover;object-position:52% 50%}
+/* The feather. A hard edge between a photograph and a flat colour always looks
+   like a mistake; this dissolves the last ~28% of the picture into the page. */
+.arrive-art::after{content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(180deg,transparent 52%,var(--night) 99%)}
+.arrive-copy{position:relative;z-index:1;padding:clamp(26px,5vw,54px) var(--pad) clamp(40px,7vw,64px)}
+@media(min-width:900px){
+  /* `stretch`, so the photograph fills the row rather than sitting in a band
+     with dead navy under it — the row is sized by the copy, which is shorter. */
+  .arrive-inner{grid-template-columns:1.15fr .85fr;min-height:min(88svh,720px)}
+  .arrive-art{min-height:100%}
+  .arrive-copy{display:flex;flex-direction:column;justify-content:center}
+  .arrive-art::after{background:linear-gradient(90deg,transparent 56%,rgba(11,16,38,.72) 84%,var(--night) 100%)}
+  .arrive-copy{padding:clamp(30px,4vw,56px) clamp(30px,4vw,64px) clamp(30px,4vw,56px) 0}
+  /* The copy column overlaps the picture slightly so the feather happens
+     UNDER the type rather than beside it. */
+  .arrive-copy{margin-left:clamp(-140px,-8vw,-40px)}
+}
 .eyebrow{font-weight:500;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);
- display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:18px}
-.eyebrow::before,.eyebrow::after{content:"";width:26px;height:1px;background:var(--gold)}
-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(34px,7.6vw,58px);line-height:1.06;margin:0 0 16px}
-.lede{color:#cfd4e0;max-width:56ch;margin:0 auto;font-size:clamp(16px,3.6vw,18.5px)}
-.proof{margin:22px auto 0;max-width:52ch;border:1px solid var(--line);border-radius:14px;padding:15px 18px;
- background:rgba(201,169,97,.05);font-size:15.5px;color:#dfe3ec}
-.proof b{color:var(--struck);font-weight:500}
-.doorWrap{max-width:520px;margin:26px auto 0;border-radius:18px;overflow:hidden;border:1px solid var(--line);position:relative}
-.doorWrap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,15,.35) 0%,rgba(5,7,15,0) 40%,rgba(5,7,15,.85) 100%)}
-.drawers{padding:clamp(26px,5vw,44px) 0 clamp(50px,9vw,80px)}
-.drawer{scroll-margin-top:72px;display:grid;grid-template-columns:46px 1fr;gap:16px;align-items:start;padding:20px 18px;margin-bottom:12px;
- border:1px solid var(--line-soft);border-radius:14px;background:rgba(5,7,15,.5);color:var(--ivory);
- transition:border-color .22s var(--ease),transform .22s var(--ease),background .22s var(--ease)}
-.drawer:hover,.drawer:active{border-color:var(--gold);transform:translateY(-2px);background:rgba(201,169,97,.06)}
-.dnum{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--gold);line-height:1.1}
-.dbody b{display:block;font-weight:500;font-size:18px;margin-bottom:5px}
-.dbody b em{font-style:normal;font-weight:400;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);display:block;margin-top:3px}
-.dblurb{display:block;color:#A9B1C4;font-weight:400;font-size:15px;line-height:1.55;margin-bottom:9px}
-.dverb{display:inline-block;font-size:13.5px;font-weight:500;letter-spacing:.06em;color:var(--struck)}
-.floor{scroll-margin-top:72px;margin-top:26px;border:1px solid var(--gold);border-radius:16px;padding:22px;background:rgba(201,169,97,.06);text-align:center}
-.floor h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(24px,5vw,32px);margin:0 0 10px}
-.floor p{color:#cfd4e0;margin:0 auto 16px;max-width:46ch;font-size:15.5px}
+ display:inline-flex;align-items:center;gap:12px;margin:0 0 18px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(40px,7vw,68px);line-height:1.03;margin:0 0 18px}
+h1 em{font-style:normal;color:var(--struck)}
+.lede{color:#dfe3ec;max-width:38ch;font-size:clamp(16px,3.6vw,18.5px)}
+.arrive-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+/* The dial piece is a flat vector and the hero is a photograph; overlaying one
+   on the other read as a sticker, which is why it is not in the hero any more.
+   It sits in the promise strip instead, on flat navy, where being drawn rather
+   than photographed is obviously deliberate. */
+.dial{width:clamp(96px,16vw,132px);aspect-ratio:1;flex:none;opacity:.95;
+ filter:drop-shadow(0 8px 26px rgba(0,0,0,.5))}
+.dial video{width:100%;height:100%}
+.promise-inner{display:flex;align-items:center;gap:clamp(16px,3vw,28px)}
+
+@keyframes cue{0%{transform:scaleY(.2);transform-origin:top;opacity:0}40%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);transform-origin:bottom;opacity:0}}
+
+/* ── The promise strip ──────────────────────────────────────────────────── */
+.promise{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(201,169,97,.045)}
+.promise .wrap{display:grid;gap:18px;padding-top:26px;padding-bottom:26px;grid-template-columns:1fr}
+.promise p{margin:0;font-size:16px;color:#dfe3ec}
+.promise b{color:var(--struck);font-weight:500}
+@media(min-width:760px){.promise .wrap{grid-template-columns:1.4fr 1fr;align-items:center;gap:34px}}
+
+/* ── THE DRAWERS ────────────────────────────────────────────────────────────
+   Each is one <a>, so the whole band is the tap target — on a phone this is a
+   340px-tall link rather than a 14px "Book a haircut →", and the verb is a
+   label rather than the only thing you may press.
+   ───────────────────────────────────────────────────────────────────────── */
+.drawers{padding:clamp(30px,6vw,64px) 0 clamp(20px,4vw,40px)}
+.drawer{scroll-margin-top:76px;position:relative;display:grid;gap:0;margin:0 0 clamp(16px,2.6vw,26px);
+ border:1px solid var(--line-soft);border-radius:20px;overflow:hidden;background:rgba(5,7,15,.55);color:var(--ivory);
+ transition:border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+@media(min-width:820px){
+  .drawer{grid-template-columns:1.05fr 1fr;align-items:stretch}
+  /* Alternating sides. `order` and not `direction`, because direction would
+     also flip the punctuation inside the copy. */
+  .drawer:nth-child(even) .drawer-art{order:2}
+}
+.drawer:hover,.drawer:focus-visible{border-color:var(--accent);transform:translateY(-3px);
+ box-shadow:0 24px 60px -30px rgba(0,0,0,.9),0 0 0 1px color-mix(in srgb,var(--accent) 30%,transparent)}
+.drawer-art{position:relative;overflow:hidden;min-height:190px;background:var(--black)}
+.drawer-art img{width:100%;height:100%;object-fit:cover;
+ transition:transform .7s var(--ease),filter .5s var(--ease);filter:saturate(.94) brightness(.92)}
+.drawer:hover .drawer-art img{transform:scale(1.045);filter:saturate(1) brightness(1)}
+/* A hairline of the trade's own colour along the art, so six near-identical
+   dark photographs are still individually recognisable at a glance. */
+.drawer-art::after{content:"";position:absolute;inset:auto 0 0 0;height:2px;
+ background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.85}
+@media(min-width:820px){.drawer-art::after{inset:0 auto 0 0;width:2px;height:auto;
+ background:linear-gradient(180deg,transparent,var(--accent),transparent)}
+ .drawer:nth-child(even) .drawer-art::after{inset:0 0 0 auto}}
+.drawer-body{padding:clamp(20px,3.4vw,34px);display:flex;flex-direction:column;justify-content:center;gap:9px}
+.dnum{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;letter-spacing:.22em;color:var(--accent)}
+.dname{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(26px,4.4vw,36px);line-height:1.08;margin:0}
+.dtrade{font-weight:400;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);margin:0}
+.dblurb{color:#A9B1C4;font-size:15.5px;line-height:1.6;margin:4px 0 0}
+.dverb{display:inline-flex;align-items:center;gap:9px;margin-top:12px;font-size:14px;font-weight:500;
+ letter-spacing:.05em;color:var(--struck)}
+.dverb i{font-style:normal;transition:transform .3s var(--ease)}
+.drawer:hover .dverb i{transform:translateX(5px)}
+
+/* ── THE FLOOR ──────────────────────────────────────────────────────────── */
+.floor{scroll-margin-top:76px;position:relative;margin:clamp(26px,5vw,54px) 0 0;border:1px solid var(--gold);
+ border-radius:22px;overflow:hidden;background:rgba(201,169,97,.05)}
+.floor-art{position:relative}
+.floor-art img{width:100%;aspect-ratio:16/7;object-fit:cover;opacity:.62}
+.floor-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,15,.25),var(--night) 96%)}
+/* The drawer-bank piece sits ON the floor art, overlapping upward into it, so
+   the cabinet reads as standing on the floor rather than as a second picture
+   below it. Negative margin, and it is the reason .floor clips its overflow. */
+.floor-motion{position:relative;z-index:1;margin:clamp(-90px,-9vw,-40px) auto 0;width:min(100%,760px);padding:0 var(--pad)}
+.floor-motion video,.floor-motion img{width:100%}
+.floor-copy{position:relative;z-index:1;text-align:center;padding:clamp(6px,1.6vw,14px) var(--pad) clamp(26px,4.4vw,40px)}
+.floor h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(26px,5vw,38px);margin:0 0 10px}
+.floor p{color:#cfd4e0;margin:0 auto 18px;max-width:48ch;font-size:16px}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;border-radius:12px;
  background:linear-gradient(180deg,var(--struck),var(--gold));color:#241c07;font-weight:600;font-size:14px;
- letter-spacing:.1em;text-transform:uppercase;transition:transform .2s var(--ease)}
-.btn:hover{transform:translateY(-2px)} .btn:active{transform:translateY(0) scale(.985)}
-.back{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+ letter-spacing:.1em;text-transform:uppercase;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px -14px rgba(201,169,97,.7)}
+.btn:active{transform:translateY(0) scale(.985)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:12px;
+ border:1px solid var(--line);color:var(--struck);font-size:14.5px;background:rgba(5,7,15,.45);
+ transition:border-color .2s var(--ease),background .2s var(--ease)}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(201,169,97,.08)}
+
+/* The narrator. Silent until pressed — this page is often opened in a room
+   with other people in it. */
+.listen{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 22px;border-radius:999px;
+ border:1px solid var(--line);background:rgba(5,7,15,.45);color:var(--struck);font-size:14px;cursor:pointer;
+ font-family:inherit;transition:border-color .2s var(--ease),background .2s var(--ease)}
+.listen:hover{border-color:var(--gold);background:rgba(201,169,97,.08)}
+.listen svg{width:15px;height:15px;fill:currentColor;flex:none}
+
+.back{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:clamp(30px,5vw,48px) 0 0}
 .back a{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1px solid var(--line);
  border-radius:999px;color:var(--struck);font-size:14.5px}
-.back a:hover,.back a:active{border-color:var(--gold);background:rgba(201,169,97,.08)}
-footer{border-top:1px solid var(--line-soft);padding:28px 0 60px;text-align:center;font-size:13.5px;color:var(--steel)}
+.back a:hover{border-color:var(--gold);background:rgba(201,169,97,.08)}
+footer{border-top:1px solid var(--line-soft);margin-top:clamp(34px,6vw,60px);padding:28px 0 60px;text-align:center;
+ font-size:13.5px;color:var(--steel)}
 footer a{color:var(--steel)}
-.rv{opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+
+/* ── The reveal ─────────────────────────────────────────────────────────────
+   Two rules that matter more than they look:
+
+   1. Nothing is hidden unless a live script has set data-js. A reveal engine
+      that dies leaves the page invisible AND unclickable, which is a far worse
+      failure than no animation at all — and this page's whole job is to be
+      clicked. A test asserts this with JavaScript disabled.
+   2. Reduced motion opts out completely, including the video, which is not
+      loaded at all rather than loaded and paused.
+   ───────────────────────────────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .62s var(--ease),transform .62s var(--ease)}
 .rv[data-in]{opacity:1;transform:none}
-/* Nothing hides unless a live script is here to un-hide it. */
+.drawer.rv{transform:translateY(26px) scale(.985)}
+.drawer.rv[data-in]{transform:none}
 html:not([data-js]) .rv{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1!important;transform:none!important;transition:none}
+  .dial,.floor-motion video{display:none}
+    .drawer-art img{transition:none}
+}
 </style>
 </head>
 <body>
@@ -93,87 +245,162 @@ html:not([data-js]) .rv{opacity:1;transform:none}
 </header>
 
 <main>
-<section class="hero">
-  <div class="wrap">
-    <div class="eyebrow">The Vault</div>
-    <h1>Six businesses. All of them real. Open any one.</h1>
-    <p class="lede">These are complete websites we built, running on live software &mdash; not screenshots and not mockups.
-      Book an appointment. Place an order. Pay for it.</p>
-    <div class="proof"><b>Go on &mdash; book something.</b> In about ten seconds you&rsquo;ll get a real confirmation
-      email, sent by the very same system that would be emailing your customers.</div>
-    <div class="doorWrap">
-      <picture>
-        <source media="(max-width:640px)" srcset="/assets/img/vault-ajar-p.webp">
-        <img src="/assets/img/vault-ajar-w.webp" alt="A bank vault door standing ajar with gold light spilling out." width="1376" height="768" fetchpriority="high">
-      </picture>
+
+<!-- ═══ ARRIVAL ═══════════════════════════════════════════════════════════ -->
+<section class="arrive">
+ <div class="arrive-inner">
+  <div class="arrive-art">
+    <picture>
+      <source media="(max-width:899px)" srcset="/assets/img/vault/hero-p.webp">
+      <img src="/assets/img/vault/hero-w.webp"
+           alt="A bank vault door swung open, gold light flooding out across a polished floor."
+           width="1376" height="768" fetchpriority="high">
+    </picture>
+  </div>
+
+    <div class="arrive-copy">
+      <p class="eyebrow">The Vault</p>
+      <h1>Six businesses.<br>All of them <em>real</em>.</h1>
+      <p class="lede">Complete websites, running on live software — not screenshots and not mockups.
+        Book an appointment. Place an order. Pay for it.</p>
+      <div class="arrive-cta">
+        <a class="btn" href="#chops">Open the first drawer</a>
+        <button class="listen" type="button" id="listen" aria-label="Play the narrated tour">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <span id="listenLabel">Hear the tour</span>
+        </button>
+      </div>
     </div>
+ </div>
+</section>
+
+<!-- ═══ THE PROMISE ═══════════════════════════════════════════════════════ -->
+<section class="promise">
+  <div class="wrap">
+    <div class="promise-inner">
+      <div class="dial" aria-hidden="true">
+        <video muted playsinline loop preload="none"
+               poster="/assets/motion/vault-door-poster.jpg" tabindex="-1" width="600" height="600">
+          <source src="/assets/motion/vault-door.webm" type="video/webm">
+          <source src="/assets/motion/vault-door.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p><b>Go on — book something.</b> In about ten seconds you&rsquo;ll get a real confirmation email,
+        sent by the very same system that would be emailing your customers.</p>
+    </div>
+    <p style="color:#A9B1C4;font-size:15px">Nothing here is a demo account or a sandbox screenshot.
+      Every one of these is the software your business would run on.</p>
   </div>
 </section>
 
+<!-- ═══ THE DRAWERS ═══════════════════════════════════════════════════════ -->
 <section class="drawers">
   <div class="wrap">
-      <a class="drawer rv" id="chops" href="/thevault/barbershop/">
-        <span class="dnum">01</span>
-        <span class="dbody">
-          <b>Knox Chops<em>Barbershop</em></b>
-          <span class="dblurb">Pick a cut, stack add-ons, and watch the appointment build itself into a timeline. Only offers times a barber is genuinely free.</span>
-          <span class="dverb">Book a haircut &rarr;</span>
-        </span>
-      </a>
-      <a class="drawer rv" id="guac" href="/thevault/restaurant/">
-        <span class="dnum">02</span>
-        <span class="dbody">
-          <b>Knox Guac<em>Taquer&iacute;a</em></b>
-          <span class="dblurb">The whole site in English and Spanish. A real menu, pickup ordering, card checkout, receipt in your inbox.</span>
-          <span class="dverb">Order tacos &rarr;</span>
-        </span>
-      </a>
-      <a class="drawer rv" id="knocks" href="/thevault/auto-repair/">
-        <span class="dnum">03</span>
-        <span class="dbody">
-          <b>Knox Knocks<em>Auto garage</em></b>
-          <span class="dblurb">Every price posted and re-priced live for your vehicle, with the labor rate stated out loud. Two bays, real availability.</span>
-          <span class="dverb">Price a brake job &rarr;</span>
-        </span>
-      </a>
-      <a class="drawer rv" id="nails" href="/thevault/nail-salon/">
-        <span class="dnum">04</span>
-        <span class="dbody">
-          <b>Knox Nails<em>Nail salon</em></b>
-          <span class="dblurb">Paint a hand on screen &mdash; color, finish, shape, length. Screenshot it, bring it in. Then pay, and get a real invoice.</span>
-          <span class="dverb">Design a set &rarr;</span>
-        </span>
-      </a>
-      <a class="drawer rv" id="pops" href="/thevault/chiropractor/">
-        <span class="dnum">05</span>
-        <span class="dbody">
-          <b>Knox Pops<em>Chiropractic</em></b>
-          <span class="dblurb">A calm clinic site with membership plans and new-patient intake that doesn&rsquo;t feel like paperwork.</span>
-          <span class="dverb">Book an adjustment &rarr;</span>
-        </span>
-      </a>
-      <a class="drawer rv" id="blocks" href="/thevault/lawn-care/">
-        <span class="dnum">06</span>
-        <span class="dbody">
-          <b>Knox Blocks<em>Lawn &amp; landscape</em></b>
-          <span class="dblurb">Type in your lot size, get a real price on the spot, and book the crew before you close the tab.</span>
-          <span class="dverb">Get a quote &rarr;</span>
-        </span>
-      </a>
 
-      <div class="floor rv" id="crm">
+    <a class="drawer rv" id="chops" href="/thevault/barbershop/" style="--accent:#C9A961">
+      <span class="drawer-art">
+        <img src="/assets/img/vault/drawer-barbershop.webp" alt="An open vault drawer holding a straight razor, clippers, a leather strop and a folded hot towel." width="1200" height="750" loading="lazy" decoding="async">
+      </span>
+      <span class="drawer-body">
+        <span class="dnum">Drawer 01</span>
+        <span class="dname">Knox Chops</span>
+        <span class="dtrade">Barbershop</span>
+        <span class="dblurb">Pick a cut, stack add-ons, and watch the appointment build itself into a timeline. Only offers times a barber is genuinely free.</span>
+        <span class="dverb">Book a haircut <i>&rarr;</i></span>
+      </span>
+    </a>
+
+    <a class="drawer rv" id="guac" href="/thevault/restaurant/" style="--accent:#5FAE72">
+      <span class="drawer-art">
+        <img src="/assets/img/vault/drawer-taqueria.webp" alt="An open vault drawer holding a stone molcajete, dried chillies, a lime half and a stack of corn tortillas." width="1200" height="750" loading="lazy" decoding="async">
+      </span>
+      <span class="drawer-body">
+        <span class="dnum">Drawer 02</span>
+        <span class="dname">Knox Guac</span>
+        <span class="dtrade">Taquer&iacute;a</span>
+        <span class="dblurb">The whole site in English and Spanish. A real menu, pickup ordering, card checkout, receipt in your inbox.</span>
+        <span class="dverb">Order tacos <i>&rarr;</i></span>
+      </span>
+    </a>
+
+    <a class="drawer rv" id="knocks" href="/thevault/auto-repair/" style="--accent:#D97A45">
+      <span class="drawer-art">
+        <img src="/assets/img/vault/drawer-auto.webp" alt="An open vault drawer holding a torque wrench, a socket set laid in foam and a brake rotor." width="1200" height="750" loading="lazy" decoding="async">
+      </span>
+      <span class="drawer-body">
+        <span class="dnum">Drawer 03</span>
+        <span class="dname">Knox Knocks</span>
+        <span class="dtrade">Auto garage</span>
+        <span class="dblurb">Every price posted and re-priced live for your vehicle, with the labor rate stated out loud. Two bays, real availability.</span>
+        <span class="dverb">Price a brake job <i>&rarr;</i></span>
+      </span>
+    </a>
+
+    <a class="drawer rv" id="nails" href="/thevault/nail-salon/" style="--accent:#C97BA0">
+      <span class="drawer-art">
+        <img src="/assets/img/vault/drawer-nails.webp" alt="An open vault drawer holding lacquer bottles catching the light, a fine brush and a buffer." width="1200" height="750" loading="lazy" decoding="async">
+      </span>
+      <span class="drawer-body">
+        <span class="dnum">Drawer 04</span>
+        <span class="dname">Knox Nails</span>
+        <span class="dtrade">Nail salon</span>
+        <span class="dblurb">Paint a hand on screen — color, finish, shape, length. Screenshot it, bring it in. Then pay, and get a real invoice.</span>
+        <span class="dverb">Design a set <i>&rarr;</i></span>
+      </span>
+    </a>
+
+    <a class="drawer rv" id="pops" href="/thevault/chiropractor/" style="--accent:#5AA898">
+      <span class="drawer-art">
+        <img src="/assets/img/vault/drawer-chiro.webp" alt="An open vault drawer holding an anatomical spine model, a rolled towel and an adjusting tool." width="1200" height="750" loading="lazy" decoding="async">
+      </span>
+      <span class="drawer-body">
+        <span class="dnum">Drawer 05</span>
+        <span class="dname">Knox Pops</span>
+        <span class="dtrade">Chiropractic</span>
+        <span class="dblurb">A calm clinic site with membership plans and new-patient intake that doesn&rsquo;t feel like paperwork.</span>
+        <span class="dverb">Book an adjustment <i>&rarr;</i></span>
+      </span>
+    </a>
+
+    <a class="drawer rv" id="blocks" href="/thevault/lawn-care/" style="--accent:#7FA84F">
+      <span class="drawer-art">
+        <img src="/assets/img/vault/drawer-lawn.webp" alt="An open vault drawer holding hand shears, a coiled hose, cut grass and a brass sprinkler head." width="1200" height="750" loading="lazy" decoding="async">
+      </span>
+      <span class="drawer-body">
+        <span class="dnum">Drawer 06</span>
+        <span class="dname">Knox Blocks</span>
+        <span class="dtrade">Lawn &amp; landscape</span>
+        <span class="dblurb">Type in your lot size, get a real price on the spot, and book the crew before you close the tab.</span>
+        <span class="dverb">Get a quote <i>&rarr;</i></span>
+      </span>
+    </a>
+
+    <!-- ═══ THE FLOOR ════════════════════════════════════════════════════ -->
+    <section class="floor rv" id="crm">
+      <div class="floor-art" aria-hidden="true">
+        <img src="/assets/img/vault/floor-crm.webp" alt="" width="1200" height="675" loading="lazy" decoding="async">
+      </div>
+      <div class="floor-motion" aria-hidden="true">
+        <video muted playsinline loop preload="none"
+               poster="/assets/motion/drawer-bank-poster.jpg" tabindex="-1" width="2280" height="380">
+          <source src="/assets/motion/drawer-bank.webm" type="video/webm">
+          <source src="/assets/motion/drawer-bank.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="floor-copy">
         <h2>The Vault floor &mdash; the Knox CRM</h2>
-        <p>The engine room. Move a lead through the pipeline and watch what fires at each step:
-          the booking, the invoice, the follow-up.</p>
+        <p>The engine room the six drawers stand on. Move a lead through the pipeline and watch what
+          fires at each step: the booking, the invoice, the follow-up, the text.</p>
         <a class="btn" href="/thevault/crm/">Drive the CRM</a>
       </div>
+    </section>
 
-      <div class="back">
-        <a href="/#plans">See plans &amp; pricing</a>
-        <a href="/#contact">Get a quote</a>
-        <a href="tel:+13312917400">Call (331) 291-7400</a>
-        <a href="sms:+13312917400">Text us</a>
-      </div>
+    <div class="back">
+      <a href="/#plans">See plans &amp; pricing</a>
+      <a href="/#contact">Get a quote</a>
+      <a href="tel:+13312917400">Call (331) 291-7400</a>
+      <a href="sms:+13312917400">Text us</a>
+    </div>
   </div>
 </section>
 </main>
@@ -187,32 +414,81 @@ html:not([data-js]) .rv{opacity:1;transform:none}
   </div>
 </footer>
 
+<audio id="vo" src="/assets/vo/vo-05-vault-tour.mp3" preload="none"></audio>
+
 <script>
 (function(){
   "use strict";
-  document.documentElement.setAttribute('data-js','');
+  var doc = document.documentElement;
+  doc.setAttribute('data-js','');
+
   var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var nodes = Array.prototype.slice.call(document.querySelectorAll('.rv'));
-  if(RM){ nodes.forEach(function(n){ n.setAttribute('data-in',''); }); return; }
-  var pending = nodes.slice(), ticking = false;
-  /* A scroll-position sweep, never an IntersectionObserver: a hard flick can
+
+  /* ── Reveal ───────────────────────────────────────────────────────────
+     A scroll-position sweep, never an IntersectionObserver: a hard flick can
      carry an element past the fold without ever producing an intersecting
-     frame, and then it stays invisible forever. */
-  function sweep(){
-    ticking = false;
-    var line = window.innerHeight * 0.92;
-    for(var i = pending.length - 1; i >= 0; i--){
-      if(pending[i].getBoundingClientRect().top < line){
-        pending[i].setAttribute('data-in',''); pending.splice(i,1);
+     frame, and it then stays invisible — and, because these are links,
+     unclickable — forever. Same engine the homepage uses. */
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  if (RM) {
+    nodes.forEach(function(n){ n.setAttribute('data-in',''); });
+  } else {
+    var pending = nodes.slice(), ticking = false;
+    var sweep = function(){
+      ticking = false;
+      var line = window.innerHeight * 0.9;
+      for (var i = pending.length - 1; i >= 0; i--) {
+        if (pending[i].getBoundingClientRect().top < line) {
+          pending[i].setAttribute('data-in','');
+          pending.splice(i,1);
+        }
       }
-    }
-    if(!pending.length){ window.removeEventListener('scroll', onScroll); }
+      if (!pending.length) window.removeEventListener('scroll', onScroll);
+    };
+    var onScroll = function(){ if(!ticking){ ticking = true; requestAnimationFrame(sweep); } };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+    window.addEventListener('load', onScroll);
+    onScroll();
   }
-  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(sweep); } }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', onScroll, {passive:true});
-  window.addEventListener('load', onScroll);
-  onScroll();
+
+  /* ── Motion, loaded only if it will be watched ────────────────────────
+     `preload="none"` in the markup means the browser fetches nothing until
+     told. Under reduced motion it is never told, so a visitor who has asked
+     for less movement pays zero bytes for it rather than downloading a video
+     that is then hidden by CSS.
+
+     THERE IS DELIBERATELY NO `autoplay` ATTRIBUTE, and this is the whole
+     trick. `autoplay` overrides `preload="none"` — the browser cannot honour
+     "play immediately" without fetching, so it fetches, and the reduced-motion
+     saving silently becomes nothing. A test asserts zero media requests under
+     reduced motion precisely because the markup looks correct either way.
+     Playback is started here instead, and only here. */
+  if (!RM) {
+    Array.prototype.forEach.call(document.querySelectorAll('video'), function(v){
+      v.preload = 'auto';
+      v.load();
+      var p = v.play();
+      if (p && p.catch) p.catch(function(){ /* autoplay refused: the poster stands in */ });
+    });
+  }
+
+  /* ── The narrator ─────────────────────────────────────────────────────
+     Silent until pressed: this page gets opened in rooms with other people in
+     them. play() is called SYNCHRONOUSLY inside the click handler — moving it
+     into a promise chain or a rAF loses the user-activation and the browser
+     refuses the sound. */
+  var vo = document.getElementById('vo');
+  var btn = document.getElementById('listen');
+  var label = document.getElementById('listenLabel');
+  if (vo && btn && label) {
+    btn.addEventListener('click', function(){
+      if (!vo.paused) { vo.pause(); vo.currentTime = 0; label.textContent = 'Hear the tour'; return; }
+      vo.play().then(function(){ label.textContent = 'Stop'; })
+               .catch(function(){ label.textContent = 'Tap again'; });
+    });
+    vo.addEventListener('ended', function(){ label.textContent = 'Hear the tour'; });
+  }
 })();
 </script>
 </body>
