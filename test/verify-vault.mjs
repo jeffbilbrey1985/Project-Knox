@@ -62,6 +62,8 @@ const ok = (c, label, extra = '') => {
     errors.push('console: ' + m.text());
   });
 
+  const reqs = [];
+  page.on('request', r => reqs.push(r.url()));
   await page.goto(BASE + '/thevault', { waitUntil: 'networkidle' });
   ok(errors.length === 0, '/thevault throws nothing', errors.slice(0, 3).join(' | '));
 
@@ -86,6 +88,28 @@ const ok = (c, label, extra = '') => {
   const overflow = await page.evaluate(() =>
     document.documentElement.scrollWidth - document.documentElement.clientWidth);
   ok(overflow <= 0, 'zero horizontal overflow at 390px', `overflow ${overflow}px`);
+
+  // The drawers are alive: six cinemagraphs, wired lazily, each with its
+  // photograph underneath as poster/fallback. Scroll the page so the sweep
+  // passes every drawer, then require the wiring to have actually happened.
+  const liveCount = await page.$$eval('video[data-live]', els => els.length);
+  ok(liveCount === 6, 'all six drawers carry a live cinemagraph', String(liveCount));
+  await page.evaluate(async () => {
+    for (let y = 0; y <= document.body.scrollHeight; y += innerHeight / 2) {
+      scrollTo(0, y); await new Promise(r => setTimeout(r, 90));
+    }
+  });
+  await page.waitForTimeout(900);
+  const wired = await page.$$eval('video[data-live]', els =>
+    els.filter(v => v.dataset.wired === '1').length);
+  ok(wired === 6, 'every drawer cinemagraph wired its sources after scrolling', `${wired}/6`);
+  ok(reqs.some(u => /assets\/live\/drawer-.*\.(webm|mp4)/.test(u)),
+     'drawer video bytes actually fetched under motion');
+  ok(reqs.some(u => /assets\/live\/vault-hero-.*\.(webm|mp4)/.test(u)),
+     'the arrival hero fetched its living plate');
+  const playing = await page.$$eval('video[data-live]', els =>
+    els.filter(v => !v.paused || v.currentTime > 0).length);
+  ok(playing >= 1, 'at least one drawer cinemagraph is playing in view', `${playing} playing`);
 
   /* Internal links must not 404 and must not point back at .html URLs.
    *

@@ -78,13 +78,18 @@
           },
           {
             "@type": "Offer", "name": "Growth",
-            "description": "Everything in Foundation, plus a full CRM with booking, invoicing and cold-lead follow-up, automated Google review requests and replies, payments and QuickBooks sync.",
+            "description": "Everything in Foundation, plus a full CRM with booking, invoicing and cold-lead follow-up, automated Google review requests, payments, expense tracking and QuickBooks sync.",
             "priceSpecification": { "@type": "UnitPriceSpecification", "price": "500", "priceCurrency": "USD", "unitCode": "MON" }
           },
           {
-            "@type": "Offer", "name": "Enterprise",
-            "description": "Everything in Foundation and Growth, plus a fully customizable CRM, a multilingual website chatbot and a phone line answered around the clock.",
-            "priceSpecification": { "@type": "UnitPriceSpecification", "price": "1000", "priceCurrency": "USD", "unitCode": "MON" }
+            "@type": "Offer", "name": "24/7 Automated Phone Answering (Bolt-On)",
+            "description": "An automated answering service on your business line around the clock. Every call answered and recorded, every message transcribed into your CRM for your review and reply.",
+            "priceSpecification": { "@type": "UnitPriceSpecification", "price": "100", "priceCurrency": "USD", "unitCode": "MON" }
+          },
+          {
+            "@type": "Offer", "name": "Automated Google Review Replies (Bolt-On)",
+            "description": "Every Google review your business receives gets an immediate, considered reply — steady responses that help your profile rank.",
+            "priceSpecification": { "@type": "UnitPriceSpecification", "price": "130", "priceCurrency": "USD", "unitCode": "MON" }
           }
         ]
       }
@@ -132,6 +137,14 @@ body{
   font-family:var(--ui);font-weight:300;font-size:17px;line-height:1.6;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
+input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex:0 0 20px;margin:2px 0 0;
+ border:1px solid var(--gold);border-radius:5px;background:rgba(5,7,15,.6);cursor:pointer;position:relative;vertical-align:top}
+input[type="checkbox"]:checked{background:linear-gradient(180deg,#E8CE93,#C9A961);border-color:var(--struck)}
+input[type="checkbox"]:checked::after{content:"";position:absolute;left:6px;top:2.5px;width:5px;height:10px;
+ border:solid #241c07;border-width:0 2px 2px 0;transform:rotate(42deg)}
+input[type="checkbox"]:focus-visible{outline:2px solid var(--struck);outline-offset:2px}
+#leadForm input:not([type="checkbox"]),#leadForm textarea{transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+#leadForm input:focus,#leadForm textarea:focus{border-color:var(--gold);box-shadow:0 0 0 1px rgba(201,169,97,.35),0 4px 18px rgba(201,169,97,.08);outline:none}
 img,video{max-width:100%;display:block;height:auto}
 a{color:var(--gold);text-decoration:none}
 h1,h2,h3{margin:0;font-family:var(--display);font-weight:600;line-height:1.06;letter-spacing:-.01em}
@@ -224,7 +237,10 @@ footer .brand img{width:40px;height:40px;border-radius:9px}
   background:radial-gradient(ellipse at 50% 62%,rgba(11,16,38,0) 0%,rgba(11,16,38,.5) 55%,rgba(5,7,15,.9) 100%);
 }
 /* The film sits above the interior and crossfades away when it ends. */
-video.film{position:absolute;inset:0;opacity:1;transition:opacity .9s var(--ease)}
+.heroStage::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+ background:radial-gradient(120% 92% at 50% 40%,transparent 42%,rgba(5,7,15,.5) 100%)}
+video.film{position:absolute;inset:0;opacity:1;transition:opacity .9s var(--ease),filter 1.6s var(--ease)}
+video.film[data-done]{filter:brightness(.6) saturate(.75)}
 video.film[data-done]{opacity:0}
 /* The scrim the headline sits on. Copy is never gated on the film finishing —
    a 4.5s timer, the first scroll, or a playback failure all reveal it early. */
@@ -245,6 +261,8 @@ video.film[data-done]{opacity:0}
   font-weight:500;margin-bottom:16px;
 }
 .heroCopy h1{margin-bottom:16px;text-shadow:0 2px 40px rgba(5,7,15,.95)}
+.dbr{display:none}
+@media (min-width:900px){.dbr{display:inline}}
 .h1sub{display:block;font-family:var(--ui);font-size:clamp(15px,3.6vw,19px);font-weight:400;color:#cfd4e0;margin-top:14px;letter-spacing:0;line-height:1.5;text-shadow:0 2px 24px rgba(5,7,15,.95)}
 .heroCopy p{color:#cfd4e0;font-size:clamp(16px,3.8vw,20px);max-width:44ch;margin:0 auto 22px;text-shadow:0 2px 24px rgba(5,7,15,.95)}
 .heroBtns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:14px}
@@ -259,7 +277,7 @@ video.film[data-done]{opacity:0}
   background:rgba(5,7,15,.72);border:1px solid var(--gold);border-radius:999px;
   color:var(--struck);font-family:var(--ui);font-size:13.5px;font-weight:400;
   padding:11px 20px;cursor:pointer;backdrop-filter:blur(6px);
-  animation:cuePulse 2.6s ease-in-out infinite;
+  animation:cueIn .5s var(--ease) 1.9s both,cuePulse 2.6s ease-in-out 2.6s infinite;
 }
 .soundCue svg{width:16px;height:16px;flex:none}
 .soundCue[hidden]{display:none}
@@ -279,6 +297,58 @@ video.film[data-done]{opacity:0}
   font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);
   transition:opacity .4s;
 }
+
+/* ───────────────────────── 3D mark showcase ───────────────────────── */
+.mark{padding:clamp(44px,8vw,84px) 0 clamp(22px,4vw,40px);background:
+ radial-gradient(120% 90% at 50% 0%,rgba(201,169,97,.06),transparent 60%)}
+.markStage{position:relative;margin-top:26px;height:clamp(280px,70vw,440px);border:1px solid var(--line);
+ border-radius:20px;overflow:hidden;background:
+ radial-gradient(90% 130% at 50% 118%,rgba(201,169,97,.16),transparent 62%),
+ linear-gradient(180deg,#070B1B 0%,var(--black) 100%);touch-action:pan-y}
+.markStage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+.markStage canvas:active{cursor:grabbing}
+.markStage .markPoster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;
+ transition:opacity .8s var(--ease)}
+.markStage[data-live] .markPoster{opacity:0;pointer-events:none}
+.markHint{position:absolute;z-index:2;left:50%;transform:translateX(-50%);bottom:8px;white-space:nowrap;
+ padding:7px 16px;border-radius:999px;background:rgba(5,7,15,.55);backdrop-filter:blur(6px);
+ text-align:center;font-size:11px;letter-spacing:.22em;
+ text-transform:uppercase;color:#B9C0D4;pointer-events:none;opacity:0;transition:opacity .8s var(--ease)}
+.markStage[data-3dready] .markHint{opacity:.5}
+.markStage[data-loading] .markHint,.markStage[data-live] .markHint{opacity:.9}
+.markStage[data-live] .markHint[data-used]{opacity:0}
+
+/* ───────────────────────── 6b · bolt-ons ───────────────────────── */
+.boltons{padding:clamp(40px,7vw,72px) 0 clamp(48px,8vw,84px)}
+.boltCards{display:grid;gap:18px;margin-top:28px}
+@media (min-width:900px){.boltCards{grid-template-columns:repeat(3,1fr);align-items:stretch}}
+.boltCard{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;
+ overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(0,0,0,.16));
+ transition:transform .45s var(--ease),border-color .45s var(--ease),box-shadow .45s var(--ease)}
+.boltCard:hover{transform:translateY(-4px);border-color:rgba(201,169,97,.55);
+ box-shadow:0 18px 44px rgba(5,7,15,.55),0 4px 18px rgba(201,169,97,.12)}
+.boltArt{position:relative;aspect-ratio:16/9;overflow:hidden;background:
+ radial-gradient(80% 90% at 50% 100%,rgba(201,169,97,.14),transparent 62%),
+ radial-gradient(120% 70% at 30% 0%,rgba(138,147,168,.08),transparent 55%),
+ linear-gradient(180deg,#0A0F22,var(--black))}
+.boltArt img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.boltCard:hover .boltArt img{transform:scale(1.05)}
+.boltArt::after{content:"";position:absolute;inset:auto 0 0 0;height:2px;
+ background:linear-gradient(90deg,transparent,var(--gold) 50%,transparent);opacity:.9}
+.boltBody{padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.boltTier{font-family:'Cinzel',serif;font-weight:600;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--ivory)}
+.boltPrice{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:34px;line-height:1;color:var(--struck)}
+.boltPrice sub{font-family:'Inter',sans-serif;font-weight:400;font-size:13px;color:var(--steel);vertical-align:baseline}
+.boltBody p{margin:0;font-size:15px;color:#dfe3ec}
+.boltBody .fine{font-size:13.5px;color:#9AA3B8;margin-bottom:8px}
+.boltBody .btnGhostSm{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;
+ padding:10px 18px;border:1px solid var(--line);border-radius:999px;font-size:13px;letter-spacing:.06em;color:var(--struck)}
+.boltCard:hover .btnGhostSm{border-color:rgba(201,169,97,.6)}
+.boltListen{margin-top:24px;display:flex;justify-content:center}
+
+@keyframes cueIn{from{opacity:0;transform:translateX(-50%) translateY(6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.soundCue[data-dock] span{display:none}
+.soundCue[data-dock]{padding:10px;border-radius:50%}
 
 /* ───────────────────────── buttons ───────────────────────── */
 .btnGold,.btnGhost,.btnVault,.listen,.expander,.chip,.send{font-family:var(--ui);cursor:pointer}
@@ -450,12 +520,13 @@ video.film[data-done]{opacity:0}
 .chooser button i{font-style:normal;color:var(--gold);font-weight:500;white-space:nowrap}
 
 .cards{display:grid;gap:18px}
-@media (min-width:1000px){.cards{grid-template-columns:repeat(3,1fr);align-items:start}}
+@media (min-width:1000px){.cards{grid-template-columns:repeat(2,1fr);align-items:start;max-width:920px;margin-left:auto;margin-right:auto}}
 .card{
   border:1px solid var(--line-soft);border-radius:16px;background:rgba(5,7,15,.55);
   padding:24px 22px 22px;position:relative;
 }
 .card[data-featured]{border-color:var(--gold);box-shadow:0 0 0 1px rgba(201,169,97,.2),0 14px 46px rgba(0,0,0,.4)}
+@media (max-width:999px){.card[data-featured]{margin-top:14px}}
 .tag{
   position:absolute;top:-11px;left:22px;background:var(--gold);color:#241c07;
   font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
@@ -465,6 +536,7 @@ video.film[data-done]{opacity:0}
 .price{font-family:var(--display);font-size:44px;font-weight:600;line-height:1;color:var(--ivory)}
 .price sub{font-family:var(--ui);font-size:15px;font-weight:300;color:var(--steel);vertical-align:baseline}
 .setup{margin-top:7px;font-size:13.5px;color:var(--steel)}
+.setupBtn{display:inline-block;padding:10px 4px;margin:-10px 0}
 .setup button{background:none;border:none;color:var(--gold);font-size:13.5px;font-family:var(--ui);cursor:pointer;padding:10px 0;min-height:44px;text-decoration:underline;text-underline-offset:3px}
 .hr{height:1px;background:var(--line);margin:17px 0}
 .promise{font-size:16.5px;color:var(--struck);font-weight:400;margin-bottom:15px}
@@ -547,7 +619,7 @@ video.film[data-done]{opacity:0}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{
   background:var(--black);border:1px solid var(--line-soft);border-radius:999px;
-  color:var(--steel);font-size:13.5px;padding:9px 15px;transition:all .2s;min-height:40px
+  color:var(--steel);font-size:13.5px;padding:11px 16px;transition:all .2s;min-height:44px
 }
 .chip[aria-pressed="true"]{border-color:var(--gold);color:var(--struck);background:rgba(201,169,97,.1)}
 .hp{position:absolute;left:-9999px}
@@ -557,9 +629,9 @@ video.film[data-done]{opacity:0}
 .consent{margin:16px 0 4px;border:1px solid var(--line-soft);border-radius:12px;padding:14px;background:rgba(5,7,15,.4)}
 .consent label{display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;cursor:pointer;padding:6px 0;min-height:44px}
 .consent label + label{margin-top:10px;padding-top:14px;border-top:1px solid rgba(138,147,168,.14)}
-.consent input[type=checkbox]{width:22px;height:22px;margin:2px 0 0;accent-color:var(--gold);flex:none}
+.consent input[type=checkbox]{margin:2px 0 0;flex:none}
 .consent b{display:block;color:var(--ivory);font-weight:500;font-size:15px;margin-bottom:3px}
-.consent span{display:block;color:#A9B1C4;font-weight:400;font-size:12.5px;line-height:1.5}
+.consent span{display:block;color:#B6BDCF;font-weight:400;font-size:12.5px;line-height:1.65}
 .consent a{text-decoration:underline;text-underline-offset:2px}
 .consent .opt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin-left:6px}
 .textRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
@@ -584,7 +656,7 @@ video.film[data-done]{opacity:0}
 footer{padding:30px 0 92px;border-top:1px solid var(--line-soft);text-align:center;font-size:13.5px;color:var(--steel)}
 footer .brand{justify-content:center;margin-bottom:14px}
 footer a{color:var(--steel)}
-footer a{display:inline-block;padding:6px 2px}
+footer a{display:inline-block;padding:12px 8px}
 footer a:hover{color:var(--gold)}
 .tagline{font-family:var(--display);font-size:20px;color:var(--struck);margin-bottom:10px}
 
@@ -612,6 +684,16 @@ footer a:hover{color:var(--gold)}
 .askBtn span{white-space:nowrap}
 .askBtn:active{transform:scale(.97)}
 @media (min-width:900px){.askBtn{bottom:20px;right:20px}}
+@media (max-width:640px){
+  .askBtn{transition:opacity .3s var(--ease),transform .3s var(--ease)}
+  .askBtn span{display:none}
+  .askBtn{width:52px;height:52px;padding:0;justify-content:center;border-radius:50%;
+    right:12px;bottom:calc(11px + env(safe-area-inset-bottom));opacity:0;pointer-events:none;transform:translateY(10px);
+    visibility:hidden;transition:opacity .3s var(--ease),transform .3s var(--ease),visibility 0s linear .3s}
+  .askBtn[data-dockbar]{opacity:1;pointer-events:auto;transform:none;visibility:visible;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+  .askBtn[data-gone]{opacity:0;pointer-events:none;transform:translateY(10px);visibility:hidden;transition:opacity .3s var(--ease),transform .3s var(--ease),visibility 0s linear .3s}
+  .bottomBar{padding-right:76px}
+}
 .askBtn svg{width:22px;height:22px;color:var(--gold);flex:none}
 .askPanel{
   position:fixed;z-index:80;inset:auto 0 0 0;height:min(82dvh,640px);
@@ -663,6 +745,7 @@ footer a:hover{color:var(--gold)}
     <a href="#find">Getting found on Google</a>
     <a href="#vault">The Vault</a>
     <a href="#plans">Plans</a>
+    <a href="#boltons">Bolt&#8209;Ons</a>
     <a href="#contact">Contact</a>
     <a href="tel:+13312917400" style="color:var(--struck)">(331) 291-7400</a>
     <a class="btnGold" style="padding:11px 20px;font-size:12px" href="#contact">Book a call</a>
@@ -691,8 +774,8 @@ footer a:hover{color:var(--gold)}
     <video class="film" id="film" muted playsinline preload="auto" aria-hidden="true" tabindex="-1" hidden></video>
 
     <div class="heroCopy" id="heroCopy">
-      <div class="kicker">Websites &middot; CRM &middot; Booking &middot; Automation</div>
-      <h1>Everything your business runs on, behind one door.<span class="h1sub">Websites, CRM, online booking and Google Business Profile setup for local businesses in Glen Ellyn, Illinois &mdash; from $250 a month.</span></h1>
+      <div class="kicker"><span style="white-space:nowrap">Websites &middot; CRM</span> &middot; <span style="white-space:nowrap">Booking &middot; Automation</span></div>
+      <h1>Everything your business<br class="dbr"> runs&nbsp;on, behind&nbsp;one&nbsp;door.<span class="h1sub">Websites, CRM, online booking and Google Business Profile setup for local businesses in Glen Ellyn, Illinois &mdash; from $250 a month.</span></h1>
       <div class="heroBtns">
         <a class="btnGold" href="#vault">Open the Vault</a>
         <a class="btnGhost" href="#plans">See the plans</a>
@@ -735,7 +818,7 @@ footer a:hover{color:var(--gold)}
       </div>
       <div class="bolt-row">
         <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 20.5v3a2 2 0 0 1-2.2 2 20 20 0 0 1-8.6-3.1 19.6 19.6 0 0 1-6-6A20 20 0 0 1 2.1 7.8 2 2 0 0 1 4.1 5.6h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1l-1.2 1.3a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/><path d="M24 6.5a7 7 0 0 1 0 9.5M27 3.5a11 11 0 0 1 0 15.5" opacity=".7"/></svg>
-        <div><b>A phone that's always answered.</b><span>Your line gets picked up at nine at night, the appointment gets booked, and it's on your calendar before you lock up. <em style="color:var(--gold);font-style:normal">(Enterprise)</em></span></div>
+        <div><b>A phone that's always answered.</b><span>Your line gets picked up at nine at night, the call is recorded, and the message is waiting in your CRM before you lock up. <em style="color:var(--gold);font-style:normal">($100/mo Bolt&#8209;On)</em></span></div>
       </div>
     </div>
 
@@ -874,18 +957,31 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
+<!-- ───────────── 2b · the mark, in 3D ───────────── -->
+<section id="mark" class="mark" aria-label="The Knox mark in 3D">
+  <div class="wrap">
+    <div class="eyebrow rv">The mark</div>
+    <h2 class="rv">Built by hand. Every page, every gear &mdash; even this.</h2>
+    <p class="lede rv" style="margin-top:16px">No template made anything on this page. The site you're reading, the six businesses behind the door, the CRM underneath them &mdash; designed and built one piece at a time. Here's the mark it all carries. Go ahead, give it a spin.</p>
+    <div class="markStage rv" id="markStage" role="img" aria-label="The Project Knox emblem, rendered in three dimensions.">
+      <img class="markPoster" src="assets/img/mark-poster.webp" alt="" width="1600" height="600" loading="lazy" decoding="async">
+      <div class="markHint" id="markHint">Drag to spin</div>
+    </div>
+  </div>
+</section>
+
 <!-- ───────────── 4 · plans ───────────── -->
 <section id="plans" class="plans">
   <div class="wrap">
     <div class="eyebrow rv">Plans</div>
-    <h2 class="rv">Plans and pricing: three ways in, from $250 a month.</h2>
-    <p class="lede rv" style="margin-top:16px">Start where it makes sense. Moving up later doesn't mean rebuilding anything &mdash; it's the same system, with more of it switched on.</p>
+    <h2 class="rv">Plans and pricing: two ways in, from $250 a month.</h2>
+    <p class="lede rv" style="margin-top:16px">Start where it makes sense. Moving up later doesn't mean rebuilding anything &mdash; it's the same system, with more of it switched on. And when you want more, you bolt it on. Priced against buying the pieces separately, it's the cheaper path &mdash; and you're not the one running any of it at 9pm.</p>
 
     <div class="chooser rv">
       <b>Not sure which?</b>
       <button data-goto="c1">Just need to look professional and be findable <i>Foundation</i></button>
       <button data-goto="c2">Want the phone ringing more and the money tracked <i>Growth</i></button>
-      <button data-goto="c3">Want it answering the phone while you sleep <i>Enterprise</i></button>
+      <button data-goto="boltons">Want it answering the phone while you sleep <i>Bolt&#8209;Ons</i></button>
     </div>
 
     <div class="cards">
@@ -916,7 +1012,7 @@ footer a:hover{color:var(--gold)}
             <span>Hear what's in it &middot; 0:19</span><span class="bar"></span>
           </button>
           <button class="expander" aria-expanded="false" aria-controls="f1">See everything included <span class="car">&#8964;</span></button>
-          <a class="btnGold" href="#contact">Start with Foundation</a>
+          <a class="btnGold" href="#contact" data-intent="Foundation plan">Start with Foundation</a>
         </div>
       </article>
 
@@ -927,7 +1023,7 @@ footer a:hover{color:var(--gold)}
         <div class="price">$500<sub>/month</sub></div>
         <div class="setup">+ $500 one&#8209;time setup &mdash; <button class="setupBtn" aria-expanded="false">what's this for?</button></div>
         <div class="foldable setupBody" style="margin-top:10px">
-          <p style="font-size:14.5px;color:var(--steel);margin:0">Everything in Foundation's setup, plus standing up your CRM, wiring the payment integration, and building the review automation. Charged once, at the start.</p>
+          <p style="font-size:14.5px;color:var(--steel);margin:0">Everything in Foundation's setup, plus standing up your CRM, wiring the payment integration, and building the review-request automation. Charged once, at the start.</p>
         </div>
         <div class="hr"></div>
         <div class="promise">Get reviewed, get paid, get organized.</div>
@@ -942,77 +1038,84 @@ footer a:hover{color:var(--gold)}
         </ul>
         <ul class="bullets">
           <li>Automated messages asking your customers to leave a Google review</li>
-          <li>Automated replies to the Google reviews that come in</li>
           <li>A full CRM &mdash; appointment booking, invoicing, and cold&#8209;lead follow&#8209;up</li>
+          <li>Automated texts and emails &mdash; the thank&#8209;you, the reminder, the follow&#8209;up, sent for you</li>
         </ul>
         <ul class="bullets foldable" id="f2">
           <li>Payment integration for online orders or in&#8209;store purchases</li>
           <li>Store your business expenses right in the CRM</li>
+          <li>Monthly reports &mdash; what came in, what went out, who's due back</li>
           <li>Sync the CRM to QuickBooks or your accounting software &mdash; clean P&amp;L in and out</li>
         </ul>
         <div class="cardActions">
-          <button class="listen" data-audio="assets/vo/vo-03-growth.mp3" data-label="Hear what's in it &middot; 0:26">
+          <button class="listen" data-audio="assets/vo/vo-03-growth.mp3" data-label="Hear what's in it &middot; 0:35">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
             <span>Hear what's in it &middot; 0:26</span><span class="bar"></span>
           </button>
           <button class="expander" aria-expanded="false" aria-controls="f2">See everything included <span class="car">&#8964;</span></button>
-          <a class="btnGold" href="#contact">Start with Growth</a>
+          <a class="btnGold" href="#contact" data-intent="Growth plan">Start with Growth</a>
         </div>
       </article>
 
-      <!-- Enterprise -->
-      <article class="card seam" id="c3">
-        <div class="tier">Enterprise</div>
-        <div class="price">$1,000<sub>/month</sub></div>
-        <div class="setup">+ $1,000 one&#8209;time setup &mdash; <button class="setupBtn" aria-expanded="false">what's this for?</button></div>
-        <div class="foldable setupBody" style="margin-top:10px">
-          <p style="font-size:14.5px;color:var(--steel);margin:0">Everything in the Growth setup, plus building a CRM shaped around how your business actually runs, the multilingual chatbot, and standing up the round-the-clock answering line. Charged once, at the start.</p>
-        </div>
-        <div class="hr"></div>
-        <div class="promise">It runs while you sleep.</div>
-        <button class="inherit" aria-expanded="false" aria-controls="i3">Everything in Foundation and Growth <span class="car">&#8964;</span></button>
-        <div class="foldable" id="i3">
-          <div class="subhead">Foundation</div>
-          <ul class="bullets">
-            <li class="muted">A professional website on your own domain</li>
-            <li class="muted">Google Business Profile, claimed and built out</li>
-            <li class="muted">Booking site synced to your Google Calendar</li>
-            <li class="muted">Google Workspace email at your own domain</li>
-            <li class="muted">SEO for your trade and your town</li>
-            <li class="muted">Two updates a month, included</li>
-          </ul>
-          <div class="subhead">Growth</div>
-          <ul class="bullets">
-            <li class="muted">Automated Google review requests and replies</li>
-            <li class="muted">Full CRM: booking, invoicing, cold&#8209;lead follow&#8209;up</li>
-            <li class="muted">Payments for online orders or in&#8209;store purchases</li>
-            <li class="muted">Business expenses stored in the CRM</li>
-            <li class="muted">QuickBooks and accounting sync</li>
-          </ul>
-        </div>
-        <ul class="bullets">
-          <li>A fully customizable CRM, built to fit <em style="font-style:normal;color:var(--struck)">your</em> business specifically</li>
-          <li>A fully customizable website with chatbots that answer your customers in multiple languages</li>
-          <li>An automated phone system &mdash; your line answered around the clock, booking appointments and scheduling callbacks, even when you're closed</li>
-        </ul>
-        <ul class="bullets foldable" id="f3">
-          <li>Additional services on request to drive more traffic and keep your business running as intended &mdash; even while your competitors sleep</li>
-        </ul>
-        <div class="cardActions">
-          <button class="listen" data-audio="assets/vo/vo-04-enterprise.mp3" data-label="Hear what's in it &middot; 0:18">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-            <span>Hear what's in it &middot; 0:18</span><span class="bar"></span>
-          </button>
-          <button class="expander" aria-expanded="false" aria-controls="f3">See everything included <span class="car">&#8964;</span></button>
-          <a class="btnGold" href="#contact">Start with Enterprise</a>
-        </div>
-      </article>
+
     </div>
 
     <div class="termBand rv">
       <b>Every plan</b>
       <p>A 12&#8209;month partnership. Billed monthly, same date each month. Everything in writing before we start &mdash; what's being built, what it costs, and what happens if either of us wants out.</p>
+      <p><b style="color:var(--struck);font-weight:500">Pay the year up front and take 15% off</b> &mdash; Foundation $2,550, Growth $5,100 for the twelve months (setup fee separate; it works out to $212.50 and $425 a month).</p>
+      <p class="why"><b style="color:var(--struck);font-weight:500">Whatever happens, what's yours stays yours.</b> The domain, the Google Business Profile and the customer list are registered in your name and leave with you. The exact exit terms are in the written agreement you'll read before anything starts &mdash; and if you'd like to read it before you even book the call, ask and we'll send it. Bring the hard questions.</p>
       <p class="why"><b style="color:var(--struck);font-weight:500">Why twelve months?</b> Because a website takes about three months to start earning its keep, and we'd rather build you something that works than something that's cheap to cancel. We're betting a year of our time on you too.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── 6b · bolt-ons ───────────── -->
+<section id="boltons" class="boltons" aria-label="Bolt-on services">
+  <div class="wrap">
+    <div class="eyebrow rv">Bolt&#8209;Ons</div>
+    <h2 class="rv">Bolt&#8209;Ons: tune the machine to your shop.</h2>
+    <p class="lede rv" style="margin-top:16px">Both plans can take extras. Bolt them on when you're ready for more, and they wire straight into the same system that already runs your business.</p>
+
+    <div class="boltCards">
+      <article class="boltCard seam">
+        <div class="boltArt"><img src="assets/img/boltons/bolt-phone.webp" alt="An open vault drawer holding a polished brass telephone handset and a small reel-to-reel recorder." width="1200" height="675" loading="lazy" decoding="async"></div>
+        <div class="boltBody">
+          <div class="boltTier">24/7 Automated Phone Answering</div>
+          <div class="boltPrice">$100<sub>/month</sub></div>
+          <p>An automated answering service on your line around the clock, so no call ever rings out. Every call answered and recorded, every message transcribed and waiting in your CRM for your review and reply &mdash; nine at night, Sunday morning, holiday weekend.</p>
+          <p class="fine">Recording disclosures configured for your state before the line goes live.</p>
+          <a class="btnGhostSm" href="#contact" data-intent="24/7 Automated Phone Answering bolt-on">Add to any plan &rarr;</a>
+        </div>
+      </article>
+
+      <article class="boltCard seam">
+        <div class="boltArt"><img src="assets/img/boltons/bolt-stars.webp" alt="An open vault drawer holding five cast-gold stars in a row beside a fountain pen." width="1200" height="675" loading="lazy" decoding="async"></div>
+        <div class="boltBody">
+          <div class="boltTier">Automated Google Review Replies</div>
+          <div class="boltPrice">$130<sub>/month</sub></div>
+          <p>Every review your business receives gets a considered reply the moment it lands. Google's local algorithm favors businesses that respond &mdash; steady, instant replies help your profile climb, and customers see a shop that answers.</p>
+          <p class="fine">Pairs with the review requests already included in Growth.</p>
+          <a class="btnGhostSm" href="#contact" data-intent="Automated Google Review Replies bolt-on">Add to any plan &rarr;</a>
+        </div>
+      </article>
+
+      <article class="boltCard seam">
+        <div class="boltArt"><img src="assets/img/boltons/bolt-custom.webp" alt="An open vault drawer holding a brass drafting compass, a rolled blueprint, a micrometer and loose gears." width="1200" height="675" loading="lazy" decoding="async"></div>
+        <div class="boltBody">
+          <div class="boltTier">Other Custom Options</div>
+          <div class="boltPrice" style="font-size:24px;padding-top:6px">Priced to the job</div>
+          <p>The most valuable fixes are usually the ones you didn't know were possible. Tell us what's hardest about running your business &mdash; where the hours go, what keeps slipping &mdash; and we'll design and build a solution around it, plainly priced and in writing, bolted onto the same system that runs everything else.</p>
+          <a class="btnGhostSm" href="#contact" data-intent="A custom solution">Tell us what's hard &rarr;</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="boltListen rv">
+      <button class="listen" data-audio="assets/vo/vo-06-boltons.mp3" data-label="Hear the bolt&#8209;ons &middot; 0:41">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <span>Hear the bolt&#8209;ons &middot; 0:41</span><span class="bar"></span>
+      </button>
     </div>
   </div>
 </section>
@@ -1070,6 +1173,7 @@ footer a:hover{color:var(--gold)}
         </div>
         <div class="formNote" style="margin-bottom:14px">Neither box is required. We&rsquo;ll still reply to your inquiry either way.</div>
 
+        <p class="intentNote" id="intentNote" hidden style="margin:0 0 10px;font-size:14px;color:var(--steel)">Asking about: <b id="intentTxt" style="color:var(--struck);font-weight:500"></b> &middot; <button type="button" id="intentClear" style="background:none;border:0;padding:0;color:var(--steel);text-decoration:underline;cursor:pointer;font-size:13px">clear</button></p>
         <button class="btnGold" style="width:100%" type="submit" id="submitBtn">Send this to Knox</button>
         <div class="formNote">No sales script. No "discovery process." We'll text or call you today.</div>
         <div class="textRow">
@@ -1210,7 +1314,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   var p = v.play();
   if(p && p.catch) p.catch(finish);      /* autoplay refused → show the words */
 
-  setTimeout(reveal, 5200);              /* words land while the film finishes */
+  setTimeout(reveal, 1400);              /* words must land inside the attention window */
   setTimeout(function(){ if(v.paused && !v.currentTime) finish(); }, 2200);
   setTimeout(finish, 15000);             /* hard backstop */
   window.addEventListener('scroll', function once(){
@@ -1504,17 +1608,34 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   var nav = document.getElementById('nav');
   var bar = document.getElementById('bottomBar');
   var hero = document.getElementById('top');
+  var ask = document.getElementById('askBtn');
+  var contact = document.getElementById('contact');
   function upd(){
     if(window.scrollY > 24) nav.setAttribute('data-scrolled',''); else nav.removeAttribute('data-scrolled');
     var past = hero.getBoundingClientRect().bottom < window.innerHeight * 0.6;
-    if(past) bar.setAttribute('data-show',''); else bar.removeAttribute('data-show');
+    var cRect = contact.getBoundingClientRect();
+    var overForm = cRect.top < window.innerHeight * 0.85 && cRect.bottom > 0;
+    /* The bar duplicates the form it would be covering — it steps away too. */
+    if(past && !overForm) bar.setAttribute('data-show',''); else bar.removeAttribute('data-show');
+    var cueEl = document.getElementById('soundCue');
+    if(cueEl){ if(past) cueEl.setAttribute('data-dock',''); else cueEl.removeAttribute('data-dock'); }
+    if(ask && window.innerWidth <= 640){
+      if(past) ask.setAttribute('data-dockbar',''); else ask.removeAttribute('data-dockbar');
+    }
+    /* On a phone the concierge folds to a bead once reading starts, and steps
+       away entirely while the consent language is on screen — chrome must
+       never sit on top of the words someone is agreeing to. */
+    if(ask && window.innerWidth <= 640){
+      var panelOpen = document.getElementById('askPanel').hasAttribute('data-open');
+      if(overForm && !panelOpen) ask.setAttribute('data-gone',''); else ask.removeAttribute('data-gone');
+    }
   }
   window.addEventListener('scroll', upd, {passive:true});
   upd();
   /* Don't sit on the keyboard while someone is filling the form. */
   document.querySelectorAll('#leadForm input, #leadForm textarea').forEach(function(el){
-    el.addEventListener('focus', function(){ bar.style.visibility = 'hidden'; });
-    el.addEventListener('blur',  function(){ bar.style.visibility = ''; });
+    el.addEventListener('focus', function(){ bar.style.visibility = 'hidden'; if(ask) ask.style.visibility = 'hidden'; });
+    el.addEventListener('blur',  function(){ bar.style.visibility = ''; if(ask) ask.style.visibility = ''; });
   });
   document.documentElement.style.setProperty('scroll-padding-top', '78px');
 })();
@@ -1541,6 +1662,22 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     picked = c.textContent.trim();
   });
 
+  /* Intent capture: the click that says WHICH plan or bolt-on someone wants is
+     the highest-intent moment on the page — it must not be thrown away on the
+     way to the form. */
+  var intent = '';
+  var iNote = document.getElementById('intentNote');
+  var iTxt  = document.getElementById('intentTxt');
+  function setIntent(v){
+    intent = v || '';
+    if(iNote && iTxt){ iTxt.textContent = intent; iNote.hidden = !intent; }
+  }
+  document.querySelectorAll('[data-intent]').forEach(function(a){
+    a.addEventListener('click', function(){ setIntent(a.getAttribute('data-intent')); });
+  });
+  var iClear = document.getElementById('intentClear');
+  if(iClear) iClear.addEventListener('click', function(){ setIntent(''); });
+
   f.addEventListener('submit', function(e){
     e.preventDefault();
     if(f.website.value) return;                       /* honeypot */
@@ -1558,6 +1695,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     var about = f.about.value.trim();
     var msg   = f.message.value.trim();
     var body  = [
+      intent ? 'Asking about: ' + intent : '',
       about ? 'About the business:\n' + about : '',
       msg ? 'Biggest time sink:\n' + msg : ''
     ].filter(Boolean).join('\n\n');
@@ -1680,6 +1818,45 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   }
 })();
 
+/* ═══════════ 7b · the mark, in 3D ═══════════
+   The emblem is real WebGL, and it is loaded like the films are: nothing —
+   not the library, not the mesh — is fetched until the stage is near the
+   viewport, WebGL is confirmed, and the visitor has not asked for reduced
+   motion. The poster underneath is the reduced-motion and no-WebGL and
+   slow-network experience, so the section is never empty.                  */
+(function mark3d(){
+  var stage = document.getElementById('markStage');
+  if(!stage || RM) return;
+  var probe = document.createElement('canvas');
+  var gl = probe.getContext('webgl2') || probe.getContext('webgl');
+  if(!gl) return;
+  var lose = gl.getExtension('WEBGL_lose_context'); if(lose) lose.loseContext();
+  stage.setAttribute('data-3dready','');   /* WebGL confirmed: the drag promise will be kept */
+  var loaded = false, t = false;
+  function near(){
+    var r = stage.getBoundingClientRect();
+    return r.top < window.innerHeight * 2.5 && r.bottom > -window.innerHeight * 0.5;
+  }
+  function load(){
+    if(loaded) return; loaded = true;
+    stage.setAttribute('data-loading','');
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('resize', onScroll);
+    window.removeEventListener('load', onScroll);
+    var sc = document.createElement('script');
+    sc.src = 'assets/js/knox-3d.min.js';
+    sc.async = true;
+    sc.onload = function(){ if(window.KnoxMark) window.KnoxMark(stage, 'assets/3d/knox-emblem.glb'); };
+    sc.onerror = function(){ stage.removeAttribute('data-loading'); };
+    document.head.appendChild(sc);
+  }
+  function onScroll(){ if(!t){ t = true; requestAnimationFrame(function(){ t = false; if(near()) load(); }); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  window.addEventListener('load', onScroll);
+  onScroll();
+})();
+
 /* ═══════════ 8 · Ask Knox ═══════════
    A deterministic concierge: it answers from a fixed knowledge base and can
    never invent a client, quote a price that isn't published, or promise a
@@ -1731,7 +1908,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     {k:['buy reviews','fake reviews','hundred reviews','purchase reviews'],
      a:"No, and you shouldn't buy them anywhere. Google removes fake reviews and suspends profiles for repeat offences, and a suspended profile costs you far more than the reviews were worth.\n\nThe slow version — asking every customer, every time, automatically — gets you there in months and it stays."},
     {k:['ai phone','phone agent','answer the phone','24/7','receptionist','after hours','robot answer'],
-     a:"For a defined job, yes: answering common questions, booking an appointment, taking a callback request. It isn't a receptionist and it won't handle a complicated or emotional call — those need you.\n\nThe way to think about it is that it's competing with your voicemail at 8pm on a Sunday, not with you. That's on the Enterprise plan."},
+     a:"For a defined job, yes: answering common questions, booking an appointment, taking a callback request. It isn't a receptionist and it won't handle a complicated or emotional call — those need you.\n\nThe way to think about it is that it's competing with your voicemail at 8pm on a Sunday, not with you. That's the 24/7 Automated Phone Answering bolt-on \u2014 $100 a month on top of either plan, and every call is recorded and transcribed into your CRM."},
     {k:['ai says something wrong','wrong answer','ai mistake','liability','bot wrong'],
      a:"It works from what you give it — your services, prices, hours, policies — and it's built to say \"let me have someone call you back\" rather than guess. Same rule I'm running under right now.\n\nIt can still be wrong, so it gets reviewed and corrected like anything else. If a mistake would be genuinely expensive in your trade — quoting a repair, saying anything medical — the right build refuses those outright and books a callback instead."},
     {k:['not technical','how much work','my time','learn','complicated','computer'],
@@ -1745,15 +1922,19 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     {k:['trust a chatbot','why should i trust','are you a bot','you are ai','robot'],
      a:"You shouldn't trust me, particularly. I'm a bot on the Knox website — I'll tell you that any time you ask.\n\nWhat I'm built not to do is invent a client, quote a price that isn't published, or promise you a Google ranking. When I don't know something I say so. If you want a person, that's the free consult, and it's the better move anyway."},
     {k:['discount','best price','cheaper','negotiate','deal','lower price','pay yearly','pay up front'],
-     a:"The prices are fixed — $250, $500 and $1,000 a month — and they're the same for everyone who walks in. No negotiating means nobody is quietly paying more than you are.\n\nWhat we will do is tell you honestly if a lower tier covers what you actually need."},
+     a:"The prices are fixed — $250 and $500 a month, with bolt-ons at $100 and $130 — and they're the same for everyone who walks in. No negotiating means nobody is quietly paying more than you are.\n\nWhat we will do is tell you honestly if a lower tier covers what you actually need."},
     {k:['just the website','only the website','without the crm','no crm','website only'],
      a:"That's Foundation — $250 a month plus $250 setup. Website, your own domain and email, Google Business Profile, search setup, and online booking, with two changes a month.\n\nThe CRM, review automation, payments and accounting sync start at Growth."},
     {k:['what is a crm','crm mean','what does crm'],
      a:"It just means the place your customer information lives. That's all it means — names, phone numbers, what they bought, and when they're due back.\n\nOn Growth it also handles the bookings, the invoices, and chasing people who've gone quiet."},
     {k:['what do you do','what is project knox','what is this','explain','who are you','tell me about'],
-     a:"Project Knox is a websites, CRM and automation shop in Glen Ellyn, Illinois. We build your website, your booking, your customer list and your follow-up by hand — then we run all of it for you, for one monthly price.\n\nThree plans: Foundation $250, Growth $500, Enterprise $1,000, each with a one-time setup fee the same as the monthly price.\n\nBest thing you can do is open the Vault and drive one of the six live demo sites yourself."},
+     a:"Project Knox is a websites, CRM and automation shop in Glen Ellyn, Illinois. We build your website, your booking, your customer list and your follow-up by hand — then we run all of it for you, for one monthly price.\n\nTwo plans: Foundation $250 and Growth $500, each with a one-time setup fee the same as the monthly price — plus bolt-ons like 24/7 phone answering ($100/mo) and automated Google review replies ($130/mo).\n\nBest thing you can do is open the Vault and drive one of the six live demo sites yourself."},
     {k:['price','cost','how much','pricing','plans','what are the plans','tiers'],
-     a:"Three plans, and these are the only prices:\n\n• Foundation — $250/mo + $250 setup. Website, your own domain and email, Google Business Profile, search setup, online booking.\n• Growth — $500/mo + $500 setup. All of Foundation, plus the full CRM, automatic review requests and replies, payments, expenses, and QuickBooks sync.\n• Enterprise — $1,000/mo + $1,000 setup. All of the above, plus a custom-built CRM, a multilingual chatbot, and a round-the-clock answering line that books appointments.\n\nEvery plan is a 12-month partnership, billed monthly, everything in writing first."},
+     a:"Two plans, and these are the only prices:\n\n• Foundation — $250/mo + $250 setup. Website, your own domain and email, Google Business Profile, SEO, online booking synced to your calendar.\n• Growth — $500/mo + $500 setup. All of Foundation, plus the full CRM, automatic review requests, automated texts and emails, payments, expenses, monthly reports, and QuickBooks sync.\n\nThen bolt on what you need:\n\n• 24/7 Automated Phone Answering — $100/mo. Your line answered and recorded around the clock, messages transcribed into your CRM.\n• Automated Google Review Replies — $130/mo. Every review answered the moment it lands.\n• Custom solutions — tell us what's hard, we design and price it plainly.\n\nEvery plan is a 12-month partnership, billed monthly, everything in writing first. Pay the year up front and take 15% off."},
+    {k:['bolt on','bolt-on','bolt ons','boltons','add on','addon','extras','phone answering','answering service','24/7','answer my phone','miss calls','missed call'],
+     a:"Bolt-ons are extras that wire into the same system, on either plan:\n\n• 24/7 Automated Phone Answering — $100/mo. An A.I. answers your line around the clock, records the call, and drops the transcribed message into your CRM for your review and reply. It's competing with your voicemail at 9pm, not with you.\n• Automated Google Review Replies — $130/mo. Every review gets a considered reply the moment it comes in — and steady responses are one of the signals Google's local ranking rewards.\n• Custom solutions — if something else is eating your week, tell us. If your business needs it and it doesn't exist yet, that's exactly what we build."},
+    {k:['review replies','reply to reviews','answer reviews','respond to reviews','review reply'],
+     a:"Review replies are a bolt-on: $130 a month, and every Google review your business receives is answered the moment it lands — thoughtfully, in your business's voice, around the clock.\n\nWhy it matters: responsiveness is a signal Google's local algorithm rewards, and a wall of answered reviews reads as a shop that cares. The review requests that generate those reviews are already included in Growth."},
     {k:['vault','demo','demos','see examples','try it','live sites'],
      a:"The Vault is six complete businesses we built — a barbershop, a taquería, an auto garage, a nail salon, a chiropractor and a lawn crew — plus a working CRM you can drive yourself.\n\nThey're real software, not pictures. Book a haircut, order tacos, price a brake job. You'll get a real confirmation email in about ten seconds. The Vault lives at getprojectknox.com/thevault \u2014 there's an Enter the Vault button on this page that takes you straight there."},
     {k:['text me','texting','sms','do you text','stop texts','unsubscribe','opt out','text messages'],

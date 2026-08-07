@@ -192,7 +192,7 @@ const ok = (cond, label, extra = '') => {
   await page.screenshot({ path: '/home/claude/shots/m-06-find.png' });
 
   // Walk the page, screenshotting each section.
-  for (const [id, name] of [['what', '03-what'], ['find', '06-find2'], ['vault', '04-vault'], ['plans', '05-plans'], ['contact', '09-contact']]) {
+  for (const [id, name] of [['what', '03-what'], ['mark', '03b-mark'], ['find', '06-find2'], ['vault', '04-vault'], ['plans', '05-plans'], ['boltons', '05b-boltons'], ['contact', '09-contact']]) {
     await page.evaluate(sel => document.getElementById(sel).scrollIntoView(), id);
     await page.waitForTimeout(800);
     await page.screenshot({ path: `/home/claude/shots/m-${name}.png` });
@@ -241,10 +241,36 @@ const ok = (cond, label, extra = '') => {
   ok(/front-loaded|twelve|12/i.test(botText), 'Ask Knox answers the contract question');
   await page.screenshot({ path: '/home/claude/shots/m-10-askknox.png' });
 
-  // The price guard: the bot must never state a price outside the three.
+  // The price guard: the bot must never state a price outside the published set.
   const prices = [...botText.matchAll(/\$([\d,]+)/g)].map(m => m[1].replace(',', ''));
-  const bad = prices.filter(p => !['250', '500', '1000', '20', '99', '30'].includes(p));
+  const bad = prices.filter(p => !['250', '500', '100', '130', '2550', '5100', '20', '99', '30'].includes(p));
   ok(bad.length === 0, 'Ask Knox quotes no invented prices', bad.join(','));
+
+  // The ladder is two plans plus bolt-ons now. Enterprise must be gone
+  // everywhere — card, chooser, structured data, knowledge base.
+  const cardIds = await page.$$eval('.cards .card', els => els.map(e => e.id));
+  ok(cardIds.length === 2 && cardIds.includes('c1') && cardIds.includes('c2'),
+     'exactly two plan cards: Foundation and Growth', cardIds.join(','));
+  const fullHtml = await page.content();
+  ok(!/\$1,000|Enterprise/i.test(fullHtml), 'no $1,000 plan and no Enterprise anywhere on the page');
+  const boltPrices = await page.$$eval('#boltons .boltPrice', els => els.map(e => e.textContent));
+  ok(boltPrices.some(t => t.includes('$100')) && boltPrices.some(t => t.includes('$130')),
+     'bolt-ons priced at $100 and $130', boltPrices.join(' | '));
+  ok(await page.$('#boltons .listen[data-audio*="vo-06"]') !== null, 'bolt-ons narration pill present');
+  ok(/15% off/.test(fullHtml) && /\$2,550/.test(fullHtml) && /\$5,100/.test(fullHtml),
+     'annual prepay (15%) shown with both annual prices');
+
+  // The 3D mark. WebGL availability decides which experience is correct:
+  // with it, the engine and mesh are fetched after the stage nears the
+  // viewport; without it, the poster stands in and NOTHING 3D is fetched.
+  const glOK = await page.evaluate(() => {
+    const c = document.createElement('canvas');
+    return !!(c.getContext('webgl2') || c.getContext('webgl'));
+  });
+  const got3d = reqs.some(u => /knox-3d\.min\.js/.test(u));
+  if (glOK) ok(got3d, '3D emblem engine fetched once the stage was scrolled to');
+  else ok(!got3d, 'no WebGL: 3D engine not fetched, poster stands in');
+  ok(await page.$('#markStage .markPoster') !== null, '3D stage carries its poster fallback');
 
   // Copy guard: nothing on the page may read as AI-scary or single-operator.
   const html = await page.content();
@@ -267,6 +293,7 @@ const ok = (cond, label, extra = '') => {
 
   ok(!reqs.some(u => /vault-open/.test(u)), 'reduced motion fetches ZERO vault-film bytes');
   ok(!reqs.some(u => /\.webm|\.mp4/.test(u)), 'reduced motion fetches ZERO video bytes');
+  ok(!reqs.some(u => /knox-3d|\.glb/.test(u)), 'reduced motion fetches ZERO 3D bytes');
   ok(await page.$eval('#heroCopy', e => e.hasAttribute('data-in')), 'hero copy present under reduced motion');
   const vis = await page.$$eval('.rv', els => els.filter(e => getComputedStyle(e).opacity !== '1').length);
   ok(vis === 0, 'every section is fully visible under reduced motion', `${vis} hidden`);
