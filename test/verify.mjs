@@ -97,7 +97,7 @@ const ok = (cond, label, extra = '') => {
   await page.screenshot({ path: '/home/claude/shots/m-02-hero-copy.png' });
 
   // No letterboxing: every motion clip must render at its true aspect ratio.
-  const boxes = await page.$$eval('video[data-motion]', els => els.map(v => {
+  const boxes = await page.$$eval('video[data-motion]:not([data-cover])', els => els.map(v => {
     const r = v.getBoundingClientRect();
     return { w: Math.round(r.width), h: Math.round(r.height), aw: +v.getAttribute('width'), ah: +v.getAttribute('height') };
   }));
@@ -346,6 +346,57 @@ const ok = (cond, label, extra = '') => {
   if (glOK) ok(reqs.some(u => /knox-emblem\.glb/.test(u)),
      'desktop cinema DOES fetch the emblem mesh', '');
   await ctx.close();
+}
+
+/* ── A3 · the entrance: door opens, curtain lifts, once per session ── */
+{
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await ctx.newPage();
+  const reqs = [];
+  page.on('request', r => reqs.push(r.url()));
+  await page.goto(URL_, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(1200);
+  const entUp = await page.$eval('#entrance', e => !e.hidden).catch(() => false);
+  ok(entUp, 'the entrance curtain is up on a first visit');
+  // Whatever the film does in this environment, the curtain MUST lift by the backstop.
+  await page.waitForFunction(() => {
+    const e = document.getElementById('entrance');
+    return !e || e.hidden || e.hasAttribute('data-done');
+  }, { timeout: 18000 });
+  ok(true, 'the curtain lifts on its own within the backstop window');
+  // Second navigation in the same session: no entrance, cinema starts at once.
+  await page.goto(URL_, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(1500);
+  const entGone = await page.evaluate(() => !document.getElementById('entrance'));
+  ok(entGone, 'seen this session: the entrance is removed entirely');
+  ok(reqs.some(u => /assets\/cinema\/plate-/.test(u)), 'seen this session: plates start immediately');
+  await ctx.close();
+}
+
+/* ── A4 · /how: the editorial page behaves like the rest of the estate ── */
+{
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto(URL_ + 'how', { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(1200);
+  ok(errors.length === 0, '/how throws nothing', errors.slice(0,2).join(' | '));
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight / 2));
+  await page.waitForTimeout(1500);
+  const honest = await page.$('.honest');
+  ok(honest !== null, '/how carries the "not going to show you" card');
+  await ctx.close();
+
+  const rmCtx = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+  const pg = await rmCtx.newPage();
+  const media = [];
+  pg.on('request', r => { if (/\.(webm|mp4|mp3)/.test(r.url())) media.push(r.url()); });
+  await pg.goto(URL_ + 'how', { waitUntil: 'domcontentloaded' });
+  await pg.evaluate(() => scrollTo(0, document.body.scrollHeight));
+  await pg.waitForTimeout(1200);
+  ok(media.length === 0, '/how under reduced motion fetches ZERO media bytes', media.join(', ') || 'none');
+  await rmCtx.close();
 }
 
 /* ── B · reduced motion: zero video, zero door bytes ─────────── */
