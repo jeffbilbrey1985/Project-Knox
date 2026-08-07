@@ -12,6 +12,8 @@
   Cache-Control: public, max-age=2592000
 /assets/3d/*
   Cache-Control: public, max-age=2592000
+/assets/cinema/*
+  Cache-Control: public, max-age=2592000
 /assets/live/*
   Cache-Control: public, max-age=2592000
 /*.html
