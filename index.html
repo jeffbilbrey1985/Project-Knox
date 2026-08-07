@@ -23,6 +23,9 @@
 <meta property="og:description" content="Everything your business runs on, behind one door. Built by hand. Run by Knox.">
 <meta property="og:image" content="https://getprojectknox.com/assets/img/inside-w.webp">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:site_name" content="Project Knox">
+<meta name="geo.region" content="US-IL">
+<meta name="geo.placename" content="Glen Ellyn, Illinois">
 <link rel="icon" href="favicon.png" sizes="180x180">
 <link rel="apple-touch-icon" href="favicon.png">
 
@@ -1316,23 +1319,10 @@ footer a:hover{color:var(--gold)}
     <div class="slot rv">
       <form id="leadForm" novalidate>
         <div class="field"><label for="fname">Your name</label><input id="fname" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="fbiz">Your business</label><input id="fbiz" name="business" placeholder="Main Street Barbers" autocomplete="organization" required></div>
-        <div class="field">
-          <label>What kind of business</label>
-          <div class="chips" id="typeChips">
-            <button type="button" class="chip" aria-pressed="false">Barber</button>
-            <button type="button" class="chip" aria-pressed="false">Salon &amp; Nails</button>
-            <button type="button" class="chip" aria-pressed="false">Health &amp; Chiro</button>
-            <button type="button" class="chip" aria-pressed="false">Auto</button>
-            <button type="button" class="chip" aria-pressed="false">Lawn &amp; Home</button>
-            <button type="button" class="chip" aria-pressed="false">Restaurant</button>
-            <button type="button" class="chip" aria-pressed="false">Something else</button>
-          </div>
-        </div>
-        <div class="field"><label for="fphone">Phone <span style="text-transform:none;letter-spacing:0;color:var(--steel)">(mobile, if you want a text back)</span></label><input id="fphone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
-        <div class="field"><label for="femail">Email</label><input id="femail" name="email" type="email" inputmode="email" autocomplete="email" required></div>
-        <div class="field"><label for="fabout">Tell us about your business</label><textarea id="fabout" name="about" rows="3" placeholder="What you do, how long you&#39;ve been at it, who your customers are &mdash; whatever you&#39;d tell us if we walked in the door."></textarea></div>
-        <div class="field"><label for="fmsg">What's the one thing you wish your business did by itself?</label><textarea id="fmsg" name="message" rows="2"></textarea></div>
+        <div class="field"><label for="fphone">Phone number <span style="text-transform:none;letter-spacing:0;color:var(--steel)">(mobile, if you want a text back)</span></label><input id="fphone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
+        <div class="field"><label for="femail">Email address</label><input id="femail" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+        <div class="field"><label for="fbiz">Business name</label><input id="fbiz" name="business" placeholder="Main Street Barbers" autocomplete="organization" required></div>
+        <div class="field"><label for="ftype">Type of business</label><input id="ftype" name="type" placeholder="Barber shop, taquer&iacute;a, lawn care &mdash; in your own words" autocomplete="off"></div>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="consent">
@@ -1361,7 +1351,7 @@ footer a:hover{color:var(--gold)}
 
         <p class="intentNote" id="intentNote" hidden style="margin:0 0 10px;font-size:14px;color:var(--steel)">Asking about: <b id="intentTxt" style="color:var(--struck);font-weight:500"></b> &middot; <button type="button" id="intentClear" style="background:none;border:0;padding:0;color:var(--steel);text-decoration:underline;cursor:pointer;font-size:13px">clear</button></p>
         <button class="btnGold" style="width:100%" type="submit" id="submitBtn">Send this to Knox</button>
-        <div class="formNote">No sales script. No "discovery process." We'll text or call you today.</div>
+        <div class="formNote">No sales script. No "discovery process." A real person will be in touch within 24 hours.</div>
         <div class="textRow">
           <a href="tel:+13312917400">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
@@ -1378,7 +1368,7 @@ footer a:hover{color:var(--gold)}
 
       <div class="receipt" id="receipt">
         <b>Filed.</b>
-        <p style="color:#dfe3ec">Check your email &mdash; there's a note from us already in there. We'll call or text you today.</p>
+        <p style="color:#dfe3ec">Check your email &mdash; there's a note from us already in there. Jeff will personally be in touch within 24 hours.</p>
         <p style="color:var(--steel);font-size:14.5px;margin-bottom:0">That email you just got? Your customers would get one like it, in your voice, from your address.</p>
         <a class="orCall" href="tel:+13312917400" style="margin-top:16px">If it's urgent &mdash; (331) 291&#8209;7400</a>
       </div>
@@ -2034,17 +2024,8 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
    field leaves the number at 'pending' and nothing ever texts it.           */
 (function form(){
   var f = document.getElementById('leadForm');
-  var chips = document.getElementById('typeChips');
   var receipt = document.getElementById('receipt');
   var btn = document.getElementById('submitBtn');
-  var picked = '';
-
-  chips.addEventListener('click', function(e){
-    var c = e.target.closest('.chip'); if(!c) return;
-    chips.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-    c.setAttribute('aria-pressed','true');
-    picked = c.textContent.trim();
-  });
 
   /* Intent capture: the click that says WHICH plan or bolt-on someone wants is
      the highest-intent moment on the page — it must not be thrown away on the
@@ -2076,18 +2057,12 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
 
     btn.disabled = true; btn.textContent = 'Sending…';
 
-    var about = f.about.value.trim();
-    var msg   = f.message.value.trim();
-    var body  = [
-      intent ? 'Asking about: ' + intent : '',
-      about ? 'About the business:\n' + about : '',
-      msg ? 'Biggest time sink:\n' + msg : ''
-    ].filter(Boolean).join('\n\n');
+    var body = intent ? 'Asking about: ' + intent : '';
 
     var payload = {
       name:     f.name.value.trim(),
       business: f.business.value.trim(),
-      type:     picked,
+      type:     f.type.value.trim(),
       email:    f.email.value.trim(),
       phone:    f.phone.value.trim(),
       message:  body,
@@ -2098,7 +2073,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
       email_consent: document.getElementById('cEmail').checked === true
     };
 
-    fetch('https://knox-crm.higgsfield.app/api/leads', {
+    fetch('https://meridianfiling.com/api/leads', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(payload)
