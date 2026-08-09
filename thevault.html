@@ -46,7 +46,8 @@
       { "@type": "ListItem", "position": 4, "name": "Nail salon demo — Knox Nails", "url": "https://getprojectknox.com/thevault/nail-salon/" },
       { "@type": "ListItem", "position": 5, "name": "Chiropractor demo — Knox Pops", "url": "https://getprojectknox.com/thevault/chiropractor/" },
       { "@type": "ListItem", "position": 6, "name": "Lawn care demo — Knox Blocks", "url": "https://getprojectknox.com/thevault/lawn-care/" },
-      { "@type": "ListItem", "position": 7, "name": "CRM demo", "url": "https://getprojectknox.com/thevault/crm/" }
+      { "@type": "ListItem", "position": 7, "name": "CRM demo", "url": "https://getprojectknox.com/thevault/crm/" },
+      { "@type": "ListItem", "position": 8, "name": "The Vault Films — three 40-second films", "url": "https://getprojectknox.com/thevault/films/" }
     ]
   }
 }
@@ -192,6 +193,32 @@ h1 em{font-style:normal;color:var(--struck)}
 .promise p{margin:0;font-size:16px;color:#dfe3ec}
 .promise b{color:var(--struck);font-weight:500}
 @media(min-width:760px){.promise .wrap{grid-template-columns:1.4fr 1fr;align-items:center;gap:34px}}
+
+/* ── THE SCREENING ROOM ──────────────────────────────────────────────────
+   Three 40-second films, each on one growth lever. The cards link to their
+   own pages under /thevault/films/, where each film sits over its cited
+   research — the pages the follow-up emails point at. */
+.screening{padding:clamp(36px,6vw,64px) 0;border-bottom:1px solid var(--line)}
+.screening h2{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(24px,5vw,34px);letter-spacing:.04em;margin:0 0 8px}
+.screening .lede{margin:0 0 24px;color:#cfd4e0;max-width:56ch}
+.filmGrid{display:grid;gap:18px}
+@media(min-width:760px){.filmGrid{grid-template-columns:repeat(3,1fr)}}
+.filmCard{display:block;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.02);
+ transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease)}
+.filmCard:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 20px 60px rgba(201,169,97,.22)}
+.filmCard .thumb{position:relative}
+.filmCard img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.filmCard .playBadge{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.filmCard .playBadge span{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+ background:rgba(5,7,15,.62);border:1px solid var(--gold);backdrop-filter:blur(3px);
+ transition:transform .3s var(--ease)}
+.filmCard:hover .playBadge span{transform:scale(1.12)}
+.filmCard .playBadge svg{width:20px;height:20px;fill:var(--struck);margin-left:3px}
+.filmCard .cardCopy{padding:14px 16px 18px}
+.filmCard i{font-style:normal;font-size:11px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
+.filmCard b{display:block;font-family:'Cinzel',serif;font-weight:600;font-size:18px;margin:6px 0 4px;color:var(--ivory)}
+.filmCard span.blurb{color:var(--steel);font-size:14px;display:block}
+.screening .allFilms{margin-top:18px;font-size:14.5px}
 
 /* ── THE DRAWERS ────────────────────────────────────────────────────────────
    Each is one <a>, so the whole band is the tap target — on a phone this is a
@@ -358,6 +385,43 @@ html:not([data-js]) .rv{opacity:1;transform:none}
     </div>
     <p style="color:#A9B1C4;font-size:15px">Nothing here is a demo account or a sandbox screenshot.
       Every one of these is the software your business would run on.</p>
+  </div>
+</section>
+
+<!-- ═══ THE SCREENING ROOM ════════════════════════════════════════════════ -->
+<section class="screening" id="films">
+  <div class="wrap">
+    <p class="eyebrow">The Screening Room</p>
+    <h2>Three films. Forty seconds each.</h2>
+    <p class="lede">Why customers can&rsquo;t find you, why they don&rsquo;t show up, and why they pick the
+      other shop &mdash; each film built on real research, cited right under the player.</p>
+    <div class="filmGrid">
+      <a class="filmCard rv" href="/thevault/films/get-found-first">
+        <div class="thumb">
+          <img src="/assets/films/get-found-first-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        </div>
+        <div class="cardCopy"><i>Film 01</i><b>Get Found First</b>
+          <span class="blurb">Over half of website visits start with a search &mdash; why the found shop wins.</span></div>
+      </a>
+      <a class="filmCard rv" href="/thevault/films/the-text-that-shows-up">
+        <div class="thumb">
+          <img src="/assets/films/the-text-that-shows-up-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        </div>
+        <div class="cardCopy"><i>Film 02</i><b>The Text That Shows Up</b>
+          <span class="blurb">One reminder text cuts no-shows by about a quarter &mdash; the empty chair, fixed.</span></div>
+      </a>
+      <a class="filmCard rv" href="/thevault/films/say-it-back">
+        <div class="thumb">
+          <img src="/assets/films/say-it-back-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        </div>
+        <div class="cardCopy"><i>Film 03</i><b>Say It Back</b>
+          <span class="blurb">97% read the reviews &mdash; and they watch how you answer them.</span></div>
+      </a>
+    </div>
+    <p class="allFilms"><a href="/thevault/films/">The Screening Room, full size &rarr;</a></p>
   </div>
 </section>
 

@@ -35,8 +35,10 @@ const PAGES = ["index.html", "privacy.html", "sms-terms.html", "thevault.html", 
 /** Copied byte-for-byte. */
 const VERBATIM = ["favicon.png", "robots.txt", "sitemap.xml", "_headers"];
 
-/** Asset trees copied wholesale. */
-const TREES = ["assets"];
+/** Asset trees copied wholesale. `thevault/` holds the Screening Room film
+ *  pages (dist/thevault/films/*.html) — the /thevault page itself is still
+ *  thevault.html above; assets' auto-trailing-slash serves both cleanly. */
+const TREES = ["assets", "thevault"];
 
 const CLEAN = [
   // Absolute self-references first: canonical, og:url, sitemap entries.
