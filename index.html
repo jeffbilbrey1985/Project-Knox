@@ -340,41 +340,22 @@ video.film[data-done]{opacity:0}
   .doorBtn:hover .doorWheel{transform:translate(-50%,-50%)}
 }
 
-/* ── THE REVIEW RAIL ───────────────────────────────────────────────────────
-   An endless brass conveyor of Google reviews. The track holds the card set
-   twice; the animation slides exactly half its own width, so the loop point
-   is invisible. Hover pauses it — people read at their own pace. */
+/* ── STRAIGHT FROM GOOGLE ──────────────────────────────────────────────────
+   The live GoHighLevel review widget, staged on a vault shelf. The interior
+   of the iframe is the vendor's (likely light) — so the wrapper does the
+   brand work: thin gold border, elevation, generous padding. The iframe is
+   injected lazily by JS; its vendor script auto-sizes the height via
+   postMessage, so we only guarantee a floor (min-height) to stop the page
+   jumping while it loads. */
 .reviews{padding:clamp(44px,7vw,84px) 0;border-top:1px solid var(--line);
  background:linear-gradient(180deg,var(--night) 0%,#0d1330 55%,var(--night) 100%)}
-.reviews h2{margin-bottom:clamp(20px,3.5vw,34px)}
-.revRail{position:relative;overflow:hidden;padding:6px 0 18px}
-.revTrack{display:flex;width:max-content}
-.revTrack[data-cloned]{animation:revScroll 46s linear infinite}
-.revSet{display:flex;gap:clamp(14px,2vw,22px);padding-right:clamp(14px,2vw,22px)}
-.revRail:hover .revTrack,.revRail:focus-within .revTrack{animation-play-state:paused}
-@keyframes revScroll{to{transform:translateX(-50%)}}
-.revCard{display:flex;flex-direction:column;gap:10px;width:clamp(260px,30vw,340px);flex:none;
- padding:20px 22px;border-radius:14px;border:1px solid var(--line);
- background:linear-gradient(172deg,rgba(201,169,97,.10),rgba(11,16,38,.6) 40%,rgba(5,7,15,.7));
- box-shadow:0 14px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06);
- color:var(--ivory);transition:border-color .3s var(--ease),transform .3s var(--ease)}
-a.revCard:hover{border-color:var(--gold);transform:translateY(-3px)}
-.revStars{display:flex;gap:3px}
-.revStars svg{width:15px;height:15px;fill:var(--struck);filter:drop-shadow(0 1px 3px rgba(201,169,97,.5))}
-.revCard p{margin:0;font-size:14.5px;line-height:1.55;color:#dfe3ec;
- display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
-.revCard footer{display:flex;align-items:baseline;gap:8px;margin-top:auto}
-.revCard b{font-weight:500;font-size:13.5px;color:var(--struck);letter-spacing:.02em}
-.revCard i{font-style:normal;font-size:11.5px;color:var(--steel)}
-.revFade{position:absolute;top:0;bottom:0;width:clamp(48px,9vw,140px);pointer-events:none;z-index:2}
-.revFade-l{left:0;background:linear-gradient(90deg,#0d1330,transparent)}
-.revFade-r{right:0;background:linear-gradient(270deg,#0d1330,transparent)}
-.revCta{text-align:center;margin:6px 0 0;font-size:14.5px}
-@media (prefers-reduced-motion:reduce){
-  .revTrack,.revTrack[data-cloned]{animation:none;width:auto;flex-wrap:wrap}
-  .revRail{overflow-x:auto}
-  .revSet[aria-hidden]{display:none}
-}
+.revStage{margin-top:clamp(20px,3.5vw,34px);border:1px solid var(--line);border-radius:18px;
+ padding:clamp(14px,3vw,28px);overflow:hidden;width:100%;
+ background:linear-gradient(172deg,rgba(201,169,97,.09),rgba(11,16,38,.6) 42%,rgba(5,7,15,.7));
+ box-shadow:0 18px 54px rgba(0,0,0,.45),0 2px 18px rgba(201,169,97,.10),inset 0 1px 0 rgba(255,255,255,.05)}
+.revEmbed{width:100%;min-height:420px}
+.revEmbed iframe{display:block;width:100%;min-width:100%;border:0;min-height:420px}
+.revStage noscript a{display:inline-block;padding:12px 4px}
 
 .plaques{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(720px,100%);
  margin:6px auto 14px;perspective:1000px}
@@ -519,13 +500,18 @@ a.revCard:hover{border-color:var(--gold);transform:translateY(-3px)}
 
 /* ───────────────────────── 6b · bolt-ons ───────────────────────── */
 .boltons{padding:clamp(40px,7vw,72px) 0 clamp(48px,8vw,84px)}
-.boltCards{display:grid;gap:18px;margin-top:28px}
+.boltCards{display:grid;gap:18px;margin-top:28px;perspective:1000px}
 @media (min-width:900px){.boltCards{grid-template-columns:repeat(3,1fr);align-items:stretch}}
 .boltCard{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;
  overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(0,0,0,.16));
  transition:transform .45s var(--ease),border-color .45s var(--ease),box-shadow .45s var(--ease)}
-.boltCard:hover{transform:translateY(-4px);border-color:rgba(201,169,97,.55);
+.boltCard:hover{transform:translateY(-4px) rotateX(1.6deg) rotateY(-1.2deg);border-color:rgba(201,169,97,.55);
  box-shadow:0 18px 44px rgba(5,7,15,.55),0 4px 18px rgba(201,169,97,.12)}
+@media (prefers-reduced-motion:reduce){
+  .boltCard,.boltArt img{transition:none!important}
+  .boltCard:hover{transform:none}
+  .boltCard:hover .boltArt img{transform:none}
+}
 .boltArt{position:relative;aspect-ratio:16/9;overflow:hidden;background:
  radial-gradient(80% 90% at 50% 100%,rgba(201,169,97,.14),transparent 62%),
  radial-gradient(120% 70% at 30% 0%,rgba(138,147,168,.08),transparent 55%),
@@ -610,6 +596,11 @@ a.revCard:hover{border-color:var(--gold);transform:translateY(-3px)}
  border:1px solid rgba(201,169,97,.18);display:flex;align-items:flex-end;background:var(--black)}
 .chapter .cbg,.chapter video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .chapter video{z-index:1}
+/* slow Ken Burns on the poster stills — the imagery breathes even before
+   (or without) a cinemagraph fading in over it. Transform-only, clipped by
+   the chapter's overflow:hidden, and switched off under reduced motion. */
+.chapter .cbg{animation:kenburns 14s ease-in-out infinite alternate;will-change:transform}
+@media (prefers-reduced-motion:reduce){.chapter .cbg{animation:none!important}}
 .chapter::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
  background:linear-gradient(180deg,rgba(5,7,15,.18) 0%,transparent 34%,rgba(5,7,15,.5) 60%,rgba(5,7,15,.95) 100%)}
 .chBody{position:relative;z-index:3;padding:clamp(22px,4.4vw,48px);max-width:760px}
@@ -634,77 +625,69 @@ a.revCard:hover{border-color:var(--gold);transform:translateY(-3px)}
   .chapter:nth-child(even) .chBody span{margin-left:auto}
 }
 
-/* ───────────────────────── 3 · how customers find you ───────────────────────── */
-.find{padding:clamp(44px,8vw,76px) 0 clamp(18px,3vw,32px);background:var(--black)}
-.serp{
-  margin:26px 0 0;border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;
-  background:rgba(11,16,38,.65);
+/* ───────────────────────── 4 · the living vault door ─────────────────────
+   The teaser is now a scene, not a photo. One big <a> to thevault.html:
+   as it scrolls into view a seam of warm light cracks open along the door's
+   right edge and widens (--vp, 0..1, set from IntersectionObserver ratio);
+   the brass wheel idles in a slow turn, spins up on hover, and on click the
+   whole door whips, swings toward the viewer and floods with light before
+   the browser follows the link — the same choreography as the hero doors.
+   Everything is transform/opacity; --par is the parallax offset (max 24px).
+   Reduced motion: still photo, gentle fixed glow, instant navigation. */
+.vaultScene{position:relative;display:block;width:100%;max-width:560px;margin:22px auto 0;
+ border-radius:20px;color:var(--ivory);-webkit-tap-highlight-color:transparent}
+.vsPar{display:block;position:relative;border-radius:20px;overflow:hidden;
+ border:1px solid var(--line);background:var(--black);perspective:900px;
+ transform:translateY(var(--par,0px));will-change:transform;
+ box-shadow:0 18px 54px rgba(0,0,0,.5),0 0 0 1px rgba(201,169,97,.10);
+ transition:box-shadow .5s var(--ease)}
+.vaultScene:hover .vsPar,.vaultScene:focus-visible .vsPar{
+ box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 0 1px rgba(232,206,147,.55),0 0 44px rgba(201,169,97,.28)}
+.vsDoor{display:block;position:relative;transform-origin:14% 50%;
+ transition:transform .7s var(--ease)}
+.vaultScene:hover .vsDoor,.vaultScene:focus-visible .vsDoor{transform:scale(1.02)}
+.vsFace{width:100%;height:auto;display:block;
+ animation:kenburns 14s ease-in-out infinite alternate;will-change:transform}
+/* legibility scrim for the CTA, same as the old treatment */
+.vsDoor::after{content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(180deg,rgba(5,7,15,.55) 0%,rgba(5,7,15,0) 34%,rgba(5,7,15,.2) 62%,rgba(5,7,15,.9) 100%)}
+/* the seam of light along the door's right edge — widens as you approach */
+.vsSeam{position:absolute;top:0;bottom:0;right:2%;width:30%;pointer-events:none;
+ transform:scaleX(calc(.18 + var(--vp,0)*.82));transform-origin:100% 50%;
+ opacity:calc(.25 + var(--vp,0)*.75);mix-blend-mode:screen;
+ background:radial-gradient(ellipse at 84% 52%,rgba(255,243,208,.85) 0%,rgba(232,206,147,.42) 34%,rgba(201,169,97,.16) 58%,transparent 78%);
+ transition:transform .45s var(--ease),opacity .45s var(--ease)}
+.vaultScene:hover .vsSeam,.vaultScene:focus-visible .vsSeam{opacity:1}
+/* the brass wheel: slow idle turn on the wrapper, hover/opening whip on the img */
+.vsWheelSpin{position:absolute;left:38%;top:47%;width:29%;aspect-ratio:1;
+ margin:-14.5% 0 0 -14.5%;pointer-events:none;
+ animation:vsIdle 44s linear infinite;will-change:transform}
+.vsWheel{width:100%;height:100%;display:block;
+ transition:transform 1s cubic-bezier(.34,1.2,.4,1);
+ filter:drop-shadow(0 6px 14px rgba(0,0,0,.6))}
+.vaultScene:hover .vsWheel,.vaultScene:focus-visible .vsWheel{transform:rotate(95deg)}
+@keyframes vsIdle{to{transform:rotate(360deg)}}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.06)}}
+/* the committed opening — mirrors the hero doorBtn sequence */
+.vsFlood{position:absolute;inset:0;opacity:0;pointer-events:none;mix-blend-mode:screen;
+ background:radial-gradient(120% 100% at 70% 50%,#FFF3D0 0%,#F4E3B2 26%,rgba(201,169,97,.6) 54%,rgba(201,169,97,0) 80%);
+ transition:opacity .6s var(--ease)}
+.vaultScene[data-opening] .vsWheel{transform:rotate(760deg);
+ transition:transform .95s cubic-bezier(.55,0,.25,1)}
+.vaultScene[data-opening] .vsDoor{transform:rotateY(-12deg) scale(1.15);
+ transition:transform .8s cubic-bezier(.7,0,.25,1) .3s}
+.vaultScene[data-opening] .vsSeam{transform:scaleX(1);opacity:1}
+.vaultScene[data-opening] .vsFlood{opacity:1;transition-delay:.4s}
+.vsCta{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);z-index:3;
+ width:min(86%,340px)}
+/* reduced motion: still photo, gentle fixed glow, no choreography. The
+   !important is load-bearing — these must beat the [data-opening] rules. */
+@media (prefers-reduced-motion:reduce){
+  .vsFace,.vsWheelSpin{animation:none!important}
+  .vsPar,.vsDoor,.vsWheel,.vsSeam,.vsFlood{transition:none!important;transform:none!important}
+  .vaultScene .vsSeam{opacity:.5!important}
+  .vaultScene .vsFlood{opacity:0!important}
 }
-.serpBar{display:flex;align-items:center;gap:11px;padding:15px 16px;border-bottom:1px solid var(--line-soft)}
-.serpBar svg{width:18px;height:18px;color:var(--steel);flex:none}
-.serpQ{font-size:15.5px;color:var(--ivory);font-weight:400}
-.serpQ .caret{display:inline-block;width:1.5px;height:1.05em;background:var(--gold);vertical-align:-2px;margin-left:2px;animation:blink 1.1s steps(1) infinite}
-@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){.serpQ .caret{animation:none}}
-.serpToggle{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line-soft)}
-.serpToggle button{
-  min-height:52px;background:none;border:none;border-right:1px solid var(--line-soft);
-  color:var(--steel);font-family:var(--ui);font-size:13px;padding:10px 12px;cursor:pointer;
-  transition:background .2s,color .2s;line-height:1.35;
-}
-.serpToggle button:last-child{border-right:none}
-.serpToggle button[aria-pressed="true"]{background:rgba(201,169,97,.12);color:var(--struck);font-weight:500}
-.serpToggle button:active{background:rgba(201,169,97,.2)}
-.serpList{list-style:none;margin:0;padding:0}
-.serpList li{
-  display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;
-  padding:13px 16px;border-bottom:1px solid rgba(138,147,168,.12);overflow:hidden;
-  transition:max-height .38s var(--ease),opacity .3s var(--ease),padding .38s var(--ease);
-  max-height:120px;
-}
-.serpList li:last-child{border-bottom:none}
-.serp[data-q="best"] .serpList li:not([data-keep]){max-height:0;opacity:0;padding-top:0;padding-bottom:0;border-bottom-width:0}
-@media (prefers-reduced-motion:reduce){.serpList li{transition:none}}
-.serpName{font-size:15.5px;color:var(--ivory);font-weight:400}
-.serp[data-q="best"] .serpList li[data-keep] .serpName{color:var(--struck)}
-.serpMeta{grid-column:1/-1;font-size:12.5px;color:var(--steel);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
-.stars{display:inline-flex;gap:2px;align-items:center}
-.stars svg{width:12px;height:12px}
-.serpTag{border:1px solid var(--line-soft);border-radius:999px;padding:2px 8px;font-size:11px;letter-spacing:.04em}
-.serpTag.good{border-color:rgba(201,169,97,.45);color:var(--struck)}
-.serpTag.bad{color:#8A93A8}
-.serpNote{
-  margin:0;padding:15px 16px;font-size:13.5px;color:var(--steel);
-  border-top:1px solid var(--line-soft);background:rgba(5,7,15,.4);line-height:1.55;
-}
-.findGrid{display:grid;gap:22px;margin-top:30px}
-@media (min-width:900px){.findGrid{grid-template-columns:1fr 1fr;gap:44px;align-items:center}}
-.loopVid{width:100%;max-width:340px;margin:0 auto;display:block}
-
-/* ───────────────────────── 4 · the vault door ───────────────────────── */
-.vaultDoor{
-  position:relative;width:100%;max-width:560px;margin:22px auto 0;
-  border-radius:20px;overflow:hidden;border:1px solid var(--line);
-  background:var(--black);
-}
-.vaultDoor img{width:100%;height:auto;display:block}
-.vaultDoor::after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(5,7,15,.55) 0%,rgba(5,7,15,0) 34%,rgba(5,7,15,.2) 62%,rgba(5,7,15,.9) 100%);
-}
-/* The light widening through the gap as the section arrives. */
-.vaultDoor .seamGlow{
-  position:absolute;left:50%;top:0;bottom:0;width:34%;transform:translateX(-50%) scaleX(var(--glow,1));
-  transform-origin:50% 50%;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 55%,rgba(232,206,147,.5) 0%,rgba(201,169,97,.18) 42%,transparent 72%);
-  mix-blend-mode:screen;transition:transform 1.1s var(--ease),opacity 1.1s var(--ease);opacity:var(--glowO,1);
-}
-:root[data-js] .vaultDoor{--glow:.35;--glowO:.35}
-:root[data-js] .vaultDoor[data-phase="running"],:root[data-js] .vaultDoor[data-phase="done"]{--glow:1;--glowO:1}
-.vaultDoorCta{
-  position:absolute;left:50%;bottom:7%;transform:translateX(-50%);z-index:3;width:min(86%,340px);
-}
-.dialVid{width:100%;max-width:190px;margin:0 auto 6px;display:block;opacity:.9}
 
 /* ───────────────────────── the vault push ───────────────────────── */
 .vault{
@@ -978,7 +961,7 @@ footer a:hover{color:var(--gold)}
   </a>
   <div class="navlinks navdesk">
     <a href="#what">What you get</a>
-    <a href="#find">Getting found on Google</a>
+    <a href="getting-found.html">Getting Found on Google</a>
     <a href="#vault">The Vault</a>
     <a href="#plans">Plans</a>
     <a href="#boltons">Bolt&#8209;Ons</a>
@@ -1146,60 +1129,6 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
-<!-- ───────────── 3 · how customers find you ───────────── -->
-<section id="find" class="find">
-  <div class="wrap">
-    <div class="eyebrow rv">How customers find you</div>
-    <h2 class="rv">Getting found on Google: everybody Googles, almost nobody scrolls.</h2>
-    <p class="lede rv" style="margin-top:16px">Search <em style="font-style:normal;color:var(--ivory)">barbershops near me</em> and Google hands back a long list. Add one word &mdash; <em style="font-style:normal;color:var(--struck)">best</em> barbershops near me &mdash; and the list gets short. Try it:</p>
-
-    <div class="serp rv" id="serp" data-q="broad">
-      <div class="serpBar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
-        <span class="serpQ" id="serpQ">barbershops near me<span class="caret"></span></span>
-      </div>
-      <div class="serpToggle" role="group" aria-label="Change the search">
-        <button type="button" data-q="broad" aria-pressed="true">&ldquo;barbershops near me&rdquo;</button>
-        <button type="button" data-q="best" aria-pressed="false">&ldquo;<b>best</b> barbershops near me&rdquo;</button>
-      </div>
-      <ul class="serpList" id="serpList">
-        <li data-keep>
-          <span class="serpName">Ridgeline Cuts</span>
-          <span class="serpMeta"><span class="stars"><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg></span><span>4.9 (312)</span><span class="serpTag good">Website</span><span class="serpTag good">Books online</span></span>
-        </li>
-        <li>
-          <span class="serpName">The Chair</span>
-          <span class="serpMeta"><span style="color:#8A93A8">No reviews yet</span><span class="serpTag bad">No website</span></span>
-        </li>
-        <li data-keep>
-          <span class="serpName">Ellyn Barber Co.</span>
-          <span class="serpMeta"><span class="stars"><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg></span><span>4.8 (204)</span><span class="serpTag good">Website</span><span class="serpTag good">Books online</span></span>
-        </li>
-        <li>
-          <span class="serpName">Third Street Barbers</span>
-          <span class="serpMeta"><span class="stars"><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#8A93A8" opacity=".45" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#8A93A8" opacity=".45" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg></span><span>3.4 (11)</span><span class="serpTag bad">Hours not set</span></span>
-        </li>
-        <li>
-          <span class="serpName">Main St. Trims</span>
-          <span class="serpMeta"><span class="stars"><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#8A93A8" opacity=".45" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg></span><span>3.9 (7)</span><span class="serpTag bad">No website</span></span>
-        </li>
-        <li>
-          <span class="serpName">Cut Above</span>
-          <span class="serpMeta"><span style="color:#8A93A8">No reviews yet</span><span class="serpTag bad">Profile incomplete</span></span>
-        </li>
-        <li data-keep>
-          <span class="serpName">Oakwood Barber</span>
-          <span class="serpMeta"><span class="stars"><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24" fill="#C9A961" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.7 7.3L12 17.8 5.5 21.7l1.7-7.3L1.5 9.5 9 8.9z"/></svg></span><span>4.9 (168)</span><span class="serpTag good">Website</span><span class="serpTag good">Books online</span></span>
-        </li>
-      </ul>
-      <p class="serpNote" id="serpNote">Seven shops in the running.</p>
-    </div>
-
-    <p class="lede rv" style="margin-top:24px"><b style="color:var(--struck);font-weight:500">That short list isn&rsquo;t luck &mdash; it&rsquo;s work, and that work is the job.</b> The profile, the site Google can read, the reviews that keep arriving: we build all of it, and we keep it running.</p>
-    <p class="rv" style="margin-top:14px"><a class="btnGhost" href="how.html">Read how the work gets done &rarr;</a></p>
-  </div>
-</section>
-
 <!-- ───────────── 4 · the vault ───────────── -->
 <section id="vault" class="vault">
   <div class="vaultInner">
@@ -1207,25 +1136,24 @@ footer a:hover{color:var(--gold)}
     <h2 class="rv">Six live demo businesses. Don&rsquo;t take our word for it &mdash; go and use one.</h2>
     <p class="lede rv">Behind this door are six complete businesses we built &mdash; a barbershop, a taquer&iacute;a, an auto garage, a nail salon, a chiropractor and a lawn crew. Not screenshots. Book a haircut in one and a real confirmation email lands in your inbox in about ten seconds.</p>
 
-      <video class="dialVid rv" muted playsinline aria-hidden="true" tabindex="-1"
-        preload="none" poster="assets/motion/dial-lock-poster.webp" data-motion data-once width="1000" height="1000">
-        <source data-src="assets/motion/dial-lock.webm" type="video/webm">
-        <source data-src="assets/motion/dial-lock.mp4" type="video/mp4">
-      </video>
-
-    <div class="vaultDoor rv" id="vaultDoor">
-      <picture>
-        <source media="(max-width:640px)" srcset="assets/img/vault-ajar-p.webp">
-        <img src="assets/img/vault-ajar-w.webp" alt="A bank vault door standing ajar with gold light spilling out across the floor." width="1376" height="768" loading="lazy" decoding="async">
-      </picture>
-      <span class="seamGlow" aria-hidden="true"></span>
-      <div class="vaultDoorCta">
-        <a class="btnVault" href="/thevault.html">
-          <i>Enter the Vault</i>
-          <em>Six live sites &middot; no signup</em>
-        </a>
-      </div>
-    </div>
+    <a class="vaultScene rv" id="vaultScene" href="/thevault.html"
+       aria-label="Enter the Vault — six live demo businesses, no signup required">
+      <span class="vsPar" aria-hidden="true">
+        <span class="vsDoor">
+          <picture>
+            <source media="(max-width:640px)" srcset="assets/img/vault-ajar-p.webp">
+            <img class="vsFace" src="assets/img/vault-ajar-w.webp" alt="" width="1376" height="768" loading="lazy" decoding="async">
+          </picture>
+          <span class="vsSeam"></span>
+          <span class="vsWheelSpin"><img class="vsWheel" src="assets/img/doors/wheel.webp" alt="" width="640" height="640" loading="lazy" decoding="async"></span>
+        </span>
+        <span class="vsFlood"></span>
+      </span>
+      <span class="vsCta"><span class="btnVault">
+        <i>Enter the Vault</i>
+        <em>Six live sites &middot; no signup</em>
+      </span></span>
+    </a>
 
     <div class="vaultChips rv">
       <a href="/thevault.html#chops">Book a haircut</a>
@@ -1265,33 +1193,22 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
-<!-- ───────────── 3b · the ledger of good words ─────────────
-     A scrolling band of Google reviews, dressed like everything else in this
-     house: night navy, gold leaf, engraved type. The rail renders only when
-     window.KNOX_REVIEWS has entries, so an empty list ships an invisible
-     section rather than an empty shelf. -->
-<section id="reviews" class="reviews" hidden>
+<!-- ───────────── 3b · straight from Google ─────────────
+     The live review widget. The third-party script and iframe are NOT in this
+     markup — a lazy loader injects them once the section approaches the
+     viewport, so the vendor's bytes are never spent on a visitor who never
+     scrolls here. -->
+<section id="reviews" class="reviews">
   <div class="wrap">
-    <div class="eyebrow rv">Word on the street</div>
-    <h2 class="rv">The neighbors talk. Google writes it&nbsp;down.</h2>
-  </div>
-  <div class="revRail" aria-label="Google reviews of Project Knox">
-    <div class="revTrack" id="revTrack"></div>
-    <div class="revFade revFade-l" aria-hidden="true"></div>
-    <div class="revFade revFade-r" aria-hidden="true"></div>
-  </div>
-  <div class="wrap">
-    <p class="revCta rv"><a id="revLink" href="https://www.google.com/search?q=Project+Knox+Glen+Ellyn+reviews" target="_blank" rel="noopener">Read every review on Google &rarr;</a></p>
+    <div class="eyebrow rv">Straight from Google</div>
+    <h2 class="rv">What owners say</h2>
+    <p class="lede rv" style="margin-top:16px">Live from our Google profile &mdash; unedited, exactly as they were written.</p>
+    <div class="revStage rv">
+      <div class="revEmbed" id="revEmbed" aria-label="Google reviews of Project Knox"></div>
+      <noscript><p style="margin:0;text-align:center"><a href="https://www.google.com/search?q=Project+Knox+Glen+Ellyn+reviews">Read our Google reviews</a></p></noscript>
+    </div>
   </div>
 </section>
-<script>
-/* Paste reviews here — one object per review. The rail builds itself. */
-window.KNOX_REVIEWS = [
-  /* { "name": "Jane D.", "stars": 5, "text": "..." }, */
-];
-/* Set this to the Google Business profile's review link when handy. */
-window.KNOX_REVIEWS_URL = "";
-</script>
 
 <!-- ───────────── 4 · plans ───────────── -->
 <section id="plans" class="plans">
@@ -1520,7 +1437,7 @@ window.KNOX_REVIEWS_URL = "";
     </div>
     <div class="tagline">Built by hand. Run by Knox.</div>
     <p style="margin-bottom:6px"><a href="tel:+13312917400">(331) 291-7400</a> &middot; <a href="mailto:jeffbilbrey@getprojectknox.com">jeffbilbrey@getprojectknox.com</a></p>
-    <p style="margin-bottom:6px">Glen Ellyn, Illinois &middot; <a href="/thevault.html">The Vault</a></p>
+    <p style="margin-bottom:6px">Glen Ellyn, Illinois &middot; <a href="/thevault.html">The Vault</a> &middot; <a href="getting-found.html">Getting Found on Google</a></p>
     <p style="margin-bottom:6px"><a href="privacy.html">Privacy Policy</a> &middot; <a href="sms-terms.html">SMS Terms</a></p>
     <p style="opacity:.7;margin:0">&copy; 2026 Project Knox &middot; Websites, CRM &amp; automation for local businesses</p>
   </div>
@@ -1780,53 +1697,99 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   });
 })();
 
-/* ═══════════ 1e · the review rail ═══════════ */
-(function reviews(){
-  var data = window.KNOX_REVIEWS || [];
-  if(!data.length) return;
-  var section = document.getElementById('reviews');
-  var track = document.getElementById('revTrack');
-  if(!section || !track) return;
-  var url = window.KNOX_REVIEWS_URL || document.getElementById('revLink').href;
-  if(window.KNOX_REVIEWS_URL) document.getElementById('revLink').href = url;
-  section.hidden = false; /* must be laid out BEFORE the width math below */
-  var star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>';
-  function esc(s){ var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-  function card(r){
-    var starRow = '';
-    if(Number.isFinite(r.stars)){
-      var n = Math.max(1, Math.min(5, Math.round(r.stars)));
-      var stars = ''; for(var i=0;i<n;i++) stars += star;
-      starRow = '<span class="revStars" aria-label="'+n+' out of 5 stars">'+stars+'</span>';
+/* ═══════════ 1c3 · the living vault door ═══════════
+   The teaser scene follows the hero doors' conventions exactly: a
+   data-opening guard against double-clicks, KnoxStopAudio before the
+   sequence, navigation after the choreography (~1.1s), a 4s re-arm if
+   navigation is somehow blocked, and a pageshow re-arm because bfcache
+   restores the page mid-animation. Reduced motion and modifier clicks fall
+   through to ordinary instant navigation.
+   Approach light: an IntersectionObserver ratio drives --vp (0..1) so the
+   seam widens as the section fills the viewport. Parallax: --par, a
+   scroll-driven translateY clamped to ±24px, transform-only. */
+(function vaultScene(){
+  var scene = document.getElementById('vaultScene');
+  if(!scene) return;
+
+  if(!RM && 'IntersectionObserver' in window){
+    var steps = [];
+    for(var i=0;i<=10;i++) steps.push(i/10);
+    var io = new IntersectionObserver(function(entries){
+      for(var j=0;j<entries.length;j++){
+        var r = entries[j].intersectionRatio;
+        scene.style.setProperty('--vp', String(Math.max(0, Math.min(1, r)).toFixed(3)));
+      }
+    }, {threshold:steps});
+    io.observe(scene);
+
+    var t = false;
+    function par(){
+      t = false;
+      var r = scene.getBoundingClientRect();
+      if(r.bottom < 0 || r.top > window.innerHeight) return; /* off-screen: no work */
+      var mid = r.top + r.height/2 - window.innerHeight/2;
+      var y = Math.max(-24, Math.min(24, mid * -0.06));
+      scene.style.setProperty('--par', y.toFixed(1) + 'px');
     }
-    return '<a class="revCard" href="'+url+'" target="_blank" rel="noopener">'
-      + starRow
-      + '<p>&ldquo;'+esc(r.text)+'&rdquo;</p>'
-      + '<footer><b>'+esc(r.name)+'</b><i>Google review</i></footer></a>';
-  }
-  var set = '<div class="revSet">' + data.map(card).join('') + '</div>';
-  var RMq = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(RMq){
-    track.innerHTML = set; /* no clones for readers who scroll themselves */
+    window.addEventListener('scroll', function(){ if(!t){ t = true; requestAnimationFrame(par); } }, {passive:true});
+    par();
   } else {
-    /* Enough copies to cover the widest screens, always an even count so the
-       -50% keyframe lands exactly on a copy boundary — an invisible seam. */
-    track.innerHTML = set + set;
-    var setW = Math.max(track.scrollWidth / 2, 1);
-    var need = Math.ceil((innerWidth * 2) / setW);
-    var copies = Math.min(12, Math.max(2, need + (need % 2)));
-    if(copies > 2) track.innerHTML = new Array(copies + 1).join(set);
-    /* The clones repeat what's already been said — hide them from readers
-       and keep keyboard focus (and its scroll-jumps) out of them. */
-    var rail = track.parentElement;
-    var sets = track.children;
-    for(var i = 1; i < sets.length; i++){
-      sets[i].setAttribute('aria-hidden','true');
-      sets[i].querySelectorAll('a').forEach(function(l){ l.setAttribute('tabindex','-1'); });
-    }
-    rail.addEventListener('scroll', function(){ rail.scrollLeft = 0; });
-    track.setAttribute('data-cloned','');
+    /* No observer or reduced motion: the seam rests fully open. The
+       reduced-motion CSS overrides this to its gentle fixed glow. */
+    scene.style.setProperty('--vp','1');
   }
+
+  scene.addEventListener('click', function(e){
+    if(RM || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    if(scene.hasAttribute('data-opening')) return; /* sequence already running */
+    scene.setAttribute('data-opening','');
+    if(window.KnoxStopAudio) KnoxStopAudio(null);
+    setTimeout(function(){ location.href = scene.href; }, 1120);
+    /* Belt and braces: if navigation is somehow blocked, re-arm the door. */
+    setTimeout(function(){ scene.removeAttribute('data-opening'); }, 4000);
+  });
+  window.addEventListener('pageshow', function(e){
+    if(e.persisted) scene.removeAttribute('data-opening');
+  });
+})();
+
+/* ═══════════ 1e · straight from Google ═══════════
+   The GoHighLevel review widget, loaded the way everything heavy on this page
+   is loaded: not at all until it is about to matter. An IntersectionObserver
+   with a 600px head start injects, exactly once, the iframe and the vendor
+   script; the script then auto-sizes the iframe height via postMessage. No
+   observer support (very old engines) = inject immediately — the widget is
+   the content of the section, so it must never silently not exist. */
+(function ghlReviews(){
+  var host = document.getElementById('revEmbed');
+  if(!host) return;
+  var injected = false;
+  function inject(){
+    if(injected) return;
+    injected = true;
+    var f = document.createElement('iframe');
+    f.className = 'lc_reviews_widget';
+    f.src = 'https://reputationhub.site/reputation/widgets/review_widget/gqbHyKNPMaGqDMfD2Gfo';
+    f.setAttribute('frameborder','0');
+    f.setAttribute('scrolling','no');
+    f.style.minWidth = '100%';
+    f.style.width = '100%';
+    f.title = 'Google reviews of Project Knox';
+    f.loading = 'lazy';
+    host.appendChild(f);
+    var sc = document.createElement('script');
+    sc.src = 'https://reputationhub.site/reputation/assets/review-widget.js';
+    sc.async = true;
+    document.body.appendChild(sc);
+  }
+  if(!('IntersectionObserver' in window)){ inject(); return; }
+  var io = new IntersectionObserver(function(entries){
+    for(var i=0;i<entries.length;i++){
+      if(entries[i].isIntersecting){ io.disconnect(); inject(); return; }
+    }
+  }, {rootMargin:'600px 0px 600px 0px'});
+  io.observe(host);
 })();
 
 /* ═══════════ 1d · plaque tilt ═══════════ */
@@ -2289,77 +2252,6 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
       receipt.scrollIntoView({behavior: RM ? 'auto':'smooth', block:'center'});
     }
   });
-})();
-
-/* ═══════════ 7b · the search demo ═══════════
-   The argument the page is built on, made touchable: broaden the query and the
-   local pack is long and thin; narrow it and it collapses to the shops with a
-   profile, a site and real reviews.
-
-   Both states are real DOM at all times — the "dropped" rows are collapsed with
-   max-height, never removed — so with JS off the visitor sees the full list and
-   the caption still explains it.                                            */
-(function serp(){
-  var box  = document.getElementById('serp');
-  if(!box) return;
-  var qEl  = document.getElementById('serpQ');
-  var note = document.getElementById('serpNote');
-  var btns = box.querySelectorAll('.serpToggle button');
-  var typing = null;
-
-  var COPY = {
-    broad: { q: 'barbershops near me',
-             note: 'Seven shops in the running. Google has no reason to prefer any of them.' },
-    best:  { q: 'best barbershops near me',
-             note: 'Three left. Same town, same haircut — but these three have a complete profile, a site Google can read, and reviews that keep arriving.' }
-  };
-
-  function typeOut(text){
-    if(typing) clearInterval(typing);
-    if(RM){ qEl.innerHTML = text + '<span class="caret"></span>'; return; }
-    var i = 0;
-    qEl.innerHTML = '<span class="caret"></span>';
-    typing = setInterval(function(){
-      i++;
-      qEl.innerHTML = text.slice(0, i).replace(/&/g,'&amp;').replace(/</g,'&lt;') + '<span class="caret"></span>';
-      if(i >= text.length){ clearInterval(typing); typing = null; }
-    }, 26);
-  }
-
-  function set(q){
-    if(box.getAttribute('data-q') === q) return;
-    box.setAttribute('data-q', q);
-    for(var i=0;i<btns.length;i++){
-      btns[i].setAttribute('aria-pressed', String(btns[i].dataset.q === q));
-    }
-    typeOut(COPY[q].q);
-    note.textContent = COPY[q].note;
-  }
-
-  for(var i=0;i<btns.length;i++){
-    (function(b){ b.addEventListener('click', function(){ set(b.dataset.q); }); })(btns[i]);
-  }
-
-  /* Play the narrowing once, unprompted, the first time it's on screen — the
-     point only lands if you SEE the list collapse. Driven by the same scroll
-     sweep the reveals use, never an IntersectionObserver: a fast flick can skip
-     an observer entirely, and then the demo silently never runs. */
-  if(!RM){
-    var fired = false, ticking = false;
-    function check(){
-      ticking = false;
-      if(fired) return;
-      var r = box.getBoundingClientRect();
-      if(r.top < window.innerHeight * 0.72 && r.bottom > 0){
-        fired = true;
-        window.removeEventListener('scroll', onScroll);
-        setTimeout(function(){ set('best'); }, 1100);
-      }
-    }
-    function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(check); } }
-    window.addEventListener('scroll', onScroll, {passive:true});
-    check();
-  }
 })();
 
 /* ═══════════ 7b · the mark, in 3D ═══════════
