@@ -35,7 +35,16 @@ const MOUNTS = [
 
 export default {
   async fetch(request, env) {
-    const { pathname } = new URL(request.url);
+    const url = new URL(request.url);
+    const { pathname } = url;
+
+    // The Screening Room moved out of the Vault: /thevault/films* → /thevaultfilms*.
+    // 301 so search engines transfer the old URLs' standing to the new home.
+    if (pathname === "/thevault/films" || pathname.startsWith("/thevault/films/")) {
+      const rest = pathname.slice("/thevault/films".length).replace(/\/+$/, "");
+      url.pathname = rest ? "/thevaultfilms" + rest : "/thevaultfilms/";
+      return Response.redirect(url.toString(), 301);
+    }
 
     for (const [prefix, binding] of MOUNTS) {
       // Match the mount root itself and everything under it, but never a

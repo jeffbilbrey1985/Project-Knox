@@ -33,12 +33,11 @@ const DIST = process.env.KNOX_DIST || "/home/claude/cf-site/dist";
 const PAGES = ["index.html", "privacy.html", "sms-terms.html", "thevault.html", "how.html", "404.html"];
 
 /** Copied byte-for-byte. */
-const VERBATIM = ["favicon.png", "robots.txt", "sitemap.xml", "_headers"];
+const VERBATIM = ["favicon.png", "knox-logo.png", "robots.txt", "sitemap.xml", "_headers"];
 
-/** Asset trees copied wholesale. `thevault/` holds the Screening Room film
- *  pages (dist/thevault/films/*.html) — the /thevault page itself is still
- *  thevault.html above; assets' auto-trailing-slash serves both cleanly. */
-const TREES = ["assets", "thevault"];
+/** Asset trees copied wholesale. `thevaultfilms/` holds the Screening Room film pages
+ *  (dist/thevaultfilms/*.html); the worker 301s the old /thevault/films URLs here. */
+const TREES = ["assets", "thevaultfilms"];
 
 const CLEAN = [
   // Absolute self-references first: canonical, og:url, sitemap entries.
@@ -64,6 +63,11 @@ function copyTree(from, to) {
   }
 }
 
+// Start from nothing: a stale tree left in dist (like the old thevault/films
+// pages after the Screening Room moved) would keep shipping forever — and a
+// leftover thevault/ DIRECTORY shadows the thevault.html PAGE in the asset
+// router. Clean, then build.
+fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(DIST, { recursive: true });
 
 for (const p of PAGES) {

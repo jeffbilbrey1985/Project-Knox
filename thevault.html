@@ -47,7 +47,7 @@
       { "@type": "ListItem", "position": 5, "name": "Chiropractor demo — Knox Pops", "url": "https://getprojectknox.com/thevault/chiropractor/" },
       { "@type": "ListItem", "position": 6, "name": "Lawn care demo — Knox Blocks", "url": "https://getprojectknox.com/thevault/lawn-care/" },
       { "@type": "ListItem", "position": 7, "name": "CRM demo", "url": "https://getprojectknox.com/thevault/crm/" },
-      { "@type": "ListItem", "position": 8, "name": "The Vault Films — three 40-second films", "url": "https://getprojectknox.com/thevault/films/" }
+      { "@type": "ListItem", "position": 8, "name": "The Vault Films — three 40-second films", "url": "https://getprojectknox.com/thevaultfilms/" }
     ]
   }
 }
@@ -87,7 +87,7 @@ a{color:var(--gold);text-decoration:none}
 
 /* ── Chrome ─────────────────────────────────────────────────────────────── */
 header{position:sticky;top:0;z-index:30;height:56px;display:flex;align-items:center;justify-content:space-between;
- padding:0 var(--pad);background:rgba(11,16,38,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+ padding:0 var(--pad);background:rgba(11,16,38,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .brand{display:inline-flex;align-items:center;gap:10px;color:var(--ivory)}
 .brand img{width:32px;height:32px;border-radius:8px}
 .brand b{font-family:'Cinzel',serif;font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase}
@@ -196,7 +196,7 @@ h1 em{font-style:normal;color:var(--struck)}
 
 /* ── THE SCREENING ROOM ──────────────────────────────────────────────────
    Three 40-second films, each on one growth lever. The cards link to their
-   own pages under /thevault/films/, where each film sits over its cited
+   own pages under /thevaultfilms/, where each film sits over its cited
    research — the pages the follow-up emails point at. */
 .screening{padding:clamp(36px,6vw,64px) 0;border-bottom:1px solid var(--line)}
 .screening h2{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(24px,5vw,34px);letter-spacing:.04em;margin:0 0 8px}
@@ -322,6 +322,7 @@ html:not([data-js]) .rv{opacity:1;transform:none}
     .drawer-art img{transition:none}
 }
 </style>
+<script src="/assets/js/knox-audio.js"></script>
 </head>
 <body>
 <div class="entrance" id="entrance" hidden>
@@ -396,7 +397,7 @@ html:not([data-js]) .rv{opacity:1;transform:none}
     <p class="lede">Why customers can&rsquo;t find you, why they don&rsquo;t show up, and why they pick the
       other shop &mdash; each film built on real research, cited right under the player.</p>
     <div class="filmGrid">
-      <a class="filmCard rv" href="/thevault/films/get-found-first">
+      <a class="filmCard rv" href="/thevaultfilms/get-found-first">
         <div class="thumb">
           <img src="/assets/films/get-found-first-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
           <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
@@ -404,7 +405,7 @@ html:not([data-js]) .rv{opacity:1;transform:none}
         <div class="cardCopy"><i>Film 01</i><b>Get Found First</b>
           <span class="blurb">Over half of website visits start with a search &mdash; why the found shop wins.</span></div>
       </a>
-      <a class="filmCard rv" href="/thevault/films/the-text-that-shows-up">
+      <a class="filmCard rv" href="/thevaultfilms/the-text-that-shows-up">
         <div class="thumb">
           <img src="/assets/films/the-text-that-shows-up-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
           <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
@@ -412,7 +413,7 @@ html:not([data-js]) .rv{opacity:1;transform:none}
         <div class="cardCopy"><i>Film 02</i><b>The Text That Shows Up</b>
           <span class="blurb">One reminder text cuts no-shows by about a quarter &mdash; the empty chair, fixed.</span></div>
       </a>
-      <a class="filmCard rv" href="/thevault/films/say-it-back">
+      <a class="filmCard rv" href="/thevaultfilms/say-it-back">
         <div class="thumb">
           <img src="/assets/films/say-it-back-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
           <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
@@ -421,7 +422,7 @@ html:not([data-js]) .rv{opacity:1;transform:none}
           <span class="blurb">97% read the reviews &mdash; and they watch how you answer them.</span></div>
       </a>
     </div>
-    <p class="allFilms"><a href="/thevault/films/">The Screening Room, full size &rarr;</a></p>
+    <p class="allFilms"><a href="/thevaultfilms/">The Screening Room, full size &rarr;</a></p>
   </div>
 </section>
 

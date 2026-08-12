@@ -11,10 +11,10 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Get Found First &mdash; The Vault Films | Project Knox</title>
-<meta name="description" content="Over half of trackable website visits start with a search. This forty-second film shows why the first result wins, how every page Google reads becomes another doorway to your business, and why seventy-six percent of nearby searchers visit a business within a day.">
-<link rel="canonical" href="https://getprojectknox.com/thevault/films/get-found-first">
+<meta name="description" content="What is SEO, really? This forty-second film explains it in plain English: how Google learns your business exists, why the first result takes one click in four, and how every helpful page you publish becomes another way to outrank the shop across town.">
+<link rel="canonical" href="https://getprojectknox.com/thevaultfilms/get-found-first">
 <meta property="og:type" content="video.other">
-<meta property="og:url" content="https://getprojectknox.com/thevault/films/get-found-first">
+<meta property="og:url" content="https://getprojectknox.com/thevaultfilms/get-found-first">
 <meta property="og:title" content="Get Found First &mdash; The Vault Films | Project Knox">
 <meta property="og:description" content="Why SEO puts your business in front of the customers already looking for you">
 <meta property="og:image" content="https://getprojectknox.com/assets/films/get-found-first-poster.jpg">
@@ -27,9 +27,9 @@
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "@id": "https://getprojectknox.com/thevault/films/get-found-first#video",
+  "@id": "https://getprojectknox.com/thevaultfilms/get-found-first#video",
   "name": "Get Found First \u2014 a Project Knox film",
-  "description": "Over half of trackable website visits start with a search. This forty-second film shows why the first result wins, how every page Google reads becomes another doorway to your business, and why seventy-six percent of nearby searchers visit a business within a day.",
+  "description": "What is SEO, really? This forty-second film explains it in plain English: how Google learns your business exists, why the first result takes one click in four, and how every helpful page you publish becomes another way to outrank the shop across town.",
   "thumbnailUrl": "https://getprojectknox.com/assets/films/get-found-first-poster.jpg",
   "contentUrl": "https://getprojectknox.com/assets/films/get-found-first.mp4",
   "uploadDate": "2026-08-09",
@@ -39,7 +39,7 @@
     "@id": "https://getprojectknox.com/#business"
   },
   "isPartOf": {
-    "@id": "https://getprojectknox.com/thevault#page"
+    "@id": "https://getprojectknox.com/thevaultfilms/#page"
   }
 }
 </script>
@@ -68,7 +68,12 @@ header a.call{font-size:13px;color:var(--struck);display:inline-flex;align-items
 /* ── the gold wordmark hero (the WebGL type that used to float on the homepage) ── */
 .filmHero{position:relative;overflow:hidden;background:
  radial-gradient(120% 90% at 50% 8%,#141b3a 0%,var(--night) 58%,var(--black) 100%)}
-.filmHero .stage{position:absolute;inset:0;z-index:1;pointer-events:none}
+.filmHero.withScene::before{content:"";position:absolute;inset:0;z-index:0;
+ background:url('/assets/img/vault/cinema-backdrop.webp') center 38%/cover no-repeat;
+ opacity:.42;filter:saturate(.9)}
+.filmHero.withScene::after{content:"";position:absolute;inset:0;z-index:0;
+ background:radial-gradient(120% 100% at 50% 0%,rgba(11,16,38,.2) 0%,rgba(11,16,38,.82) 62%,var(--night) 100%)}
+.filmHero .stage{position:absolute;top:0;left:0;right:0;height:clamp(200px,40vw,330px);z-index:1;pointer-events:none}
 .filmHero .stage canvas{position:absolute;inset:0;width:100%;height:100%}
 .filmHero .heroInner{position:relative;z-index:2;text-align:center;padding:clamp(40px,7vw,84px) var(--pad) clamp(26px,4vw,44px)}
 .wordmark{display:flex;flex-direction:column;align-items:center;line-height:.95;transition:opacity .9s var(--ease)}
@@ -87,6 +92,16 @@ header a.call{font-size:13px;color:var(--struck);display:inline-flex;align-items
 .player{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);
  box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 1px rgba(201,169,97,.06);background:#000}
 .player video{width:100%;aspect-ratio:16/9;display:block}
+.playCover{position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;border:0;padding:0;
+ background:radial-gradient(80% 80% at 50% 50%,rgba(5,7,15,0) 40%,rgba(5,7,15,.42) 100%);
+ transition:opacity .4s var(--ease)}
+.playCover span{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;
+ background:rgba(11,16,38,.58);border:2px solid var(--gold);backdrop-filter:blur(4px);
+ box-shadow:0 10px 40px rgba(0,0,0,.5),0 0 30px rgba(201,169,97,.35);transition:transform .3s var(--ease)}
+.playCover:hover span,.playCover:focus-visible span{transform:scale(1.1)}
+.playCover svg{width:30px;height:30px;fill:var(--struck);margin-left:5px}
+.playCover[data-gone]{opacity:0;pointer-events:none}
+.playCover[hidden]{display:none}   /* explicit display beats the hidden attribute */
 .filmMeta{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:14px;color:var(--steel);font-size:14px}
 .filmMeta b{color:var(--struck);font-weight:500}
 /* ── sources ── */
@@ -112,6 +127,13 @@ header a.call{font-size:13px;color:var(--struck);display:inline-flex;align-items
  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease)}
 .filmCard:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 20px 60px rgba(201,169,97,.22)}
 .filmCard img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.filmCard .thumb{position:relative}
+.filmCard .playBadge{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.filmCard .playBadge span{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+ background:rgba(11,16,38,.58);border:2px solid var(--gold);backdrop-filter:blur(3px);
+ transition:transform .3s var(--ease)}
+.filmCard:hover .playBadge span{transform:scale(1.12)}
+.filmCard .playBadge svg{width:20px;height:20px;fill:var(--struck);margin-left:3px}
 .filmCard .cardCopy{padding:14px 16px 18px}
 .filmCard i{font-style:normal;font-size:11px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
 .filmCard b{display:block;font-family:'Cinzel',serif;font-weight:600;font-size:18px;margin:6px 0 4px;color:var(--ivory)}
@@ -119,6 +141,7 @@ header a.call{font-size:13px;color:var(--struck);display:inline-flex;align-items
 footer{border-top:1px solid var(--line);padding:26px var(--pad) 44px;text-align:center;color:var(--steel);font-size:13.5px}
 footer a{color:var(--struck)}
 </style>
+<script src="/assets/js/knox-audio.js"></script>
 </head>
 <body>
 <header>
@@ -145,6 +168,9 @@ footer a{color:var(--struck)}
         <track kind="captions" src="/assets/films/get-found-first.vtt" srclang="en" label="English">
         Your browser can&rsquo;t play this video. <a href="/assets/films/get-found-first.mp4">Download it instead.</a>
       </video>
+      <button class="playCover" id="playCover" hidden aria-label="Play Get Found First">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
     </div>
     <div class="filmMeta">
       <span><b>40 seconds</b> &middot; captions on screen &middot; CC toggle in the player</span>
@@ -180,12 +206,14 @@ footer a{color:var(--struck)}
   <div class="wrap">
     <h2>The other films</h2>
     <div class="filmGrid">
-      <a class="filmCard" href="/thevault/films/the-text-that-shows-up">
-        <img src="/assets/films/the-text-that-shows-up-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+      <a class="filmCard" href="/thevaultfilms/the-text-that-shows-up">
+        <div class="thumb"><img src="/assets/films/the-text-that-shows-up-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+        <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div></div>
         <div class="cardCopy"><i>Film 02 &middot; 40 seconds</i><b>The Text That Shows Up</b><span>Why customers who get a text reminder actually show up for their appointments</span></div>
       </a>
-      <a class="filmCard" href="/thevault/films/say-it-back">
-        <img src="/assets/films/say-it-back-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+      <a class="filmCard" href="/thevaultfilms/say-it-back">
+        <div class="thumb"><img src="/assets/films/say-it-back-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+        <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div></div>
         <div class="cardCopy"><i>Film 03 &middot; 40 seconds</i><b>Say It Back</b><span>How Google reviews get you found — and why answering them fast wins the customer</span></div>
       </a>
     </div>
@@ -196,6 +224,29 @@ footer a{color:var(--struck)}
   Project Knox &middot; Glen Ellyn, Illinois &middot; <a href="tel:+13312917400">(331) 291&#8209;7400</a> &middot;
   <a href="https://getprojectknox.com/">getprojectknox.com</a>
 </footer>
+
+<script>
+(function(){
+  var v = document.querySelector('.player video');
+  var c = document.getElementById('playCover');
+  if(!v || !c) return;
+  /* JS present: swap native controls for the branded cover. Without JS the
+     cover stays hidden and the native player works untouched. */
+  v.removeAttribute('controls');
+  c.hidden = false;
+  function dismiss(){
+    c.setAttribute('data-gone','');
+    v.setAttribute('controls','');
+    setTimeout(function(){ c.hidden = true; }, 420); /* after the fade */
+  }
+  c.addEventListener('click', function(){
+    dismiss();
+    v.focus();
+    var p = v.play(); if(p && p.catch) p.catch(function(){});
+  });
+  v.addEventListener('play', dismiss);
+})();
+</script>
 <script>
 (function(){
   var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -213,7 +264,7 @@ footer a{color:var(--struck)}
       if(window.KnoxCinema){
         window.__knoxCinema = window.KnoxCinema(stage, {
           fontUrl: '/assets/js/cinzel600.typeface.json',
-          glbUrl: window.innerWidth >= 900 ? '/assets/3d/knox-emblem.glb' : null,
+          glbUrl: null,
           dracoPath: '/assets/js/draco/'
         });
       }

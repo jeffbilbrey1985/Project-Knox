@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Generate the three Vault film pages + the Screening Room hub.
-Run from repo root: python3 thevault/films/build_pages.py"""
+Run from repo root: python3 tools-build-film-pages.py (writes thevaultfilms/), then cf/build.mjs"""
 import html as H
 
 FILMS = [
  dict(slug="get-found-first", num="01", title="Get Found First",
   tag="Why SEO puts your business in front of the customers already looking for you",
-  desc="Over half of trackable website visits start with a search. This forty-second film shows why the first result wins, how every page Google reads becomes another doorway to your business, and why seventy-six percent of nearby searchers visit a business within a day.",
+  desc="What is SEO, really? This forty-second film explains it in plain English: how Google learns your business exists, why the first result takes one click in four, and how every helpful page you publish becomes another way to outrank the shop across town.",
   upload="2026-08-09",
   stats=[
    ("Over half of trackable website visits come from organic search (53.3%).",
@@ -73,7 +73,12 @@ header a.call{font-size:13px;color:var(--struck);display:inline-flex;align-items
 /* ── the gold wordmark hero (the WebGL type that used to float on the homepage) ── */
 .filmHero{position:relative;overflow:hidden;background:
  radial-gradient(120% 90% at 50% 8%,#141b3a 0%,var(--night) 58%,var(--black) 100%)}
-.filmHero .stage{position:absolute;inset:0;z-index:1;pointer-events:none}
+.filmHero.withScene::before{content:"";position:absolute;inset:0;z-index:0;
+ background:url('/assets/img/vault/cinema-backdrop.webp') center 38%/cover no-repeat;
+ opacity:.42;filter:saturate(.9)}
+.filmHero.withScene::after{content:"";position:absolute;inset:0;z-index:0;
+ background:radial-gradient(120% 100% at 50% 0%,rgba(11,16,38,.2) 0%,rgba(11,16,38,.82) 62%,var(--night) 100%)}
+.filmHero .stage{position:absolute;top:0;left:0;right:0;height:clamp(200px,40vw,330px);z-index:1;pointer-events:none}
 .filmHero .stage canvas{position:absolute;inset:0;width:100%;height:100%}
 .filmHero .heroInner{position:relative;z-index:2;text-align:center;padding:clamp(40px,7vw,84px) var(--pad) clamp(26px,4vw,44px)}
 .wordmark{display:flex;flex-direction:column;align-items:center;line-height:.95;transition:opacity .9s var(--ease)}
@@ -92,6 +97,16 @@ header a.call{font-size:13px;color:var(--struck);display:inline-flex;align-items
 .player{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);
  box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 1px rgba(201,169,97,.06);background:#000}
 .player video{width:100%;aspect-ratio:16/9;display:block}
+.playCover{position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;border:0;padding:0;
+ background:radial-gradient(80% 80% at 50% 50%,rgba(5,7,15,0) 40%,rgba(5,7,15,.42) 100%);
+ transition:opacity .4s var(--ease)}
+.playCover span{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;
+ background:rgba(11,16,38,.58);border:2px solid var(--gold);backdrop-filter:blur(4px);
+ box-shadow:0 10px 40px rgba(0,0,0,.5),0 0 30px rgba(201,169,97,.35);transition:transform .3s var(--ease)}
+.playCover:hover span,.playCover:focus-visible span{transform:scale(1.1)}
+.playCover svg{width:30px;height:30px;fill:var(--struck);margin-left:5px}
+.playCover[data-gone]{opacity:0;pointer-events:none}
+.playCover[hidden]{display:none}   /* explicit display beats the hidden attribute */
 .filmMeta{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:14px;color:var(--steel);font-size:14px}
 .filmMeta b{color:var(--struck);font-weight:500}
 /* ── sources ── */
@@ -117,6 +132,13 @@ header a.call{font-size:13px;color:var(--struck);display:inline-flex;align-items
  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease)}
 .filmCard:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 20px 60px rgba(201,169,97,.22)}
 .filmCard img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.filmCard .thumb{position:relative}
+.filmCard .playBadge{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.filmCard .playBadge span{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+ background:rgba(11,16,38,.58);border:2px solid var(--gold);backdrop-filter:blur(3px);
+ transition:transform .3s var(--ease)}
+.filmCard:hover .playBadge span{transform:scale(1.12)}
+.filmCard .playBadge svg{width:20px;height:20px;fill:var(--struck);margin-left:3px}
 .filmCard .cardCopy{padding:14px 16px 18px}
 .filmCard i{font-style:normal;font-size:11px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
 .filmCard b{display:block;font-family:'Cinzel',serif;font-weight:600;font-size:18px;margin:6px 0 4px;color:var(--ivory)}
@@ -157,7 +179,8 @@ CINEMA_JS = """
 def esc(s): return H.escape(s, quote=True)
 
 def film_page(f, others):
-    url = f"https://getprojectknox.com/thevault/films/{f['slug']}"
+    cinema_js = CINEMA_JS.replace("window.innerWidth >= 900 ? '/assets/3d/knox-emblem.glb' : null", 'null')
+    url = f"https://getprojectknox.com/thevaultfilms/{f['slug']}"
     mp4 = f"https://getprojectknox.com/assets/films/{f['slug']}.mp4"
     poster = f"https://getprojectknox.com/assets/films/{f['slug']}-poster.jpg"
     ld = {
@@ -171,15 +194,16 @@ def film_page(f, others):
       "duration": "PT40S",
       "inLanguage": "en-US",
       "publisher": {"@id": "https://getprojectknox.com/#business"},
-      "isPartOf": {"@id": "https://getprojectknox.com/thevault#page"},
+      "isPartOf": {"@id": "https://getprojectknox.com/thevaultfilms/#page"},
     }
     import json
     ld_json = json.dumps(ld, indent=2)
     srcs = "\n".join(
       f'      <li><p>{esc(claim)}</p><a href="{link}" target="_blank" rel="noopener">{esc(label)} &rarr;</a></li>'
       for claim, label, link in f["stats"])
-    other_cards = "\n".join(f'''      <a class="filmCard" href="/thevault/films/{o['slug']}">
-        <img src="/assets/films/{o['slug']}-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+    other_cards = "\n".join(f'''      <a class="filmCard" href="/thevaultfilms/{o['slug']}">
+        <div class="thumb"><img src="/assets/films/{o['slug']}-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+        <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div></div>
         <div class="cardCopy"><i>Film {o['num']} &middot; 40 seconds</i><b>{esc(o['title'])}</b><span>{esc(o['tag'])}</span></div>
       </a>''' for o in others)
     return f"""<!DOCTYPE html>
@@ -211,6 +235,7 @@ def film_page(f, others):
 {ld_json}
 </script>
 <style>{HEAD_CSS}</style>
+<script src="/assets/js/knox-audio.js"></script>
 </head>
 <body>
 <header>
@@ -237,6 +262,9 @@ def film_page(f, others):
         <track kind="captions" src="/assets/films/{f['slug']}.vtt" srclang="en" label="English">
         Your browser can&rsquo;t play this video. <a href="/assets/films/{f['slug']}.mp4">Download it instead.</a>
       </video>
+      <button class="playCover" id="playCover" hidden aria-label="Play {esc(f['title'])}">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
     </div>
     <div class="filmMeta">
       <span><b>40 seconds</b> &middot; captions on screen &middot; CC toggle in the player</span>
@@ -279,28 +307,53 @@ def film_page(f, others):
   Project Knox &middot; Glen Ellyn, Illinois &middot; <a href="tel:+13312917400">(331) 291&#8209;7400</a> &middot;
   <a href="https://getprojectknox.com/">getprojectknox.com</a>
 </footer>
-<script>{CINEMA_JS}</script>
+
+<script>
+(function(){{
+  var v = document.querySelector('.player video');
+  var c = document.getElementById('playCover');
+  if(!v || !c) return;
+  /* JS present: swap native controls for the branded cover. Without JS the
+     cover stays hidden and the native player works untouched. */
+  v.removeAttribute('controls');
+  c.hidden = false;
+  function dismiss(){{
+    c.setAttribute('data-gone','');
+    v.setAttribute('controls','');
+    setTimeout(function(){{ c.hidden = true; }}, 420); /* after the fade */
+  }}
+  c.addEventListener('click', function(){{
+    dismiss();
+    v.focus();
+    var p = v.play(); if(p && p.catch) p.catch(function(){{}});
+  }});
+  v.addEventListener('play', dismiss);
+}})();
+</script>
+<script>{cinema_js}</script>
 </body>
 </html>
 """
 
 def hub_page():
+    cinema_js = CINEMA_JS.replace("window.innerWidth >= 900 ? '/assets/3d/knox-emblem.glb' : null", 'null')
     import json
-    cards = "\n".join(f'''      <a class="filmCard" href="/thevault/films/{f['slug']}">
-        <img src="/assets/films/{f['slug']}-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+    cards = "\n".join(f'''      <a class="filmCard" href="/thevaultfilms/{f['slug']}">
+        <div class="thumb"><img src="/assets/films/{f['slug']}-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+        <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div></div>
         <div class="cardCopy"><i>Film {f['num']} &middot; 40 seconds</i><b>{esc(f['title'])}</b><span>{esc(f['tag'])}</span></div>
       </a>''' for f in FILMS)
     ld = {
       "@context": "https://schema.org", "@type": "CollectionPage",
-      "@id": "https://getprojectknox.com/thevault/films#page",
-      "url": "https://getprojectknox.com/thevault/films",
+      "@id": "https://getprojectknox.com/thevaultfilms/#page",
+      "url": "https://getprojectknox.com/thevaultfilms/",
       "name": "The Vault Films — three 40-second films on growing a local business",
       "isPartOf": {"@id": "https://getprojectknox.com/#website"},
       "publisher": {"@id": "https://getprojectknox.com/#business"},
       "inLanguage": "en-US",
       "mainEntity": {"@type": "ItemList", "itemListElement": [
         {"@type": "ListItem", "position": i+1, "name": f["title"],
-         "url": f"https://getprojectknox.com/thevault/films/{f['slug']}"} for i, f in enumerate(FILMS)]},
+         "url": f"https://getprojectknox.com/thevaultfilms/{f['slug']}"} for i, f in enumerate(FILMS)]},
     }
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -316,9 +369,9 @@ def hub_page():
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Vault Films &mdash; Three 40&#8209;Second Films | Project Knox</title>
 <meta name="description" content="Three 40-second films on what actually grows a local business: getting found on Google, text reminders that keep appointments full, and reviews that ring your phone. Real research, cited under every film.">
-<link rel="canonical" href="https://getprojectknox.com/thevault/films">
+<link rel="canonical" href="https://getprojectknox.com/thevaultfilms/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://getprojectknox.com/thevault/films">
+<meta property="og:url" content="https://getprojectknox.com/thevaultfilms/">
 <meta property="og:title" content="The Vault Films | Project Knox">
 <meta property="og:description" content="Three 40-second films on what actually grows a local business — with the research to back every number.">
 <meta property="og:image" content="https://getprojectknox.com/assets/films/get-found-first-poster.jpg">
@@ -330,6 +383,7 @@ def hub_page():
 {json.dumps(ld, indent=2)}
 </script>
 <style>{HEAD_CSS}</style>
+<script src="/assets/js/knox-audio.js"></script>
 </head>
 <body>
 <header>
@@ -337,7 +391,7 @@ def hub_page():
   <a class="call" href="tel:+13312917400">(331) 291&#8209;7400</a>
 </header>
 <main>
-<section class="filmHero">
+<section class="filmHero withScene">
   <div class="stage" id="cinemaStage" aria-hidden="true"></div>
   <div class="heroInner">
     <div class="wordmark" aria-hidden="true"><span>Project</span><b>KNOX</b></div>
@@ -349,6 +403,7 @@ def hub_page():
 
 <section class="others" style="border-top:0">
   <div class="wrap">
+    <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">The three films</h2>
     <div class="filmGrid">
 {cards}
     </div>
@@ -369,13 +424,14 @@ def hub_page():
   Project Knox &middot; Glen Ellyn, Illinois &middot; <a href="tel:+13312917400">(331) 291&#8209;7400</a> &middot;
   <a href="https://getprojectknox.com/">getprojectknox.com</a>
 </footer>
-<script>{CINEMA_JS}</script>
+<script>{cinema_js}</script>
 </body>
 </html>
 """
 
 import os
-here = os.path.dirname(os.path.abspath(__file__))
+here = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'thevaultfilms')
+os.makedirs(here, exist_ok=True)
 for i, f in enumerate(FILMS):
     others = [o for o in FILMS if o is not f]
     open(os.path.join(here, f["slug"] + ".html"), "w").write(film_page(f, others))

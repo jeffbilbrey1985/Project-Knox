@@ -293,6 +293,89 @@ video.film[data-done]{opacity:0}
 .heroLede .h1sub{font-size:clamp(13.5px,3.1vw,15.5px);margin-top:8px;max-width:56ch}
 
 /* The plaques: the interactive menu, cut like brass plates on a vault wall. */
+/* ── THE TWO DOORS ─────────────────────────────────────────────────────────
+   The Vault and the Films are not menu items — they are rooms, and rooms in
+   this house get vault doors. Each button is the door itself: brass wheel
+   spins a quarter-turn on hover; on click the wheel whips a full two turns,
+   the leaf swings on its hinge, gold floods the doorway, and the site sails
+   through. The photograph provides the metal; the CSS provides the physics. */
+.doors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,3.5vw,44px);
+ width:min(680px,100%);margin:8px auto 12px;justify-items:center}
+.doorBtn{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;color:var(--ivory);
+ -webkit-tap-highlight-color:transparent}
+.doorScene{position:relative;width:clamp(128px,19vw,208px);aspect-ratio:1;perspective:700px;margin-bottom:9px}
+.doorGlow{position:absolute;inset:2%;opacity:0;transform:scale(.82);
+ clip-path:circle(48% at 50% 50%);mix-blend-mode:screen;
+ background:radial-gradient(circle,#FFF3D0 0%,#F4E3B2 30%,#C9A961 62%,rgba(201,169,97,0) 80%);
+ transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.doorLeaf{position:absolute;inset:0;border-radius:50%;overflow:hidden;isolation:isolate;
+ transform-style:preserve-3d;transform-origin:0% 50%;
+ transition:transform .9s cubic-bezier(.72,0,.3,1),box-shadow .4s var(--ease);
+ box-shadow:0 16px 46px rgba(0,0,0,.62),0 0 0 1px rgba(201,169,97,.30),0 0 26px rgba(201,169,97,.12)}
+.doorFace{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.28)}
+.doorWheel{position:absolute;left:50%;top:50%;width:47%;height:47%;
+ transform:translate(-50%,-50%) rotate(0deg);
+ transition:transform 1s cubic-bezier(.34,1.2,.4,1);
+ filter:drop-shadow(0 5px 12px rgba(0,0,0,.6))}
+.doorBtn:hover .doorWheel,.doorBtn:focus-visible .doorWheel{transform:translate(-50%,-50%) rotate(95deg)}
+.doorBtn:hover .doorLeaf,.doorBtn:focus-visible .doorLeaf{
+ box-shadow:0 20px 60px rgba(0,0,0,.66),0 0 0 1px rgba(232,206,147,.85),0 0 44px rgba(201,169,97,.4)}
+.doorBtn[data-opening] .doorWheel{transform:translate(-50%,-50%) rotate(760deg);
+ transition:transform .95s cubic-bezier(.55,0,.25,1)}
+.doorBtn[data-opening] .doorLeaf{transform:rotateY(-56deg);
+ transition:transform .8s cubic-bezier(.7,0,.25,1) .42s}
+.doorBtn[data-opening] .doorGlow{opacity:1;transform:scale(1);transition-delay:.5s}
+.doorBtn.doorFilms .doorWheel{width:56%;height:56%;transform:translate(-50%,-50%) rotate(22deg) scale(.98)}
+.doorBtn.doorFilms:hover .doorWheel,.doorBtn.doorFilms:focus-visible .doorWheel{transform:translate(-50%,-50%) rotate(117deg) scale(.98)}
+.doorBtn.doorFilms[data-opening] .doorWheel{transform:translate(-50%,-50%) rotate(782deg) scale(.98)}
+.doorBtn i{font-style:normal;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.doorBtn b{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(15px,2.4vw,19px);letter-spacing:.1em;color:var(--struck)}
+.doorBtn .doorSub{font-size:12.5px;color:var(--steel);max-width:26ch}
+.doorBtn,.doorBtn b,.doorBtn i{text-shadow:0 1px 12px rgba(5,7,15,.85)}
+.heroLede,.heroLede .h1sub{text-shadow:0 2px 22px rgba(5,7,15,.95),0 1px 5px rgba(5,7,15,.85)}
+.plaque i{font-variant-numeric:lining-nums}
+@media (max-height:720px){.doorScene{width:clamp(110px,15vw,150px)}}
+@media (prefers-reduced-motion:reduce){
+  .doorWheel,.doorLeaf,.doorGlow{transition:none!important}
+  .doorBtn:hover .doorWheel{transform:translate(-50%,-50%)}
+}
+
+/* ── THE REVIEW RAIL ───────────────────────────────────────────────────────
+   An endless brass conveyor of Google reviews. The track holds the card set
+   twice; the animation slides exactly half its own width, so the loop point
+   is invisible. Hover pauses it — people read at their own pace. */
+.reviews{padding:clamp(44px,7vw,84px) 0;border-top:1px solid var(--line);
+ background:linear-gradient(180deg,var(--night) 0%,#0d1330 55%,var(--night) 100%)}
+.reviews h2{margin-bottom:clamp(20px,3.5vw,34px)}
+.revRail{position:relative;overflow:hidden;padding:6px 0 18px}
+.revTrack{display:flex;width:max-content}
+.revTrack[data-cloned]{animation:revScroll 46s linear infinite}
+.revSet{display:flex;gap:clamp(14px,2vw,22px);padding-right:clamp(14px,2vw,22px)}
+.revRail:hover .revTrack,.revRail:focus-within .revTrack{animation-play-state:paused}
+@keyframes revScroll{to{transform:translateX(-50%)}}
+.revCard{display:flex;flex-direction:column;gap:10px;width:clamp(260px,30vw,340px);flex:none;
+ padding:20px 22px;border-radius:14px;border:1px solid var(--line);
+ background:linear-gradient(172deg,rgba(201,169,97,.10),rgba(11,16,38,.6) 40%,rgba(5,7,15,.7));
+ box-shadow:0 14px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06);
+ color:var(--ivory);transition:border-color .3s var(--ease),transform .3s var(--ease)}
+a.revCard:hover{border-color:var(--gold);transform:translateY(-3px)}
+.revStars{display:flex;gap:3px}
+.revStars svg{width:15px;height:15px;fill:var(--struck);filter:drop-shadow(0 1px 3px rgba(201,169,97,.5))}
+.revCard p{margin:0;font-size:14.5px;line-height:1.55;color:#dfe3ec;
+ display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.revCard footer{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+.revCard b{font-weight:500;font-size:13.5px;color:var(--struck);letter-spacing:.02em}
+.revCard i{font-style:normal;font-size:11.5px;color:var(--steel)}
+.revFade{position:absolute;top:0;bottom:0;width:clamp(48px,9vw,140px);pointer-events:none;z-index:2}
+.revFade-l{left:0;background:linear-gradient(90deg,#0d1330,transparent)}
+.revFade-r{right:0;background:linear-gradient(270deg,#0d1330,transparent)}
+.revCta{text-align:center;margin:6px 0 0;font-size:14.5px}
+@media (prefers-reduced-motion:reduce){
+  .revTrack,.revTrack[data-cloned]{animation:none;width:auto;flex-wrap:wrap}
+  .revRail{overflow-x:auto}
+  .revSet[aria-hidden]{display:none}
+}
+
 .plaques{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(720px,100%);
  margin:6px auto 14px;perspective:1000px}
 .plaque{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;
@@ -339,6 +422,13 @@ video.film[data-done]{opacity:0}
 :root[data-js] .heroCopy .plaque{opacity:0;transform:translateY(16px)}
 :root[data-js] .heroCopy[data-in] .plaque{opacity:1;transform:none;
  transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
+/* The doors arrive first — they are the headline act. */
+:root[data-js] .heroCopy .doorBtn{opacity:0;transform:translateY(20px) scale(.96)}
+:root[data-js] .heroCopy[data-in] .doorBtn{opacity:1;transform:none;
+ transition:opacity .7s var(--ease),transform .7s var(--ease)}
+:root[data-js] .heroCopy[data-in] .doorBtn:nth-child(2){transition-delay:.12s}
+.plaques-slim .plaque:last-child{grid-column:1/-1}
+@media (min-width:900px){.plaques-slim .plaque:last-child{grid-column:auto}}
 :root[data-js] .heroCopy[data-in] .plaque:nth-child(1){transition-delay:.15s}
 :root[data-js] .heroCopy[data-in] .plaque:nth-child(2){transition-delay:.3s}
 :root[data-js] .heroCopy[data-in] .plaque:nth-child(3){transition-delay:.42s}
@@ -410,7 +500,7 @@ video.film[data-done]{opacity:0}
 /* ───────────────────────── 3D mark showcase ───────────────────────── */
 .mark{padding:clamp(44px,8vw,84px) 0 clamp(22px,4vw,40px);background:
  radial-gradient(120% 90% at 50% 0%,rgba(201,169,97,.06),transparent 60%)}
-.markStage{position:relative;margin-top:26px;height:clamp(280px,70vw,440px);border:1px solid var(--line);
+.markStage{background:url('assets/img/mark-poster.webp') center/cover no-repeat;position:relative;margin-top:26px;height:clamp(280px,70vw,440px);border:1px solid var(--line);
  border-radius:20px;overflow:hidden;background:
  radial-gradient(90% 130% at 50% 118%,rgba(201,169,97,.16),transparent 62%),
  linear-gradient(180deg,#070B1B 0%,var(--black) 100%);touch-action:pan-y}
@@ -874,6 +964,7 @@ footer a:hover{color:var(--gold)}
 .send svg{width:19px;height:19px}
 .askDisc{font-size:11px;color:var(--steel);text-align:center;padding:0 16px 8px;flex:none}
 </style>
+<script src="assets/js/knox-audio.js"></script>
 </head>
 
 <body>
@@ -937,10 +1028,29 @@ footer a:hover{color:var(--gold)}
       </div>
       <div class="heroBottom">
         <h1 class="heroLede">Everything your business runs&nbsp;on, behind&nbsp;one&nbsp;door.<span class="h1sub">Websites, CRM, online booking and Google Business Profile setup for local businesses in Glen Ellyn, Illinois &mdash; from $250 a month.</span></h1>
-        <nav class="plaques" aria-label="Explore Project Knox">
-          <a class="plaque plaque-vault" href="/thevault.html">
-            <i>The showroom</i><b>Enter the Vault</b><span>Six live businesses &mdash; walk in and use them</span>
+        <nav class="doors" aria-label="Enter Project Knox">
+          <a class="doorBtn" href="/thevault.html" data-door>
+            <span class="doorScene" aria-hidden="true">
+              <span class="doorGlow"></span>
+              <span class="doorLeaf">
+                <img class="doorFace" src="assets/img/doors/door-vault.webp" alt="" width="880" height="880" loading="lazy" decoding="async">
+                <img class="doorWheel" src="assets/img/doors/wheel.webp" alt="" width="640" height="640" loading="lazy" decoding="async">
+              </span>
+            </span>
+            <i>The showroom</i><b>Enter the Vault</b><span class="doorSub">Six live businesses &mdash; walk in and use them</span>
           </a>
+          <a class="doorBtn doorFilms" href="/thevaultfilms/" data-door>
+            <span class="doorScene" aria-hidden="true">
+              <span class="doorGlow"></span>
+              <span class="doorLeaf">
+                <img class="doorFace" src="assets/img/doors/door-films.webp" alt="" width="880" height="880" loading="lazy" decoding="async">
+                <img class="doorWheel" src="assets/img/doors/wheel.webp" alt="" width="640" height="640" loading="lazy" decoding="async">
+              </span>
+            </span>
+            <i>The screening room</i><b>The Vault Films</b><span class="doorSub">Forty&#8209;second lessons in getting found</span>
+          </a>
+        </nav>
+        <nav class="plaques plaques-slim" aria-label="Explore Project Knox">
           <a class="plaque" href="#plans" data-tilt>
             <i>02</i><b>Plans &amp; Pricing</b><span>Two ways in &middot; from $250</span>
           </a>
@@ -1122,7 +1232,7 @@ footer a:hover{color:var(--gold)}
       <a href="/thevault.html#guac">Order tacos</a>
       <a href="/thevault.html#knocks">Price a brake job</a>
       <a href="/thevault.html#crm">Drive the CRM</a>
-      <a href="/thevault/films/">Watch the films</a>
+      <a href="/thevaultfilms/">Watch the films</a>
     </div>
 
     <p class="vaultNote rv" style="max-width:60ch;margin-top:26px">
@@ -1154,6 +1264,34 @@ footer a:hover{color:var(--gold)}
     </div>
   </div>
 </section>
+
+<!-- ───────────── 3b · the ledger of good words ─────────────
+     A scrolling band of Google reviews, dressed like everything else in this
+     house: night navy, gold leaf, engraved type. The rail renders only when
+     window.KNOX_REVIEWS has entries, so an empty list ships an invisible
+     section rather than an empty shelf. -->
+<section id="reviews" class="reviews" hidden>
+  <div class="wrap">
+    <div class="eyebrow rv">Word on the street</div>
+    <h2 class="rv">The neighbors talk. Google writes it&nbsp;down.</h2>
+  </div>
+  <div class="revRail" aria-label="Google reviews of Project Knox">
+    <div class="revTrack" id="revTrack"></div>
+    <div class="revFade revFade-l" aria-hidden="true"></div>
+    <div class="revFade revFade-r" aria-hidden="true"></div>
+  </div>
+  <div class="wrap">
+    <p class="revCta rv"><a id="revLink" href="https://www.google.com/search?q=Project+Knox+Glen+Ellyn+reviews" target="_blank" rel="noopener">Read every review on Google &rarr;</a></p>
+  </div>
+</section>
+<script>
+/* Paste reviews here — one object per review. The rail builds itself. */
+window.KNOX_REVIEWS = [
+  /* { "name": "Jane D.", "stars": 5, "text": "..." }, */
+];
+/* Set this to the Google Business profile's review link when handy. */
+window.KNOX_REVIEWS_URL = "";
+</script>
 
 <!-- ───────────── 4 · plans ───────────── -->
 <section id="plans" class="plans">
@@ -1613,7 +1751,83 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
 })();
 
 /* The 3D gold wordmark (knox-cinema) is retired from this page — it floated
-   over the open safe. It now serves as the hero on /thevault/films/. */
+   over the open safe. It now serves as the hero on /thevaultfilms/. */
+
+/* ═══════════ 1c2 · the doors open ═══════════
+   Click a vault door and the sequence runs — wheel whips two turns, the leaf
+   swings on its hinge, gold floods through, and only then does the browser
+   follow the link. Modifier clicks, middle clicks and reduced-motion visitors
+   keep ordinary instant navigation. */
+(function doors(){
+  document.querySelectorAll('.doorBtn[data-door]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      if(RM || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      if(a.hasAttribute('data-opening')) return; /* sequence already running */
+      a.setAttribute('data-opening','');
+      if(window.KnoxStopAudio) KnoxStopAudio(null);
+      setTimeout(function(){ location.href = a.href; }, 1180);
+      /* Belt and braces: if navigation is somehow blocked, re-arm the door. */
+      setTimeout(function(){ a.removeAttribute('data-opening'); }, 4000);
+    });
+  });
+  /* Coming back through the browser's back button restores the page from
+     bfcache mid-animation — shut every door on re-entry. */
+  window.addEventListener('pageshow', function(e){
+    if(e.persisted) document.querySelectorAll('.doorBtn[data-opening]').forEach(function(b){
+      b.removeAttribute('data-opening');
+    });
+  });
+})();
+
+/* ═══════════ 1e · the review rail ═══════════ */
+(function reviews(){
+  var data = window.KNOX_REVIEWS || [];
+  if(!data.length) return;
+  var section = document.getElementById('reviews');
+  var track = document.getElementById('revTrack');
+  if(!section || !track) return;
+  var url = window.KNOX_REVIEWS_URL || document.getElementById('revLink').href;
+  if(window.KNOX_REVIEWS_URL) document.getElementById('revLink').href = url;
+  section.hidden = false; /* must be laid out BEFORE the width math below */
+  var star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>';
+  function esc(s){ var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function card(r){
+    var starRow = '';
+    if(Number.isFinite(r.stars)){
+      var n = Math.max(1, Math.min(5, Math.round(r.stars)));
+      var stars = ''; for(var i=0;i<n;i++) stars += star;
+      starRow = '<span class="revStars" aria-label="'+n+' out of 5 stars">'+stars+'</span>';
+    }
+    return '<a class="revCard" href="'+url+'" target="_blank" rel="noopener">'
+      + starRow
+      + '<p>&ldquo;'+esc(r.text)+'&rdquo;</p>'
+      + '<footer><b>'+esc(r.name)+'</b><i>Google review</i></footer></a>';
+  }
+  var set = '<div class="revSet">' + data.map(card).join('') + '</div>';
+  var RMq = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(RMq){
+    track.innerHTML = set; /* no clones for readers who scroll themselves */
+  } else {
+    /* Enough copies to cover the widest screens, always an even count so the
+       -50% keyframe lands exactly on a copy boundary — an invisible seam. */
+    track.innerHTML = set + set;
+    var setW = Math.max(track.scrollWidth / 2, 1);
+    var need = Math.ceil((innerWidth * 2) / setW);
+    var copies = Math.min(12, Math.max(2, need + (need % 2)));
+    if(copies > 2) track.innerHTML = new Array(copies + 1).join(set);
+    /* The clones repeat what's already been said — hide them from readers
+       and keep keyboard focus (and its scroll-jumps) out of them. */
+    var rail = track.parentElement;
+    var sets = track.children;
+    for(var i = 1; i < sets.length; i++){
+      sets[i].setAttribute('aria-hidden','true');
+      sets[i].querySelectorAll('a').forEach(function(l){ l.setAttribute('tabindex','-1'); });
+    }
+    rail.addEventListener('scroll', function(){ rail.scrollLeft = 0; });
+    track.setAttribute('data-cloned','');
+  }
+})();
 
 /* ═══════════ 1d · plaque tilt ═══════════ */
 (function tilt(){
@@ -1873,16 +2087,22 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
         if(window.__blessedVO && window.__blessedVO.src === btn.dataset.audio){
           a = window.__blessedVO.el;
           try { a.currentTime = 0; } catch(err){}
+        } else if(btn.__knoxAudio){
+          a = btn.__knoxAudio;
+          try { a.currentTime = 0; } catch(err){}
         } else {
-          a = new Audio(btn.dataset.audio);
+          a = btn.__knoxAudio = new Audio(btn.dataset.audio);
         }
         a.preload = 'auto';
         current = a; currentBtn = btn;
         btn.querySelector('svg').innerHTML = '<path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>';
-        a.addEventListener('ended', function(){
-          reset(btn); current = null; currentBtn = null;
-          document.dispatchEvent(new CustomEvent('knox:voice-ended'));
-        });
+        if(!a.__knoxEndedWired){
+          a.__knoxEndedWired = true;
+          a.addEventListener('ended', function(){
+            reset(currentBtn || btn); current = null; currentBtn = null;
+            document.dispatchEvent(new CustomEvent('knox:voice-ended'));
+          });
+        }
         a.play().catch(function(){ reset(btn); });   /* synchronous, inside the gesture */
         if(!raf) raf = requestAnimationFrame(tick);
       });
