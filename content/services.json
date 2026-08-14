@@ -1,0 +1,260 @@
+{
+  "pages": [
+    {
+      "slug": "glen-ellyn/website-design",
+      "title": "Website Design in Glen Ellyn, IL | Project Knox",
+      "metaDescription": "Website design in Glen Ellyn, IL. Custom sites built for your trade, on your own domain, fast on a phone, with email to match. Foundation is $250 a month.",
+      "h1": "Website design in Glen Ellyn, IL, built for your trade rather than around a template.",
+      "eyebrow": "GLEN ELLYN, ILLINOIS",
+      "lede": "A site on a domain registered to you, shaped by the work you actually do, and quick to load in one hand on a weak signal. We build it, we run it, and we keep it current.",
+      "sections": [
+        {
+          "h2": "Built for your trade means the page already knows what you sell.",
+          "paras": [
+            "A template asks you to pour your business into a shape somebody drew for a wedding photographer — a big hero image, an About page, a contact form, and then you're on your own working out where the rest goes. That's backwards. The shape of a page should come from the way the work gets sold.",
+            "So a lawn and landscape site opens on the service area and the seasonal contract, because that's the actual decision. An auto shop leads with the three or four repairs people search by name, since somebody with a grinding brake isn't browsing. A nail salon needs a service menu and a wall of photographs — the pictures are the pitch. A chiropractor needs the first-visit page more than any other, because what's standing between the reader and an appointment is not knowing what happens in the room.",
+            "The six businesses in the Vault were built that way, one at a time, and yours gets built the same way — out of the questions your customers ask before they ever pick up the phone."
+          ]
+        },
+        {
+          "h2": "Phones come first, because that's where the decision gets made.",
+          "paras": [
+            "Nearly everyone who finds you is holding a phone, standing somewhere, with one thumb free. We design for that hand and let the desktop version be the easy case.",
+            "Your number sits where the thumb already is. Tap targets are big enough to hit while walking. Nothing needs pinching, nothing jumps under a finger as the page finishes loading, and your address opens straight into a map app. It's dull work nobody ever compliments — and it's the difference between a call and a back button."
+          ]
+        },
+        {
+          "h2": "Speed is something a visitor feels before reading a word.",
+          "paras": [
+            "Page builders stack four layers of software on top of your text and then ship all of it to a phone on one bar. We don't. Every page is trimmed by hand, images are cut to the slot they sit in, and there's no carousel doing calisthenics while somebody waits to learn whether you're open Sunday.",
+            "That's partly courtesy. It's also one of the few things about a website Google measures directly."
+          ]
+        },
+        {
+          "h2": "The domain is registered in your name and it leaves with you.",
+          "paras": [
+            "We put the domain in your account, not ours — same with the Google Business Profile and the customer list. Whatever happens between us, those three are yours and they go where you go.",
+            "Email comes with the domain. Google Workspace, so you're writing to customers as you@yourshop.com instead of from a Gmail address with your trade and a number stuck on the end. Mail you already have can move across, the calendar and the shared drive come along with it, and the booking system writes into that same calendar."
+          ]
+        },
+        {
+          "h2": "Two updates a month, and all you do is ask.",
+          "paras": [
+            "New price list, a photo of the truck, a holiday closing, a service you've stopped offering. Send it over and it gets done — up to two a month, included, with no ticket queue and no change-order form to sign.",
+            "Most owners use one and forget the other — the number isn't really the point. The point is that nothing on your site has to sit wrong for a year because fixing it means calling somebody who might call back."
+          ]
+        },
+        {
+          "h2": "When Squarespace is honestly the better call.",
+          "paras": [
+            "If you've got the time and the interest to run your own site, go run it. That software is cheap and it's good, and you'd be paying us to do something you'd rather do yourself.",
+            "The catch is everything the software leaves for you. You still write the pages, size the images, claim and fill out the Google profile, wire up booking, keep the hours honest, and fix whatever breaks at nine at night when it breaks. Foundation is $250 a month with a one-time $250 setup — and that gap is what the money buys. If doing all of it yourself sounds like a decent evening, we'd rather say so than sell you something."
+          ]
+        }
+      ],
+      "townPara": "Downtown Glen Ellyn packs over 100 shops into roughly 265,000 square feet around Main Street and Crescent Boulevard, inside three historic districts on the National Register. It's a beautiful problem. Everybody's competing for the same stretch of sidewalk, and a good window only works on the people already standing at it. Your website is the window for everyone else — the ones deciding in a car, at a kitchen table, or from a town over. A template with a logo dropped on top says nothing a hundred other windows aren't already saying better.",
+      "crmCallout": {
+        "heading": "The site is the front door. The CRM is what happens once somebody walks in.",
+        "para": "A CRM is simply the place your customer records live, so every appointment, every invoice and every regular who hasn't been in since spring sits in one ledger instead of four. A site that brings people in and then hands them to a notebook gives back half of what it earned. On Growth — $500 a month with a $500 setup — the site and the ledger are one system, so a booking made at midnight is already on your calendar and already attached to somebody with a history."
+      },
+      "cta": {
+        "heading": "Look at six of them, finished and running.",
+        "para": "The Vault holds six complete businesses we built end to end. Not screenshots — real sites you can click through and book inside. Open one, then call (331) 291-7400 and tell us what your shop needs. Somebody gets back to you inside a day.",
+        "primaryLabel": "Open the Vault",
+        "primaryHref": "/thevault",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "How much does a website cost?",
+          "a": "Foundation is $250 a month with a one-time $250 setup, and that covers the site, the domain, Google Workspace email, the Google Business Profile, booking on your calendar, the SEO work and two updates a month. Growth is $500 a month with a $500 setup and adds the CRM, review requests, automated texts and emails, and payment integration. Paying a year up front takes 15% off — $2,550 for Foundation, $5,100 for Growth, which comes to $212.50 and $425 a month. Setup is billed separately."
+        },
+        {
+          "q": "Will my site look like the demos in the Vault?",
+          "a": "No — those six don't look like each other either, and that's the whole argument. Yours gets built from your trade, your services, your photographs and your town."
+        },
+        {
+          "q": "I already own a domain. Can we keep it?",
+          "a": "Usually, yes. If it's genuinely in your name we point it at the new site and leave it right where it is. If it's parked with an old web guy you can't get on the phone, we help you pull it back into your own account first, and then we build on it."
+        }
+      ],
+      "formHeading": "Tell us what your site has to do.",
+      "formSub": "Your trade, your town, and the thing people always call to ask. That's enough to start."
+    },
+    {
+      "slug": "glen-ellyn/seo",
+      "title": "Local SEO in Glen Ellyn, IL | Project Knox",
+      "metaDescription": "Local SEO in Glen Ellyn, IL. Google Business Profile claimed and built out, pages written the way neighbors search, reviews kept coming. No ranking promises.",
+      "h1": "Local SEO in Glen Ellyn, IL, and the one thing we won't promise you.",
+      "eyebrow": "GLEN ELLYN, ILLINOIS",
+      "lede": "Nobody sells the top of the map, so we don't sell it either. What we sell is the work underneath it — done weekly and written down.",
+      "sections": [
+        {
+          "h2": "The map pack and the blue links are two different races.",
+          "paras": [
+            "Search a trade with a town attached and Google answers twice. First a map with three businesses pinned on it. Underneath that, the ordinary list of websites.",
+            "The map matters most to a local shop, and it isn't your website's race at all — that's your Google Business Profile against everybody else's, weighed largely on distance, on how complete and how active the profile is, and on reviews. The list beneath it is your website's race, judged on what the pages say and how fast they load. Two races, two kinds of work, and an owner who only ever thinks about one of them forfeits the other."
+          ]
+        },
+        {
+          "h2": "Claiming the profile takes an afternoon. Building it out is the job.",
+          "paras": [
+            "Most profiles we meet were claimed once, filled halfway and then abandoned — hours from two summers ago. A category that doesn't match what the shop sells now. Three photographs, all of the sign.",
+            "So it gets gone through properly."
+          ],
+          "bullets": [
+            "Verification, so the listing sits under your control and not inside an old employee's Gmail.",
+            "Primary and secondary categories set to what you truly sell — the category decides which searches you can appear in at all.",
+            "Every service listed under its own name, each with a description written for a person.",
+            "Hours, plus holiday hours before the holiday rather than after, plus the service area if you travel to the customer.",
+            "Photographs of the room, the work and the people, added as you send them over.",
+            "Posts and service entries kept moving, because a profile that changes reads as a business that's open."
+          ]
+        },
+        {
+          "h2": "Reviews are the part Google can see from outside.",
+          "paras": [
+            "Google says plainly that more reviews and better ratings can affect local ranking. Your neighbors read them before choosing anyone — and a review page that stopped three years ago reads as a business that closed.",
+            "On Growth, every finished job sends one text asking for a review. One text, same wording for everybody, no chasing. Happy customers fully intend to leave one and simply never get around to it, and that text is what turns intending into done.",
+            "Replies count too — each review gets answered in your voice, with the service and the town in the answer. If you'd rather never think about it, automated review replies are a bolt-on at $130 a month."
+          ]
+        },
+        {
+          "h2": "We write your pages the way your neighbors actually type.",
+          "paras": [
+            "Nobody in this village searches for 'automotive solutions.' They search for brake repair in Glen Ellyn, or a barber open on Monday, or somebody to cut the parkway strip before the in-laws arrive. That's the language the pages get written in.",
+            "In practice that means a page for each real service instead of one Services page listing nine things in a row. It means the town sitting in the headings where it belongs and nowhere it doesn't. It means structured data underneath, spelling out what you do, where you work and what hours you keep, so Google never has to guess it from the layout.",
+            "It also means the pages stay quick, because a site that keeps somebody waiting has already lost the tap."
+          ]
+        },
+        {
+          "h2": "We won't guarantee a ranking. Here's the weekly work instead.",
+          "paras": [
+            "Google doesn't sell placement in local results. Anyone guaranteeing you the top of the map is either promising something they can't control or counting on you never checking.",
+            "So here's the trade we offer in its place — a named list of work, on a schedule you can hold us to."
+          ],
+          "bullets": [
+            "The profile reviewed and brought current: hours, photographs, services, posts.",
+            "New reviews answered, and the requests going out behind every finished job.",
+            "Pages added or rewritten as your services change and as we learn which words people are using to reach you.",
+            "Speed and broken links checked, because a page nobody told you about is a page Google quietly stops showing.",
+            "What we changed and what moved, reported back in plain numbers — including the months the numbers go the wrong way."
+          ]
+        },
+        {
+          "h2": "Give it about three months before you judge it.",
+          "paras": [
+            "A website takes roughly three months to start earning its keep, and a crowded category takes longer. Profile work can move sooner — completing categories and services sometimes shows inside a few weeks — but the trust a site earns is slow by design.",
+            "We say that at the beginning rather than in month two, because the whole arrangement depends on you knowing what you bought."
+          ]
+        }
+      ],
+      "townPara": "Roosevelt Road carries roughly 44,000 vehicles a day past about 715,000 square feet of retail and service space, and the village's own corridor plan calls it pedestrian-, bicycle-, and automobile-unfriendly. Read that twice. Forty-four thousand people go by daily and almost none of them are looking — nobody strolls it, nobody window-shops it, nobody reads a sign at forty miles an hour. On that stretch the search result is the storefront. If you're missing from the map when somebody two lights away decides they need you, the traffic outside might as well be weather.",
+      "crmCallout": {
+        "heading": "Being findable is half of it. Something has to catch what arrives.",
+        "para": "The CRM is one place where every customer record sits — the call, the form fill, the booking, the invoice, the follow-up — instead of scattered across a phone, an inbox and a countertop. It also tells you which of those came in from search, which is the only honest way to know whether any of this is working. Growth includes it at $500 a month with a $500 setup. And if the phone ringing at nine at night is the real problem, automated answering is a $100 bolt-on."
+      },
+      "cta": {
+        "heading": "See what a page written this way reads like.",
+        "para": "Knox Knocks is a complete auto shop we built end to end, down to how the repair pages are named and worded. Click through it, then call (331) 291-7400 and we'll walk you through what your profile looks like today.",
+        "primaryLabel": "Open Knox Knocks",
+        "primaryHref": "/thevault/auto-repair/",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "Can you get me to number one on Google?",
+          "a": "No, and neither can anybody else. Google doesn't sell placement in local results, so a guarantee is a sales tactic rather than a fact about how the ranking works. What goes in writing is the work — profile maintained, reviews requested and answered, pages written and kept fast, week after week."
+        },
+        {
+          "q": "How long until local SEO shows up?",
+          "a": "Plan on about three months before it starts paying for itself, and longer if your category is crowded. Fixing a half-built profile can move things faster than that. Anybody quoting you two weeks is quoting a number, not an outcome."
+        },
+        {
+          "q": "What's the difference between the map results and the ones below them?",
+          "a": "The map is your Google Business Profile competing on distance, completeness and reviews. The list underneath is your website competing on what it says and how quickly it loads. You want both, and each one is won a different way."
+        },
+        {
+          "q": "I don't have a storefront. Is a Google Business Profile still worth it?",
+          "a": "It is, and arguably more so. If you travel to the customer, the profile gets set up as a service area business with the address hidden and the towns you cover listed instead. Lawn crews, mobile repair and home services take most of their calls out of that map without a shop for anyone to visit."
+        },
+        {
+          "q": "Is the SEO extra, or part of the plan?",
+          "a": "Part of Foundation, at $250 a month with a one-time $250 setup, alongside the website, the email and the booking. Growth at $500 a month with a $500 setup adds the review requests, the CRM and the automated messages that feed it. There's no separate SEO invoice and no minimum spend stacked on top."
+        }
+      ],
+      "formHeading": "Tell us what you want to be found for.",
+      "formSub": "Your trade, your town, and the words a customer would really type."
+    },
+    {
+      "slug": "glen-ellyn/booking-payments",
+      "title": "Online Booking & Payments in Glen Ellyn, IL | Project Knox",
+      "metaDescription": "Online booking and payment integration in Glen Ellyn, IL. Appointments land on your Google Calendar, reminders send themselves, deposits get paid up front.",
+      "h1": "Online booking and payments in Glen Ellyn, IL, for the hours nobody can pick up the phone.",
+      "eyebrow": "GLEN ELLYN, ILLINOIS",
+      "lede": "Appointments that write themselves onto the calendar you already keep, messages that go out without you, and money that clears before anyone walks in.",
+      "sections": [
+        {
+          "h2": "The booking writes itself onto your Google Calendar.",
+          "paras": [
+            "One calendar — the one on your phone, the one you already check. Somebody picks a time on your site and the appointment is sitting there before they've put the phone back in a pocket, with their name, their number and what they booked.",
+            "Availability gets read from that same calendar too — so blocking Thursday afternoon for the dentist closes Thursday afternoon to bookings. No double entry, no second app to remember, no let me check and call you back."
+          ]
+        },
+        {
+          "h2": "Confirmation in seconds. Reminder the day before.",
+          "paras": [
+            "The confirmation goes out immediately, and you can test that claim yourself — book a haircut in our barbershop demo and a real email lands in about ten seconds.",
+            "On Growth, the rest of the sequence runs on its own. A reminder the day before carrying the time and the address. A thank-you afterward. A quiet note some months out to the regular who's drifting, timed to how often that customer normally comes back. You wrote none of them and you send every one."
+          ]
+        },
+        {
+          "h2": "Deposits are how you stop paying for no-shows.",
+          "paras": [
+            "A no-show costs you the slot — and slots are the whole inventory. Nobody has ever sold 2:30 twice.",
+            "So the booking page can take a card — a deposit against the appointment, the full amount on an online order, or a payment rung up at the counter for something bought in the shop. All of it lands in one place, attached to the person who paid. The customers who won't put down a deposit are, reliably, the customers who weren't coming.",
+            "Payment integration sits on Growth, $500 a month with a $500 setup."
+          ]
+        },
+        {
+          "h2": "The notebook stops being the only copy.",
+          "paras": [
+            "Plenty of good businesses run on a spiral notebook by the register and a thread of texts. It holds up until the notebook goes home in somebody's bag, or the phone dies, or you try to answer a plain question. How many times did that customer come in last year. Who hasn't been back since March. What did Saturdays actually take in during July.",
+            "Every appointment and every invoice lands in one searchable ledger, and expenses go in the same place. Once a month you get what came in, what went out and who's due back — and it syncs to QuickBooks or whatever your accountant prefers, so the P&L is clean in January instead of reassembled in April."
+          ]
+        }
+      ],
+      "townPara": "Downtown wraps around the Metra station at 551 Crescent Blvd, on the Union Pacific West line, 22.4 miles out from Ogilvie. That platform sets the clock for a lot of this village. At seven in the morning people stand there with a coffee and a phone. At six in the evening they're heading home with the errands they thought about all day still undone. Both are hours when your shop is either closed or too busy to answer. A booking page is open at both, and it never puts anybody on hold.",
+      "crmCallout": {
+        "heading": "Booking is the front end of a much longer ledger.",
+        "para": "'CRM' just names the place your customer information lives, and once the booking feeds it, the rest follows by itself. The appointment becomes an invoice, the invoice becomes a paid record, and the customer who hasn't rebooked in four months turns up on a list without anyone going looking. That's Growth — $500 a month, $500 setup — and it's the same system as the booking rather than a second one bolted alongside."
+      },
+      "cta": {
+        "heading": "Try it on a working one before you believe us.",
+        "para": "Knox Chops is a real barbershop we built, booking and all. Pick a time, watch the confirmation arrive, then call (331) 291-7400 and we'll set yours up the same way.",
+        "primaryLabel": "Book a time in Knox Chops",
+        "primaryHref": "/thevault/barbershop/",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "Does this work with the calendar I already use?",
+          "a": "It runs on Google Calendar, which comes with the Google Workspace email included in your plan. If appointments currently live in a paper book or a phone's text messages, that's the switch — one calendar, on every device you own, that the booking page is allowed to write to."
+        },
+        {
+          "q": "Can I require a deposit so people turn up?",
+          "a": "You can. Set the amount, pick which services need one, and it's charged the moment the appointment is made rather than chased down afterward."
+        },
+        {
+          "q": "What do booking and payments cost?",
+          "a": "Booking synced to your calendar is part of Foundation, $250 a month with a one-time $250 setup. Payment integration, the reminder and follow-up messages, and the CRM behind them are Growth, $500 a month with a $500 setup. A year paid up front is 15% off either one — $2,550 or $5,100, with setup billed separately."
+        }
+      ],
+      "formHeading": "Tell us how your day gets booked now.",
+      "formSub": "Phone, texts, a notebook, or all three at once. We'll show you the same day on a calendar."
+    }
+  ]
+}

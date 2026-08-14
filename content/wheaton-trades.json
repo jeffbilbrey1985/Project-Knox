@@ -1,0 +1,549 @@
+{
+  "pages": [
+    {
+      "slug": "wheaton/barbershop",
+      "title": "Barbershop Websites & Booking, Wheaton IL | Project Knox",
+      "metaDescription": "Websites, per-barber booking pages and a shop-owned client list for barbershops in Wheaton, IL. Every chair gets its own calendar. Foundation from $250.",
+      "h1": "Websites and per-chair booking for barbershops in Wheaton, IL.",
+      "eyebrow": "BARBERSHOPS — WHEATON, ILLINOIS",
+      "lede": "A shop with four chairs is four small businesses sharing a rent bill and a front door. The website, the booking and the client list have to work for the shop and for every barber standing in it.",
+      "sections": [
+        {
+          "h2": "Clients follow a person, and everyone in the building knows it.",
+          "paras": [
+            "Somebody who's been sitting in the same chair for six years isn't a customer of the shop in any way that barber would recognize. He books around that barber's Thursdays, he waits when that barber is running behind, and if the chair moves eight blocks he moves eight blocks too. Pretending otherwise on your website is how you lose the argument later.",
+            "So the site says it out loud. Each barber gets a page with his own photograph, his own hours, the cuts he actually does and his own booking link — the client picks the man first and the shop second, because that's the order it already happens in."
+          ],
+          "bullets": [
+            "A page per barber, with the work he really does",
+            "A booking link that only offers that barber's true availability",
+            "A shop-wide next available option for anyone with no preference",
+            "One phone number and one address, so the Google profile stays clean"
+          ]
+        },
+        {
+          "h2": "When a barber leaves, the fight is about whose list it was.",
+          "paras": [
+            "Booth renters own their relationships outright. Commission chairs are murkier, and most shops find out exactly how murky on a Tuesday when notice gets handed in. The part that stings is rarely the empty chair — it's that nobody left in the building knows which forty people used to sit in it, when they were last through the door, or how to reach any of them.",
+            "Appointments recorded in one ledger under the shop, with the barber as a field rather than as the owner, settles that quietly. The man who leaves keeps every relationship he built, which is fair and unavoidable anyway. The shop keeps its own history, which is the thing it's been paying rent on."
+          ]
+        },
+        {
+          "h2": "Four chairs means four sets of hours, and the calendar has to admit that.",
+          "paras": [
+            "One man works Tuesday through Saturday. One does three long days and keeps Mondays for his kids. One takes appointments at seven in the morning before anybody else has a key in the door. A single set of shop hours posted on Google flattens all of it, and a client who turns up for a barber who isn't there blames the shop, not the barber.",
+            "Per-chair availability removes that phone call entirely. Somebody books on a Sunday night for a Wednesday at six thirty, the confirmation lands in about ten seconds, and the reminder goes out the day before without anyone touching it."
+          ]
+        },
+        {
+          "h2": "A first-timer picks a shop first and a barber second.",
+          "paras": [
+            "He has no names yet. He has a phone, a lunch hour and three shops inside a mile, and he's looking at photographs of fades to work out whether anyone here cuts hair like his. Give him a straight price list, real pictures of your own work, and a booking button that doesn't demand he create an account first.",
+            "Then hand him to whoever's free. A first cut assigned well turns into somebody's regular, and a regular is a name in the ledger with a date attached to it."
+          ]
+        },
+        {
+          "h2": "What it costs, both plans, nothing held back.",
+          "paras": [
+            "Foundation is $250 a month with a $250 setup: the website on your own domain, the Google Business Profile built out properly, booking synced to your Google Calendar, email at your own domain, and the search work so people looking for a haircut in Wheaton land on you. Two changes a month come with it, and asking is the whole process.",
+            "Growth is $500 a month with a $500 setup and adds review requests, the full client ledger, automated texts and emails, payments, expense tracking and monthly reports. Pay twelve months up front and it's $2,550 or $5,100, setup separate. Twelve-month partnership, billed the same date each month."
+          ],
+          "bullets": [
+            "24/7 automated phone answering, $100 a month",
+            "Automated Google review replies, $130 a month",
+            "Anything custom, priced to the job"
+          ]
+        },
+        {
+          "h2": "Book a cut in Knox Chops and watch what the counter sees.",
+          "paras": [
+            "Knox Chops is a working barbershop we built end to end, not a screenshot. Pick a chair, take a slot, and a real confirmation email turns up in about ten seconds — then open the demo of the system behind it and look at the same appointment from the shop's side of the counter."
+          ]
+        }
+      ],
+      "townPara": "Wheaton keeps two platforms on the Union Pacific West line — the downtown station at 402 Front St and College Avenue — which is unusual for a town of 53,970 and means the morning trade splits before it ever reaches your window. One chair fills with people who need to be gone by twenty past six. Another fills at ten with people who work from home now. A shop that publishes one set of hours and one number hides that difference. A shop that publishes each barber's real week lets a man book the person he actually sits with.",
+      "crmCallout": {
+        "heading": "The book belongs to the shop, and the shop should be able to read it.",
+        "para": "A CRM is nothing more exotic than the place your customer records live. Here it holds every cut, who did it, what it came to and when that client is due back — sorted by barber when you want it that way and by shop when you don't. When a chair turns over, whoever takes it inherits a list of names with dates on them instead of an empty week. The list is registered in your name, so it goes wherever the shop goes."
+      },
+      "cta": {
+        "heading": "Try the shop before you trust the pitch.",
+        "para": "Book a cut in the demo, watch the confirmation land, then look at how it arrives on our side. If it holds up, we'll talk about your floor.",
+        "primaryLabel": "Open Knox Chops",
+        "primaryHref": "/thevault/barbershop/",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "Can each barber have his own booking page?",
+          "a": "Yes. Every barber gets a page and a booking link that shows only the hours he genuinely works, and the shop keeps a next available option for people with no preference. It's one calendar underneath, split the way your floor is already split."
+        },
+        {
+          "q": "If a barber leaves, who keeps the client list?",
+          "a": "The shop keeps the shop's records, because they were recorded under the shop from the first appointment onward. The barber keeps the relationships he built, which no software has ever changed. What you avoid is the third outcome, where the history walks out the door and nobody can remember who was due back in April."
+        },
+        {
+          "q": "What does this cost for a four-chair shop?",
+          "a": "The same as it costs anybody: $250 a month on Foundation with a $250 setup, or $500 a month on Growth with a $500 setup. Booking pages for four barbers cost no more than booking for one, and there's no per-seat charge waiting for you at chair five."
+        }
+      ],
+      "formHeading": "Tell us how your floor is split.",
+      "formSub": "Send the chair count and how your barbers are paid, and we'll come back inside 24 hours with what this would look like for you."
+    },
+    {
+      "slug": "wheaton/restaurant",
+      "title": "Restaurant Sites & Event Bookings, Wheaton IL | Project Knox",
+      "metaDescription": "Websites, private dining enquiries, deposits and catering pages for restaurants in Wheaton, IL. Answer the late-night party enquiry before anyone else.",
+      "h1": "Websites, private dining enquiries and deposits for restaurants in Wheaton, IL.",
+      "eyebrow": "RESTAURANTS — WHEATON, ILLINOIS",
+      "lede": "A table for two books itself. A party of thirty starts as a message typed at eleven at night, and it goes to whichever kitchen answers it first.",
+      "sections": [
+        {
+          "h2": "A party of thirty isn't a reservation, it's a negotiation.",
+          "paras": [
+            "Date, headcount, which room, what menu, who can't eat what, whether the grandparents can manage the step, what time the cake comes out. None of that fits in a reservation widget built for a two-top, and none of it survives being shouted across a pass at seven on a Friday.",
+            "So the enquiry gets its own form and its own inbox. Every question you'd have asked on the phone, captured while the person is still enthusiastic, sitting in one place where somebody can price it properly on Tuesday morning."
+          ],
+          "bullets": [
+            "Date, time and headcount",
+            "Private dining in the room or catering delivered out",
+            "Rough budget per head, in their own words",
+            "Allergies and dietary needs in writing rather than from memory",
+            "How they found you, which is worth more than owners think"
+          ]
+        },
+        {
+          "h2": "The message lands at eleven at night, and Tuesday morning is too late.",
+          "paras": [
+            "Somebody plans a rehearsal dinner once the kids are down. It's late, they're on their third venue, and the same question goes to all three. Whoever replies before breakfast usually takes the booking, and the other two find out weeks later that they lost on speed rather than on food.",
+            "An automatic acknowledgement goes out the moment the form lands, carrying the two or three questions you always end up asking anyway. For $100 a month the calls get picked up as well, at whatever hour they come in, with the message and the number waiting for you by the time the doors are locked."
+          ]
+        },
+        {
+          "h2": "A deposit turns an intention into a booking.",
+          "paras": [
+            "Large parties fall through. They fall through because your room was shortlisted rather than chosen, and holding twenty covers on a Saturday costs you the room whether they show or not. Taking a deposit online at the moment of agreement is the cheapest insurance in this trade, and nobody has ever been insulted by being asked for one.",
+            "Payments run through your own site into the same ledger as everything else, so the deposit, the balance and the final invoice are one record instead of three separate conversations with three different people."
+          ]
+        },
+        {
+          "h2": "Graduation season and the December weeks fill earlier than the phone suggests.",
+          "paras": [
+            "Spring graduations, retirements, first communions, and the stretch before Christmas when every office in town wants a room on the same Thursday. Those dates get claimed months ahead by people planning quietly, and the kitchen that's visible during the planning takes the date.",
+            "Last year's parties are also next year's parties. A note in the ledger saying this family did a graduation lunch in May is a message worth sending the following March, and sending it costs you nothing but the minute it takes to approve."
+          ]
+        },
+        {
+          "h2": "Catering has different answers, so give it a page of its own.",
+          "paras": [
+            "Off-site work runs on different lead times, different minimums and a whole conversation about equipment and staffing. Buried in a paragraph on the menu page, every enquiry starts from zero and half of them were never a fit.",
+            "Publish the lead time, what actually travels well and how far you'll drive. You'll get fewer enquiries and more of the ones worth quoting, which is the trade every kitchen wants once it's been burned twice."
+          ]
+        },
+        {
+          "h2": "The plans, and what each of them covers.",
+          "paras": [
+            "Foundation runs $250 a month plus $250 once at the start. That's the site on your own domain, a Google Business Profile built out properly, booking against your Google Calendar, email at your own address, and the local search work underneath.",
+            "Growth is $500 a month plus $500 at the start, and switches on the guest ledger, the automated messages, online payments, expense tracking, monthly reports and the accounting sync. Twelve months, billed the same date each time. A year paid in advance takes 15% off, which comes to $2,550 or $5,100, with setup handled separately."
+          ]
+        },
+        {
+          "h2": "Take Knox Guac apart before you believe a word of this.",
+          "paras": [
+            "Knox Guac is a taqueria we built with ordering switched on. Place an order, watch the confirmation arrive, then look at the same order sitting in the ledger on the other side. Nothing there is a mockup."
+          ]
+        }
+      ],
+      "townPara": "Downtown Wheaton runs more than 50 events a year, and the Wheaton Park District puts on Cream of Wheaton across four days in early June at Memorial Park and downtown, with a Fourth of July parade of its own behind it. Every one of those dates fills the street with people who don't live here, and a fair number of them belong to a family already wondering where to put twenty relatives in August. For a kitchen that can be reached while the idea is still fresh, the events calendar is a private dining calendar.",
+      "crmCallout": {
+        "heading": "One record per party, from the first message to the last invoice.",
+        "para": "CRM is only a name for the place your guest information is kept. For a restaurant that means every enquiry, every deposit taken, every menu agreed and every party that happened last spring, in one list you can sort. The Tuesday follow-up stops depending on whoever happens to remember. And the list is registered in your name — whatever happens between us, it leaves with you."
+      },
+      "cta": {
+        "heading": "See a booking from both sides of the pass.",
+        "para": "Order something in the demo, then open the ledger and watch it appear. Ten seconds, no sales script, and nobody will call you unless you ask us to.",
+        "primaryLabel": "Open Knox Guac",
+        "primaryHref": "/thevault/restaurant/",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "Can people request a private party or catering through my site?",
+          "a": "That's the main thing this page is about. You get an enquiry form built for large bookings rather than a reservation box, it captures headcount, date, budget and dietary needs, and it lands somewhere you can price it properly instead of in a voicemail nobody has time for."
+        },
+        {
+          "q": "Can I take a deposit for a big booking online?",
+          "a": "Yes, on Growth. Payments are part of the plan, so a deposit link goes out with the confirmation and the balance can be billed later against the same record. You stop holding rooms on trust."
+        },
+        {
+          "q": "We already use a table reservation app. Does this replace it?",
+          "a": "It doesn't have to. Keep the app for two-tops if your staff like it. The site and the ledger handle the parties, the catering enquiries and the follow-up, which is the work the reservation app was never built to do."
+        }
+      ],
+      "formHeading": "Tell us about your biggest room.",
+      "formSub": "Send how many it seats, whether you cater off-site and which month is your worst, and we'll write back the same way you wrote to us."
+    },
+    {
+      "slug": "wheaton/auto-repair",
+      "title": "Auto Repair & Fleet Websites, Wheaton IL | Project Knox",
+      "metaDescription": "Websites, fleet accounts, service history and business invoicing for auto repair shops in Wheaton, IL. Built for commercial work, with prices stated up front.",
+      "h1": "Websites, fleet accounts and service history for auto repair shops in Wheaton, IL.",
+      "eyebrow": "AUTO REPAIR — WHEATON, ILLINOIS",
+      "lede": "A retail customer is one car and one bad morning. A commercial account is nine vehicles, a maintenance schedule and an invoice that has to satisfy somebody's bookkeeper.",
+      "sections": [
+        {
+          "h2": "A commercial account is one contact and a garage full of vehicles.",
+          "paras": [
+            "The person who calls you usually isn't the person who drives the van. She runs the office, she keeps a spreadsheet with plate numbers in it, and what she wants is for six vehicles to be looked after without her having to think about any of them. Every question she asks is really the same question underneath: can I stop tracking this myself.",
+            "So the account gets built the way she already thinks about it. One customer record, several vehicles under it, each with its own mileage, its own history and its own next due date, and one contact who gets told what's happening before it happens."
+          ],
+          "bullets": [
+            "Vehicles grouped under a business, not scattered across driver names",
+            "Mileage and service intervals recorded per vehicle",
+            "One contact for approvals, whoever ends up dropping the keys",
+            "Invoices addressed to the company, with a reference number if they need one"
+          ]
+        },
+        {
+          "h2": "Contractor trucks and church vans keep somebody else's calendar.",
+          "paras": [
+            "A landscaping trailer can't be off the road in June. A van that carries a congregation on Sunday can sit in your bay all day Tuesday and nobody notices it's gone. Commercial scheduling is mostly knowing which of those you're holding, then booking the work into the week the customer can actually give up.",
+            "Online booking that offers real slots, with a reminder before the appointment, means she schedules at nine at night while she's doing the rest of her admin — instead of at ten in the morning while you're already under a hood with your hands full."
+          ]
+        },
+        {
+          "h2": "The invoice goes to a business, and the business has rules.",
+          "paras": [
+            "Retail customers pay at the counter and drive off. Companies want an invoice with the vehicle on it, terms they recognize and a way to pay that doesn't involve coming back. Some want it monthly, all of them want it consistent, and any shop that has chased a commercial invoice knows the chasing cost more than the discount ever did.",
+            "Invoices go out the same day the vehicle leaves, payment happens online or at the counter into one ledger, and what's outstanding becomes a screen instead of a feeling. It feeds the monthly report and syncs to QuickBooks, so the year-end takes an afternoon rather than a weekend."
+          ]
+        },
+        {
+          "h2": "Service history has to outlive the driver.",
+          "paras": [
+            "Drivers change. The van doesn't. Two years in, somebody new asks whether the timing belt has been done, and the honest answer is sitting in a paper folder that may or may not still be under the counter. A shop that can pull up every job against that plate in four seconds is a shop that keeps the account.",
+            "It's also where the next job comes from. A record showing the brake fluid was last changed at forty-one thousand miles is a phone call worth making at sixty-five thousand, and it's the rare call a customer thanks you for."
+          ]
+        },
+        {
+          "h2": "The call you missed was the one worth the most.",
+          "paras": [
+            "A worried driver will call three shops. A fleet contact calls one, and if nobody picks up she moves down her list and doesn't come back — because what she's buying isn't a repair, it's not having to think about it.",
+            "For $100 a month every call gets answered, at nine at night or on a Sunday morning, with what was said and the number to ring back waiting for you before you lock up."
+          ]
+        },
+        {
+          "h2": "Pricing, with nothing hidden behind a form.",
+          "paras": [
+            "Two plans, and no third one being kept back for bigger shops. Foundation is $250 a month with a one-time $250 setup: the website, the Google Business Profile, booking, email on your own domain and the search work. Growth is $500 a month with a $500 setup and turns on review requests, the full ledger, automated texts and emails, payments, expenses, monthly reports and the QuickBooks sync.",
+            "Add 24/7 phone answering for $100 a month, or automated review replies for $130. Anything unusual is priced to the job and put in writing before it starts."
+          ]
+        },
+        {
+          "h2": "Open Knox Knocks and put a vehicle through it.",
+          "paras": [
+            "Knox Knocks is a repair shop we built from the domain up. Book a slot, get the confirmation, then look at the record it created. It'll tell you more in four minutes than we could in four paragraphs."
+          ]
+        }
+      ],
+      "townPara": "Wheaton is the county seat, so DuPage County's offices at 421 N. County Farm Rd and the 18th Circuit courthouse at 505 N. County Farm Rd sit within a few miles of most bays in town. A place of 53,970 with the county's business running through it puts a lot of weekday miles on vehicles that belong to an organization rather than a household, and County Farm, Geneva, Naperville and Butterfield Roads carry them. Those drivers don't panic-search at seven in the morning. Somebody picks a shop once, writes it on a list, and keeps using it until the paperwork gets irritating.",
+      "crmCallout": {
+        "heading": "Every plate, every job, every unpaid invoice, in one place.",
+        "para": "A CRM is just the place your customer and vehicle records live. Here it's one account per business, with the vehicles under it and the history under them — approved work, declined work, what got quoted in March and never booked, and what each company still owes. The follow-up calls write themselves off that list. They're also the cheapest work you'll ever sell, because you already did the diagnosis."
+      },
+      "cta": {
+        "heading": "Put the demo through its paces first.",
+        "para": "Break it if you can. Then open the ledger and see what a fleet account looks like when six vehicles sit under one name.",
+        "primaryLabel": "Open Knox Knocks",
+        "primaryHref": "/thevault/auto-repair/",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "Can you invoice a company rather than the driver?",
+          "a": "Yes. The account belongs to the business, the vehicles sit under it, and the invoice goes to the contact who approves the work with the plate and the job on it. They can pay online or at the counter, and either way it lands in the same ledger."
+        },
+        {
+          "q": "Will the service history stay with the vehicle when the driver changes?",
+          "a": "That's the point of recording it against the vehicle instead of the person. New driver, same plate, same history — every job, date and mileage still there when somebody asks what was done and when."
+        },
+        {
+          "q": "How much does this cost a two-bay shop?",
+          "a": "Foundation is $250 a month with a $250 setup and Growth is $500 a month with a $500 setup. Fleet accounts don't cost extra, and a year paid up front comes to $2,550 or $5,100 with the setup billed separately."
+        }
+      ],
+      "formHeading": "Tell us what your commercial work looks like.",
+      "formSub": "Bay count, how many business accounts you already run and how you invoice them now is enough for us to give you a straight answer."
+    },
+    {
+      "slug": "wheaton/nail-salon",
+      "title": "Nail Salon Websites & Reviews, Wheaton IL | Project Knox",
+      "metaDescription": "Google Business Profiles, review requests, photo galleries and websites for nail salons in Wheaton, IL. Get chosen from the map. Two plans, both priced here.",
+      "h1": "Google profiles, photographs and websites for nail salons in Wheaton, IL.",
+      "eyebrow": "NAIL SALONS — WHEATON, ILLINOIS",
+      "lede": "Almost nobody reads a paragraph about your salon. They look at a photograph, a star rating and how recent the last review is, and they've decided before they've read a word.",
+      "sections": [
+        {
+          "h2": "The map result is your storefront, and the site only confirms it.",
+          "paras": [
+            "Search for nails near me anywhere in this town and what comes back is three listings with pictures on them. That panel does most of the choosing. The website's job is to survive the tap that follows — prices where a thumb can find them, a booking button that works one-handed, and photographs that match the ones on the profile.",
+            "Which is why the Google Business Profile isn't a box to tick after the site goes live. It's the first thing built and the thing that gets attention every week: categories, services, hours, holiday hours, and new photographs added steadily rather than in one burst the month you opened."
+          ]
+        },
+        {
+          "h2": "People choose a set from a picture, never from a description.",
+          "paras": [
+            "Somebody scrolling for an ombre or a French tip is shopping with her eyes, and a stock photo of hands that aren't your hands gets clocked as a stock photo in about a second. Pictures of your own sets, taken in your own light, with the shape and color named underneath, do more for a salon than any sentence anyone could write for you.",
+            "It's also how you turn up in image results, and how a woman who found you on social media works out that the salon in the photos is the same one sitting on the map."
+          ]
+        },
+        {
+          "h2": "Recent reviews count for more than a big total.",
+          "paras": [
+            "Forty reviews with nothing since last spring reads like a salon that might not be open. A steady trickle reads like a salon that's busy. The fix isn't asking harder, it's asking every single time, automatically, in the hour after the appointment while she's still looking at her hands.",
+            "On Growth that request goes out on its own, by text and by email, worded the way you'd word it. You never chase anybody again, and the number takes care of itself because it's asked of everyone rather than whoever you remembered."
+          ]
+        },
+        {
+          "h2": "The three-star review decides the people still deciding.",
+          "paras": [
+            "Everyone reads the middle ones. A three-star note about a wait or a chip is where a careful person goes to learn what you're like when something goes wrong, and leaving it unanswered reads worse than the complaint did.",
+            "Answer plainly, own the part that's yours, say what you did about it, don't argue. If you'd rather that never sat waiting on your list, automated review replies are a $130 a month bolt-on and they go out in your voice, on every review, without you opening the app on a Sunday."
+          ]
+        },
+        {
+          "h2": "The profile and the site have to tell the same story.",
+          "paras": [
+            "Same salon name, same phone number, same address, same spelling, everywhere. Same service names in both places, so a search for a gel fill finds the thing you actually call a gel fill. Same hours, including the ones that change for a holiday.",
+            "It sounds like housekeeping, and it is. It's also the sort of housekeeping that quietly stops happening in month three, which is why it belongs to us rather than to you."
+          ]
+        },
+        {
+          "h2": "What the profile and the site cost together.",
+          "paras": [
+            "$250 a month and $250 to start gets you Foundation — the website, the profile, booking against your Google Calendar, email at your own domain and the search work behind all of it. $500 a month and $500 to start gets Growth, which is where automatic review requests, the client ledger, reminders, payments and the monthly numbers live.",
+            "For a salon, Growth is usually the one that pays for itself, and we'd rather say so than sell you the smaller plan and watch it do half the job. A year paid up front takes 15% off either one."
+          ]
+        },
+        {
+          "h2": "Book a manicure in Knox Nails and see the whole loop.",
+          "paras": [
+            "Pick a service, pick a time, take the slot. The confirmation shows up in about ten seconds and the reminder would follow the day before. It's the same loop a real client walks through, which is the only honest way to show it."
+          ]
+        }
+      ],
+      "townPara": "Hale Street closes for outdoor dining, and when it does, a downtown that markets itself as an upscale retail and service district fills with people holding phones. Main, Front, Wesley and Liberty Drive all feed the same handful of blocks, and a search made from a table on Hale gets answered by whatever the map puts first — one photograph, one rating and however many people have said something lately. A salon up a flight of stairs or a street back isn't a worse salon. It's a less visible one, and visibility is the part that can be worked on.",
+      "crmCallout": {
+        "heading": "The reviews arrive because something is asking for them.",
+        "para": "CRM is a dull word for the place your client information sits, and this one earns its keep on small repeated jobs. It knows who came in yesterday, so the review request goes out while the set still looks new. It knows who booked a fill and never came back for it. It knows which technician she asks for. None of that needs you standing at the desk with a phone in your hand."
+      },
+      "cta": {
+        "heading": "Look at the salon we built, then look at your own listing.",
+        "para": "One of those two will tell you something uncomfortable. We're happy either way, because the listing is usually the quickest thing to fix.",
+        "primaryLabel": "Open Knox Nails",
+        "primaryHref": "/thevault/nail-salon/",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "Do reviews actually change where I show up on the map?",
+          "a": "Reviews are one of the few things Google can see about a business from the outside, so they matter. What nobody can honestly do is sell you a position on that map, and we won't pretend otherwise. What we promise is the asking, the answering and the profile work behind it."
+        },
+        {
+          "q": "Can you write the review replies for me?",
+          "a": "Automated Google review replies are a $130 a month bolt-on. They go out in your tone, on every review including the awkward ones, and you can change any of them. It's one of only two things here that run on automation, and we'd rather name them than dress the whole plan up as clever."
+        },
+        {
+          "q": "Do I even need a website if the Google profile does the work?",
+          "a": "The profile gets you shortlisted and the site closes it. She taps through to check prices, look at more of your work and book without ringing. Being honest about it, if you only ever did one of the two, the profile would be first — but the ones who skip the site lose the bookings that happen at eleven at night."
+        }
+      ],
+      "formHeading": "Send us your Google listing.",
+      "formSub": "Paste the link and we'll tell you plainly what's missing from it, whether or not you ever hire us."
+    },
+    {
+      "slug": "wheaton/chiropractic",
+      "title": "Chiropractor Websites & Intake, Wheaton IL | Project Knox",
+      "metaDescription": "Websites, digital intake and honest pricing pages for chiropractors in Wheaton, IL. Settle the insurance question before the phone rings. Plans from $250.",
+      "h1": "Chiropractic websites in Wheaton, IL that answer the money question before the call.",
+      "eyebrow": "CHIROPRACTIC — WHEATON, ILLINOIS",
+      "lede": "Two questions decide whether somebody books with you, and neither is about technique. Do you take my insurance, and what is this going to cost me.",
+      "sections": [
+        {
+          "h2": "The insurance question is the whole front page, whether you like it or not.",
+          "paras": [
+            "A page saying you accept most major plans sends every reader to the phone to find out what most means. A few of them call. The rest go back to the results and open the practice listed under you, because clicking is faster than waiting on hold to learn something you should have been told already.",
+            "Name the carriers you bill. Say plainly what happens when a plan isn't on that list. Say whether you check benefits before the first visit and how long that takes. None of that is a fee schedule, and all of it is what people were going to ask you anyway."
+          ]
+        },
+        {
+          "h2": "You can be straight about money without publishing numbers you can't stand behind.",
+          "paras": [
+            "What a visit costs depends on the plan, the deductible, the visit itself and what got done during it. One number on a page is either wrong or misleading. What you can publish is the shape of it: what a first appointment includes, roughly how long it runs, what happens at the second one, and how a cash patient is charged compared with an insured one.",
+            "That's enough for somebody to decide. A pricing page isn't there to quote — it's there to stop the reader feeling that a number is being kept from them until they're already on the table."
+          ]
+        },
+        {
+          "h2": "Verification quietly eats a morning a week at the front desk.",
+          "paras": [
+            "Carrier, member ID, group number, date of birth, whether it's under a spouse. Collected over the phone that's six minutes and an argument about spelling. Collected on a form somebody fills in at home the night before, it's already in the file before the desk has the lights on.",
+            "Digital intake does the same for history and consent, so a first appointment starts with the appointment rather than with a pen and a stack of paper. New patients arrive having already told you where it hurts."
+          ]
+        },
+        {
+          "h2": "Cash patients are a different decision and deserve a page of their own.",
+          "paras": [
+            "People with no chiropractic coverage. People whose deductible makes coverage academic. People who simply don't want a claim on their record. They're reading for something specific — a plain rate, whether there's a package, and whether they'll be sold a year of care within ten minutes of sitting down.",
+            "Give them a page that answers exactly that, in your words. It does something useful for the practice too, which is to bring in the patients you'd rather treat and quietly filter out the ones who were never going to stay past visit two."
+          ]
+        },
+        {
+          "h2": "The person who called, asked what it costs, and never booked.",
+          "paras": [
+            "That call happens a few times a week in every practice, and in most of them it leaves no trace at all. Somebody asked, got an answer, said they'd think about it, and the record ends there.",
+            "Written down as a name with a note, that person becomes a text three days later saying the Tuesday morning slot is still open. Some of them book. It's the least expensive way there is to fill a schedule, and it only asks that the call got logged in the first place."
+          ]
+        },
+        {
+          "h2": "Both plans, both prices, said out loud.",
+          "paras": [
+            "Foundation, $250 a month with a $250 setup: the site, the Google Business Profile, booking on your calendar, email at your own domain, the SEO. Growth, $500 a month with a $500 setup: all of that plus the patient ledger, review requests, automated reminders, payments, expense tracking, monthly reports and the accounting sync.",
+            "Twelve months in advance takes 15% off, which works out to $2,550 or $5,100 for the year with setup separate. There's no larger tier being held back for bigger practices, because there isn't one."
+          ]
+        },
+        {
+          "h2": "See the intake form from the patient's side.",
+          "paras": [
+            "Knox Pops is a chiropractic practice we built end to end. Book a first visit, fill the intake in, and watch it land complete on the other side. Then open the ledger and look at what the desk would have seen that morning."
+          ]
+        }
+      ],
+      "townPara": "Wheaton College has sat on its 80-acre campus since 1860, and brings about 2,800 students into a town of 53,970 spread across 60187 and 60189. A student's coverage, a staff member's plan and a family policy on the other side of town are three different conversations about the same adjustment. A practice that publishes which of them it can bill doesn't have to hold any of those conversations twice. People here look things up before they pick up a phone, so make the answer findable and the call gets shorter.",
+      "crmCallout": {
+        "heading": "The recall list is the part nobody has time to keep by hand.",
+        "para": "The CRM is simply where patient contact details, appointments and payments are kept — it isn't a chart, and whatever you use for notes carries on doing that job. What this remembers is the enquiry that never booked, the patient who hasn't been in since March, and the invoice that went out and never came back. Reminders and follow-ups go out on their own, and the desk gets its morning back."
+      },
+      "cta": {
+        "heading": "Walk in as a patient would, then look behind the desk.",
+        "para": "No sales script and no discovery process. Try the demo, and if you want to talk after that, a real person gets back to you within a day.",
+        "primaryLabel": "Open Knox Pops",
+        "primaryHref": "/thevault/chiropractor/",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "Can I show what things cost without publishing a full fee schedule?",
+          "a": "Yes, and it's usually the better move. Publish what a first visit includes, how billing works for insured and cash patients and what happens if you don't take their plan. It answers the question people actually have without pinning you to a number that changes with the coverage."
+        },
+        {
+          "q": "Can patients fill in intake and insurance details before they arrive?",
+          "a": "That's what digital intake is for. Forms go out with the booking confirmation, the patient completes them at home, and the carrier and member ID are sitting in the file before anybody has to verify anything. It usually saves the desk more time than the website does."
+        },
+        {
+          "q": "Does this replace the software we chart in?",
+          "a": "No, and it shouldn't try. Clinical notes stay where they are. This handles the website, the booking, the reminders, the invoicing and the recall list — the administrative half that most practices are running out of a diary and somebody's memory."
+        }
+      ],
+      "formHeading": "Tell us what your front desk repeats all day.",
+      "formSub": "Whatever question your staff answer most often on the phone, that's the page we'd build first."
+    },
+    {
+      "slug": "wheaton/lawn-landscape",
+      "title": "Landscape Design & Install Sites, Wheaton IL | Project Knox",
+      "metaDescription": "Websites, photo-led quoting, deposits and staged invoicing for landscape design crews in Wheaton, IL. Built for patios and plantings, not for mowing routes.",
+      "h1": "Websites and quoting for landscape design and install crews in Wheaton, IL.",
+      "eyebrow": "LAWN & LANDSCAPE — WHEATON, ILLINOIS",
+      "lede": "A mowing account gets settled in one phone call. A patio, a planting plan and a drainage fix take three conversations, two visits and a deposit before anybody turns a shovel.",
+      "sections": [
+        {
+          "h2": "An install is a sale that happens over three weeks, not three minutes.",
+          "paras": [
+            "Somebody has been thinking about the back of the house for two years. They'll look at your work, ask for a visit, get a number, go quiet for two weeks, talk it over at the kitchen table, and come back asking about a smaller version of the same idea. That isn't a lead going cold. That's how a big decision gets made in a household.",
+            "None of it survives a notebook on the dash. Every stage needs a record: the visit booked, the photographs taken, the number sent, the version they asked for instead, and the date you promised to check back."
+          ],
+          "bullets": [
+            "A request form that asks for photographs and a rough measurement",
+            "A site visit booked into the calendar you already keep",
+            "The quote sent as a document rather than a text message",
+            "A follow-up reminder set the same day the quote goes out"
+          ]
+        },
+        {
+          "h2": "A patio quote needs pictures before it needs a price.",
+          "paras": [
+            "Nobody prices a slope, a drainage problem or a hundred feet of edging off a description given over the phone, and quoting blind is how a crew ends up eating a week in July. Asking for photographs at the enquiry stage does two jobs at once — it tells you whether the visit is worth the drive, and it tells the homeowner you're the sort of outfit that measures things.",
+            "Then comes the visit, the notes and a written quote with the work broken into lines they can move around. Line items are how a job survives a budget conversation instead of dying quietly in one."
+          ]
+        },
+        {
+          "h2": "Deposits and staged payments stop you financing the job yourself.",
+          "paras": [
+            "Materials get bought up front. A crew gets paid every week. A three-week install with one invoice at the end means somebody else's patio is sitting on your credit line for a month, and everybody in this trade has done that at least once and sworn never again.",
+            "A deposit at signing, a payment when materials land, the balance at completion. Payment links go out with each stage into the same ledger as everything else, so what's outstanding is a number you can look at rather than a worry you carry around."
+          ]
+        },
+        {
+          "h2": "Your finished work is the proposal, so it has to be findable.",
+          "paras": [
+            "Photographs of your own installs, sorted the way people search for them: patios, retaining walls, plantings, drainage. Before and after from the same corner of the yard. What the job involved and roughly how long the crew was there.",
+            "That gallery sells harder than any writing on the page, and it does it before you've spoken to anybody. It also settles the question every homeowner has and rarely asks out loud, which is whether you've built this exact thing before."
+          ]
+        },
+        {
+          "h2": "Nobody says no. They say not this year.",
+          "paras": [
+            "Design work has a long tail. Budgets move, a bathroom gets done first, a job you quoted in April becomes real the following spring. A list of every quote sent, what it was for and when it went out is next season's work sitting in a file.",
+            "A short note in the autumn asking whether the patio is still on the list lands better than any advertising you could buy, mostly because they liked you the first time and nothing had gone wrong since."
+          ]
+        },
+        {
+          "h2": "The whole cost, in two lines.",
+          "paras": [
+            "Foundation is $250 a month after a $250 setup and covers the website, the Google profile, booking, email on your own domain and the search work. Growth is $500 a month after a $500 setup and adds quoting and invoicing in one ledger, automated follow-up, online payments, expense tracking, monthly reports and a clean handoff to QuickBooks.",
+            "Bolt on 24/7 call answering at $100 a month if the phone rings while you're on a machine. Twelve-month partnership, same billing date every month, 15% off if the year is paid in advance."
+          ]
+        },
+        {
+          "h2": "Open the yard we built and send yourself a quote.",
+          "paras": [
+            "Knox Blocks is a landscape business we built the whole way through. Request a quote as a homeowner would, then look at the record that request created. Four minutes will tell you whether this fits how you work."
+          ]
+        }
+      ],
+      "townPara": "Cantigny Park sits at 1S151 Winfield Rd — the McCormick estate, the First Division Museum, formal gardens and golf — and people walk those beds all summer and drive home with something in mind. What follows a week later is a search, and it's never a search for mowing. Wheaton runs up against Glen Ellyn to the east, Winfield and Carol Stream to the north, Lisle and Naperville to the south, so a design crew's real radius crosses several town lines before the driving gets silly. The work has to be visible across all of them.",
+      "crmCallout": {
+        "heading": "Every property, every quote, every stage payment, on one screen.",
+        "para": "A CRM is just the place your property, quote and customer records live. For install work that means the site visit, the photographs, the version they accepted, what's been paid and what's still due, filed under the address instead of scattered across three phones. Expenses go in the same place, so the patio that ran long is visible while you can still do something about it, and the monthly report tells you which kind of job is genuinely paying."
+      },
+      "cta": {
+        "heading": "Request a quote from the demo and watch where it lands.",
+        "para": "It takes about a minute. If the shape of it looks like your work, we'll build yours the same way and you'll own every piece of it.",
+        "primaryLabel": "Open Knox Blocks",
+        "primaryHref": "/thevault/lawn-care/",
+        "secondaryLabel": "Drive the CRM",
+        "secondaryHref": "/thevault/crm/"
+      },
+      "faqs": [
+        {
+          "q": "Can somebody request a design quote without me driving out there?",
+          "a": "They can start one. The form asks for photographs, rough measurements and what they're picturing, which is usually enough to decide whether the drive is worth it and what to charge. The visit still happens, it just happens on jobs worth visiting."
+        },
+        {
+          "q": "Can I take a deposit and then bill the rest in stages?",
+          "a": "Yes, on Growth. Deposit at signing, a payment against materials, the balance at completion, each one a link the customer can pay from a phone. All three sit under the same job, so you can see at a glance what a property still owes."
+        },
+        {
+          "q": "We do maintenance as well as installs. Does this handle both?",
+          "a": "It does. Recurring accounts and one-off installs sit in the same ledger with different schedules, so the mowing route and a three-week build don't fight over the same calendar. Most crews run both, and the money side is where they get tangled."
+        }
+      ],
+      "formHeading": "Tell us what a typical install looks like for you.",
+      "formSub": "Job size, how many you run at once and how you invoice now is plenty for us to sketch something honest."
+    }
+  ]
+}

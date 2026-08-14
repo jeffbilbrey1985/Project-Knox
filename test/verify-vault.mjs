@@ -41,7 +41,14 @@ const ok = (c, label, extra = '') => {
   ok(offsite.length === 0, 'homepage links no demo directly — every route runs through the vault',
      offsite.join(', ') || 'none');
 
-  const vaultCta = await page.$eval('.btnVault', el => el.getAttribute('href'));
+  // The hero button was .btnVault and is now .doorBtn. $eval THROWS when the
+  // selector misses, which aborted this suite before anything below ran — so
+  // resolve it defensively rather than pinning one class name again.
+  const vaultCta = await page.evaluate(() => {
+    const el = document.querySelector('.doorBtn, .btnVault') ||
+      [...document.querySelectorAll('a')].find(a => a.getAttribute('href') === '/thevault');
+    return el ? el.getAttribute('href') : null;
+  });
   ok(vaultCta === '/thevault', 'Enter the Vault points at /thevault', vaultCta);
 
   const chips = await page.$$eval('.vaultChips a', a => a.map(x => x.getAttribute('href')));

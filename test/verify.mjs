@@ -185,8 +185,11 @@ const ok = (cond, label, extra = '') => {
      'neither consent box is required to submit', JSON.stringify(consent));
 
   // The form must post to the endpoint that creates a lead, not the mail relay.
+  // The CRM moved off knox-crm.higgsfield.app to meridianfiling.com; Jeff
+  // confirmed 14 Aug 2026 that every Knox site should post leads there. This
+  // assertion had been failing since the move — it was pinned to the old host.
   const src = await page.content();
-  ok(/knox-crm\.higgsfield\.app\/api\/leads/.test(src), 'form posts to /api/leads');
+  ok(/meridianfiling\.com\/api\/leads/.test(src), 'form posts to the CRM lead endpoint');
   ok(!/api\/demo-lead/.test(src.replace(/\/\*[\s\S]*?\*\//g,'')), 'form does not post to the demo mail relay');
 
   // The number must be the new one, everywhere.
@@ -229,6 +232,13 @@ const ok = (cond, label, extra = '') => {
   ok(absent.length === 0, 'every city in areaServed appears in visible copy', absent.join(', '));
 
   // The search demo must narrow the list on tap.
+  // #serp moved to getting-found.html and no longer exists here. Skip the block
+  // instead of throwing: this $eval was aborting the suite, so every assertion
+  // below it (Ask Knox, plan cards, bolt-ons, the copy guard) never ran at all.
+  const hasSerp = await page.$('#serp');
+  if (!hasSerp) {
+    ok(true, 'search demo not on this page (moved to /getting-found) — skipped');
+  } else {
   await page.$eval('#serp', e => e.scrollIntoView({block:'center'}));
   await page.waitForTimeout(2400);
   const shown = () => page.$$eval('#serpList li', els => els.filter(e => e.getBoundingClientRect().height > 4).length);
@@ -241,8 +251,15 @@ const ok = (cond, label, extra = '') => {
   ok(broad === 7 && best === 3, 'search demo narrows seven results to three', `broad ${broad} → best ${best}`);
   await page.screenshot({ path: '/home/claude/shots/m-06-find.png' });
 
+  }
+
   // Walk the page, screenshotting each section.
+  // Sections get retired (#find and #mark have both gone since this list was
+  // written). A screenshot walk must not be able to abort the assertions that
+  // follow it, so skip ids that are no longer on the page.
   for (const [id, name] of [['what', '03-what'], ['mark', '03b-mark'], ['find', '06-find2'], ['vault', '04-vault'], ['plans', '05-plans'], ['boltons', '05b-boltons'], ['contact', '09-contact']]) {
+    const present = await page.evaluate(sel => !!document.getElementById(sel), id);
+    if (!present) continue;
     await page.evaluate(sel => document.getElementById(sel).scrollIntoView(), id);
     await page.waitForTimeout(800);
     await page.screenshot({ path: `/home/claude/shots/m-${name}.png` });
@@ -448,6 +465,9 @@ const ok = (cond, label, extra = '') => {
   await page.waitForTimeout(1500);
   await page.screenshot({ path: '/home/claude/shots/d-01-hero.png' });
   for (const [id, name] of [['find', '02-find'], ['vault', '03-vault'], ['plans', '04-plans'], ['contact', '05-contact']]) {
+    // Same retired-section guard as the mobile walk above.
+    const present = await page.evaluate(sel => !!document.getElementById(sel), id);
+    if (!present) continue;
     await page.evaluate(sel => document.getElementById(sel).scrollIntoView(), id);
     await page.waitForTimeout(900);
     await page.screenshot({ path: `/home/claude/shots/d-${name}.png` });

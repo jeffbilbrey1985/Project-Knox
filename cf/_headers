@@ -20,3 +20,14 @@
   Cache-Control: public, max-age=2592000
 /*.html
   Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400
+# /*.html is single-segment and does not match the local-SEO pages, which are
+# served from nested directories as /town/leaf/. Without these they would fall
+# through with no cache header at all.
+/dupage-county/*
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400
+/glen-ellyn/*
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400
+/wheaton/*
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400
+/lombard/*
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400
