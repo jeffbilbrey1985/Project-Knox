@@ -384,7 +384,7 @@ footer .foothub{margin:0 0 6px}
     <a href="/#plans">Plans</a>
     <a href="/#boltons">Bolt&#8209;Ons</a>
     <a href="tel:+13312917400" style="color:var(--struck)">(331) 291-7400</a>
-    <a class="btnGold" style="padding:11px 20px;font-size:12px" href="/#contact">Book a call</a>
+    <a class="btnGold" style="padding:11px 20px;font-size:12px" href="#start" data-open-form>Book a call</a>
   </div>
   <div class="navlinks navmob">
     <a href="/#plans">Plans</a>
@@ -617,7 +617,10 @@ document.documentElement.setAttribute('data-js','');
     if(last) last.focus();
   }
   [].forEach.call(document.querySelectorAll('[data-open-form]'), function(b){
-    b.addEventListener('click', function(){ open(b); });
+    /* Anchors carry href="#start" as the no-JS fallback — it lands on the
+       in-page copy of this same form — so their navigation must be suppressed
+       once the overlay is available. */
+    b.addEventListener('click', function(e){ e.preventDefault(); open(b); });
   });
   document.getElementById('gClose').addEventListener('click', close);
   scrim.addEventListener('click', function(e){ if(e.target === scrim) close(); });

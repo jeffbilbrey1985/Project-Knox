@@ -962,7 +962,7 @@ footer a:hover{color:var(--gold)}
     <a href="#boltons">Bolt&#8209;Ons</a>
     <a href="#contact">Contact</a>
     <a href="tel:+13312917400" style="color:var(--struck)">(331) 291-7400</a>
-    <a class="btnGold" style="padding:11px 20px;font-size:12px" href="#contact">Book a call</a>
+    <a class="btnGold" style="padding:11px 20px;font-size:12px" href="#contact" data-join>Book a call</a>
   </div>
   <div class="navlinks navmob">
     <a href="#plans">Plans</a>
@@ -1427,7 +1427,7 @@ footer a:hover{color:var(--gold)}
     <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
     Call
   </a>
-  <a class="go" href="#contact">Get a quote</a>
+  <a class="go" href="#contact" data-join>Get a quote</a>
 </div>
 
 <!-- ───────────── free consultation ─────────────
@@ -2264,6 +2264,12 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
     btn.focus();
   }
   btn.addEventListener('click', open);
+  /* Every "Book a call" / "Get a quote" CTA opens the same overlay rather than
+     scrolling to #contact. They stay real anchors pointing at #contact, so with
+     JavaScript off the CTA still lands on a working form. */
+  [].forEach.call(document.querySelectorAll('[data-join]'), function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); open(); });
+  });
   closeB.addEventListener('click', close);
   scrim.addEventListener('click', function(e){ if(e.target === scrim) close(); });
   document.addEventListener('keydown', function(e){
