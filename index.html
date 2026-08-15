@@ -538,7 +538,7 @@ video.film[data-done]{opacity:0}
 .soundCue[data-dock]{padding:12px;min-width:44px;min-height:44px;border-radius:50%}
 
 /* ───────────────────────── buttons ───────────────────────── */
-.btnGold,.btnGhost,.listen,.expander,.chip,.send{font-family:var(--ui);cursor:pointer}
+.btnGold,.btnGhost,.listen,.expander,.chip{font-family:var(--ui);cursor:pointer}
 .btnGold{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
   background:linear-gradient(180deg,var(--struck),var(--gold));color:#241c07;
@@ -837,61 +837,110 @@ footer a:hover{color:var(--gold)}
 .bottomBar .go{background:linear-gradient(180deg,var(--struck),var(--gold));color:#241c07;text-transform:uppercase;font-weight:600;font-size:13px;letter-spacing:.1em}
 @media (min-width:900px){.bottomBar{display:none}footer{padding-bottom:36px}}
 
-/* ───────────────────────── Ask Knox ───────────────────────── */
-.askBtn{
+/* ───────────────────── Free-consultation launcher ─────────────────────
+   Occupies the slot the Ask Knox bead used to hold: same fixed position,
+   same z-index, same dock/hide behaviour driven by chrome() below. */
+.joinBtn{
   position:fixed;right:14px;z-index:75;bottom:calc(env(safe-area-inset-bottom) + 82px);
-  height:44px;padding:0 14px 0 11px;gap:7px;border-radius:999px;background:var(--black);
-  border:1px solid var(--gold);display:inline-flex;align-items:center;cursor:pointer;
-  box-shadow:0 8px 26px rgba(0,0,0,.6);color:var(--struck);
-  font-family:var(--ui);font-size:13px;font-weight:500;letter-spacing:.04em;
+  height:44px;padding:0 16px 0 13px;gap:8px;border-radius:999px;
+  background:linear-gradient(180deg,var(--struck),var(--gold));
+  border:none;display:inline-flex;align-items:center;cursor:pointer;
+  box-shadow:0 8px 26px rgba(0,0,0,.5),0 4px 18px rgba(201,169,97,.28);color:#241c07;
+  font-family:var(--ui);font-size:13px;font-weight:600;letter-spacing:.06em;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
 }
-.askBtn span{white-space:nowrap}
-.askBtn:active{transform:scale(.97)}
-@media (min-width:900px){.askBtn{bottom:20px;right:20px}}
+.joinBtn span{white-space:nowrap}
+.joinBtn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(201,169,97,.4)}
+.joinBtn:active{transform:scale(.97)}
+.joinBtn svg{width:19px;height:19px;color:#241c07;flex:none}
+@media (min-width:900px){.joinBtn{bottom:20px;right:20px}}
 @media (max-width:640px){
-  .askBtn{transition:opacity .3s var(--ease),transform .3s var(--ease)}
-  .askBtn span{display:none}
-  .askBtn{width:52px;height:52px;padding:0;justify-content:center;border-radius:50%;
+  .joinBtn{transition:opacity .3s var(--ease),transform .3s var(--ease)}
+  .joinBtn span{display:none}
+  .joinBtn{width:52px;height:52px;padding:0;justify-content:center;border-radius:50%;
     right:12px;bottom:calc(11px + env(safe-area-inset-bottom));opacity:0;pointer-events:none;transform:translateY(10px);
     visibility:hidden;transition:opacity .3s var(--ease),transform .3s var(--ease),visibility 0s linear .3s}
-  .askBtn[data-dockbar]{opacity:1;pointer-events:auto;transform:none;visibility:visible;transition:opacity .3s var(--ease),transform .3s var(--ease)}
-  .askBtn[data-gone]{opacity:0;pointer-events:none;transform:translateY(10px);visibility:hidden;transition:opacity .3s var(--ease),transform .3s var(--ease),visibility 0s linear .3s}
+  .joinBtn[data-dockbar]{opacity:1;pointer-events:auto;transform:none;visibility:visible;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+  .joinBtn[data-gone]{opacity:0;pointer-events:none;transform:translateY(10px);visibility:hidden;transition:opacity .3s var(--ease),transform .3s var(--ease),visibility 0s linear .3s}
+  .joinBtn svg{width:22px;height:22px}
+  /* NOT an Ask Knox rule — keeps the sticky bar clear of the floating button. */
   .bottomBar{padding-right:76px}
 }
-.askBtn svg{width:22px;height:22px;color:var(--gold);flex:none}
-.askPanel{
-  position:fixed;z-index:80;inset:auto 0 0 0;height:min(82dvh,640px);
-  background:var(--night);border-top:1px solid var(--gold);border-radius:16px 16px 0 0;
-  display:none;flex-direction:column;box-shadow:0 -12px 60px rgba(0,0,0,.6)
+
+/* ── the glass overlay ────────────────────────────────────────────────
+   Mounted as a direct child of <body>, which is the root stacking context
+   on this page (body sets no transform/filter/opacity/isolation), so 98
+   genuinely sits above .nav (60), .bottomBar (70) and .joinBtn (75). The
+   only thing left above it is the skip link at 99, deliberately. */
+.joinScrim{
+  position:fixed;inset:0;z-index:98;display:none;place-items:start center;
+  padding:24px 20px;overflow-y:auto;
+  background:rgba(5,7,15,.36);
+  backdrop-filter:blur(26px) saturate(130%);-webkit-backdrop-filter:blur(26px) saturate(130%);
 }
-.askPanel[data-open]{display:flex}
-@media (min-width:900px){
-  .askPanel{inset:auto 20px 20px auto;width:400px;height:600px;border:1px solid var(--gold);border-radius:16px}
+.joinScrim[data-open]{display:grid}
+.joinGlass{
+  position:relative;width:min(470px,100%);border-radius:30px;padding:36px 32px 28px;
+  overflow:hidden;isolation:isolate;margin:auto 0;
+  background:linear-gradient(158deg,rgba(243,224,180,.40),rgba(201,169,97,.17) 46%,rgba(255,255,255,.13) 78%,rgba(232,206,147,.22));
+  backdrop-filter:blur(40px) saturate(210%) brightness(1.06);-webkit-backdrop-filter:blur(40px) saturate(210%) brightness(1.06);
+  box-shadow:0 50px 100px -28px rgba(0,0,0,.78),0 8px 26px -12px rgba(0,0,0,.5),
+             inset 0 1px 0 rgba(245,228,186,.80),inset 0 -1px 0 rgba(255,255,255,.05);
 }
-.askHead{display:flex;align-items:center;gap:11px;padding:14px 16px;border-bottom:1px solid var(--line-soft);flex:none}
-.askHead svg{width:26px;height:26px;color:var(--gold);flex:none}
-.askHead b{font-family:var(--mark);font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;display:block}
-.askHead span{font-size:12px;color:var(--steel)}
-.askClose{margin-left:auto;background:none;border:none;color:var(--steel);font-size:26px;line-height:1;cursor:pointer;padding:0 4px}
-.askLog{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
-.msg{max-width:88%;padding:11px 14px;border-radius:14px;font-size:15px;line-height:1.5;white-space:pre-wrap}
-.msg.bot{background:rgba(201,169,97,.09);border:1px solid var(--line);color:#e8ebf2;align-self:flex-start;border-bottom-left-radius:4px}
-.msg.me{background:var(--gold);color:#241c07;align-self:flex-end;border-bottom-right-radius:4px}
-.askChips{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 10px;flex:none}
-.askChips button{
-  background:var(--black);border:1px solid var(--line-soft);border-radius:999px;color:var(--steel);
-  font-family:var(--ui);font-size:12.5px;padding:8px 12px;cursor:pointer;transition:all .2s
+/* specular sheen — tracks the pointer; this is what reads as liquid */
+.joinGlass::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(560px circle at var(--mx,28%) var(--my,4%),rgba(245,228,186,.38),transparent 52%),
+    radial-gradient(300px circle at 8% -6%,rgba(245,228,186,.38),transparent 60%),
+    linear-gradient(158deg,rgba(232,206,147,.20),transparent 58%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+  transition:background .12s linear
 }
-.askChips button:hover{border-color:var(--gold);color:var(--struck)}
-.askForm{display:flex;gap:8px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line-soft);flex:none}
-.askForm input{
-  flex:1;background:var(--black);border:1px solid var(--line-soft);border-radius:10px;
-  color:var(--ivory);font-family:var(--ui);font-size:16px;padding:12px 13px
+/* refracted edge — bright top-left, dim bottom-right, drawn as a masked ring */
+.joinGlass::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;padding:1px;
+  background:linear-gradient(150deg,rgba(245,228,186,.98),rgba(201,169,97,.30) 38%,rgba(255,255,255,.07) 60%,rgba(232,206,147,.52));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude
 }
-.askForm input:focus{border-color:var(--gold);outline:none}
-.send{background:var(--gold);border:none;border-radius:10px;width:46px;display:grid;place-items:center;color:#241c07}
-.send svg{width:19px;height:19px}
-.askDisc{font-size:11px;color:var(--steel);text-align:center;padding:0 16px 8px;flex:none}
+.joinGlass i.jEyebrow{display:block;padding-right:40px;font-style:normal;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--struck);font-weight:500;margin-bottom:12px}
+.joinGlass h2{font-size:clamp(25px,4.6vw,32px);margin:0;padding-right:8px}
+.jSub{margin:10px 0 22px;font-size:14.5px;line-height:1.55;color:rgba(245,235,214,.72)}
+.jField{position:relative;margin-bottom:13px}
+.jField input,.jField textarea{
+  width:100%;height:54px;border-radius:15px;padding:22px 16px 8px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(232,206,147,.34);
+  color:var(--ivory);font-family:var(--ui);font-size:16px;font-weight:300;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.18);
+  transition:border-color .22s var(--ease),box-shadow .22s var(--ease),background .22s var(--ease);outline:none
+}
+.jField textarea{height:92px;padding-top:24px;resize:none;line-height:1.5}
+.jField label{position:absolute;left:17px;top:16px;pointer-events:none;font-size:15px;font-weight:300;color:rgba(245,235,214,.66);transition:all .2s var(--ease)}
+.jField input:focus,.jField textarea:focus{border-color:rgba(232,206,147,.85);background:rgba(255,255,255,.19);box-shadow:inset 0 1px 2px rgba(0,0,0,.18),0 0 0 3px rgba(201,169,97,.22)}
+.jField input:focus+label,.jField input:not(:placeholder-shown)+label,
+.jField textarea:focus+label,.jField textarea:not(:placeholder-shown)+label{top:8px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--struck);font-weight:500}
+.jTwo{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.jConsent{margin:4px 0 14px}
+.jConsent label{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:12px;line-height:1.5;color:rgba(245,235,214,.66);cursor:pointer}
+.jConsent input{margin:3px 0 0;width:15px;height:15px;flex:none;accent-color:var(--gold)}
+.jConsent b{color:var(--struck);font-weight:500}
+.jConsent a{color:rgba(232,206,147,.85);text-decoration:underline}
+.joinGlass .btnGold{width:100%;border-radius:16px;min-height:54px;margin-top:4px}
+.jFoot{margin:14px 0 0;font-size:12px;line-height:1.5;color:rgba(245,235,214,.62);text-align:center}
+.jFoot a{color:rgba(232,206,147,.85)}
+.jClose{position:absolute;top:15px;right:15px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);color:rgba(255,255,255,.8);font-size:17px;line-height:1}
+.jDone{display:none;text-align:center;padding:14px 0 6px}
+.jDone b{display:block;font-family:var(--display);font-size:27px;color:var(--struck);margin-bottom:8px;font-weight:600}
+.jDone p{color:rgba(245,235,214,.72);font-size:14.5px;margin:0}
+.joinGlass[data-sent] form{display:none}
+.joinGlass[data-sent] .jDone{display:block}
+@media (max-width:520px){.joinGlass{padding:30px 22px 24px;border-radius:24px}.jTwo{grid-template-columns:1fr}}
+/* Without backdrop-filter the card must still be opaque enough to read. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .joinGlass{background:linear-gradient(158deg,rgba(38,32,16,.97),rgba(11,16,38,.98))}
+  .joinScrim{background:rgba(5,7,15,.88)}
+}
 </style>
 <script src="assets/js/knox-audio.js"></script>
 </head>
@@ -1122,23 +1171,6 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
-<!-- ───────────── 3b · straight from Google ─────────────
-     The live review widget. The third-party script and iframe are NOT in this
-     markup — a lazy loader injects them once the section approaches the
-     viewport, so the vendor's bytes are never spent on a visitor who never
-     scrolls here. -->
-<section id="reviews" class="reviews">
-  <div class="wrap">
-    <div class="eyebrow rv">Straight from Google</div>
-    <h2 class="rv">What owners say</h2>
-    <p class="lede rv" style="margin-top:16px">Live from our Google profile &mdash; unedited, exactly as they were written.</p>
-    <div class="revStage rv">
-      <div class="revEmbed" id="revEmbed" aria-label="Google reviews of Project Knox"></div>
-      <noscript><p style="margin:0;text-align:center"><a href="https://www.google.com/search?q=Project+Knox+Glen+Ellyn+reviews">Read our Google reviews</a></p></noscript>
-    </div>
-  </div>
-</section>
-
 <!-- ───────────── 4 · plans ───────────── -->
 <section id="plans" class="plans">
   <div class="wrap">
@@ -1356,6 +1388,23 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
+<!-- ───────────── 3b · straight from Google ─────────────
+     The live review widget. The third-party script and iframe are NOT in this
+     markup — a lazy loader injects them once the section approaches the
+     viewport, so the vendor's bytes are never spent on a visitor who never
+     scrolls here. -->
+<section id="reviews" class="reviews">
+  <div class="wrap">
+    <div class="eyebrow rv">Straight from Google</div>
+    <h2 class="rv">What owners say</h2>
+    <p class="lede rv" style="margin-top:16px">Live from our Google profile &mdash; unedited, exactly as they were written.</p>
+    <div class="revStage rv">
+      <div class="revEmbed" id="revEmbed" aria-label="Google reviews of Project Knox"></div>
+      <noscript><p style="margin:0;text-align:center"><a href="https://www.google.com/search?q=Project+Knox+Glen+Ellyn+reviews">Read our Google reviews</a></p></noscript>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer>
@@ -1381,27 +1430,42 @@ footer a:hover{color:var(--gold)}
   <a class="go" href="#contact">Get a quote</a>
 </div>
 
-<!-- ───────────── Ask Knox ───────────── -->
-<button class="askBtn" id="askBtn" aria-label="Ask Knox a question">
-  <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".55"/><circle cx="16" cy="16" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="16" r="2.6" fill="currentColor"/><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M16 2v3.4M16 26.6V30M2 16h3.4M26.6 16H30"/></g></svg>
-  <span>Ask Knox</span>
+<!-- ───────────── free consultation ─────────────
+     Replaces the Ask Knox concierge. Opens the glass signup form as an
+     overlay; posts to the same CRM endpoint as the form at #contact. -->
+<button class="joinBtn" id="joinBtn" aria-label="Get a free consultation">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+  <span>Free consultation</span>
 </button>
 
-<div class="askPanel" id="askPanel" role="dialog" aria-modal="false" aria-label="Ask Knox">
-  <div class="askHead">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".55"/><circle cx="16" cy="16" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="16" r="2.6" fill="currentColor"/></svg>
-    <div><b>Ask Knox</b><span>Vault Concierge &mdash; always on duty</span></div>
-    <button class="askClose" id="askClose" aria-label="Close">&times;</button>
+<div class="joinScrim" id="joinScrim">
+  <div class="joinGlass" id="joinGlass" role="dialog" aria-modal="true" aria-labelledby="jTitle">
+    <button type="button" class="jClose" id="jClose" aria-label="Close">&times;</button>
+    <i class="jEyebrow">Free consultation</i>
+    <h2 id="jTitle">Tell us what you'd fix first.</h2>
+    <p class="jSub">Two minutes. Your first consultation is free &mdash; no pressure, no jargon, and a real person reads it.</p>
+    <form id="joinForm" novalidate>
+      <div class="jTwo">
+        <div class="jField"><input id="jName" name="name" placeholder=" " autocomplete="name" required><label for="jName">Your name</label></div>
+        <div class="jField"><input id="jPhone" name="phone" type="tel" inputmode="tel" placeholder=" " autocomplete="tel"><label for="jPhone">Phone</label></div>
+      </div>
+      <div class="jField"><input id="jEmail" name="email" type="email" inputmode="email" placeholder=" " autocomplete="email" required><label for="jEmail">Email address</label></div>
+      <div class="jField"><input id="jBiz" name="business" placeholder=" " autocomplete="organization" required><label for="jBiz">Business name</label></div>
+      <div class="jField"><input id="jType" name="type" placeholder=" " autocomplete="off"><label for="jType">Type of business</label></div>
+      <div class="jField"><textarea id="jMsg" name="message" placeholder=" "></textarea><label for="jMsg">What would you fix first?</label></div>
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="jConsent">
+        <label for="jSms"><input type="checkbox" id="jSms" name="sms_consent" value="yes"><span><b>Text me.</b> I agree that Project Knox may text me at the mobile number above, sent from (331)&nbsp;291&#8209;7400 &mdash; about my inquiry, and with marketing about Project Knox services and offers. Consent is not a condition of purchase. Message frequency varies (about 2&ndash;6 messages a month). Message and data rates may apply. Reply STOP to cancel or HELP for help. See <a href="sms-terms.html">SMS Terms</a> and <a href="privacy.html">Privacy Policy</a>.</span></label>
+        <label for="jEmailOptIn"><input type="checkbox" id="jEmailOptIn" name="email_consent" value="yes"><span><b>Email me.</b> I agree to receive marketing emails from Project Knox about services and offers. You can unsubscribe from any email. See <a href="privacy.html">Privacy Policy</a>.</span></label>
+      </div>
+      <button class="btnGold" type="submit" id="jSubmit">Send this to Knox</button>
+      <p class="jFoot">Neither box is required &mdash; we'll reply either way. Or call <a href="tel:+13312917400">(331)&nbsp;291&#8209;7400</a>. No sales script, no discovery process, a real person within 24 hours.</p>
+    </form>
+    <div class="jDone">
+      <b>Got it.</b>
+      <p>A real person reads this and gets back to you within 24 hours. If it's urgent, (331)&nbsp;291&#8209;7400 rings a phone.</p>
+    </div>
   </div>
-  <div class="askLog" id="askLog"></div>
-  <div class="askChips" id="askChips"></div>
-  <form class="askForm" id="askForm">
-    <input id="askInput" placeholder="Ask me anything about Knox&hellip;" autocomplete="off" aria-label="Your question">
-    <button class="send" type="submit" aria-label="Send">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-    </button>
-  </form>
-  <div class="askDisc">I'm the Knox assistant, not a person. For anything important, call (331) 291-7400.</div>
 </div>
 
 <script>
@@ -2003,7 +2067,7 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   var nav = document.getElementById('nav');
   var bar = document.getElementById('bottomBar');
   var hero = document.getElementById('top');
-  var ask = document.getElementById('askBtn');
+  var ask = document.getElementById('joinBtn');
   var contact = document.getElementById('contact');
   function upd(){
     if(window.scrollY > 24) nav.setAttribute('data-scrolled',''); else nav.removeAttribute('data-scrolled');
@@ -2021,7 +2085,11 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
        away entirely while the consent language is on screen — chrome must
        never sit on top of the words someone is agreeing to. */
     if(ask && window.innerWidth <= 640){
-      var panelOpen = document.getElementById('askPanel').hasAttribute('data-open');
+      /* Read the overlay defensively. This runs synchronously from upd() inside
+         the page-wide IIFE, so an unguarded null here would abort every script
+         section below it — which is exactly what the old code risked. */
+      var scrimEl = document.getElementById('joinScrim');
+      var panelOpen = !!(scrimEl && scrimEl.hasAttribute('data-open'));
       if(overForm && !panelOpen) ask.setAttribute('data-gone',''); else ask.removeAttribute('data-gone');
     }
   }
@@ -2166,176 +2234,107 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   onScroll();
 })();
 
-/* ═══════════ 8 · Ask Knox ═══════════
-   A deterministic concierge: it answers from a fixed knowledge base and can
-   never invent a client, quote a price that isn't published, or promise a
-   Google ranking. When it doesn't know, it hands off to Jeff — which is a
-   success, not a failure.                                                   */
-(function askKnox(){
-  var PHONE = '(331) 291-7400';
-  var KB = [
-    {k:['squarespace','wix','godaddy','20 a month','$20','cheaper site','build it myself','diy'],
-     a:"Because $20 buys you software and $250 buys you the work. With Squarespace you're still the one building the pages, writing the copy, claiming the Google profile, setting up booking, and fixing it at 9pm when it breaks. Foundation covers all of that, done for you, plus two changes a month.\n\nIf you've got the time and the interest to run it yourself, Squarespace is genuinely the right call — We'd rather say that than sell you something."},
-    {k:['stop paying','cancel','lose my website','leave','quit','what happens if i stop'],
-     a:"Fair thing to ask, and you shouldn't accept a fuzzy answer. It's spelled out in the written agreement — exactly what happens to the site, the domain and your data — before you sign anything. I don't want to state the specific terms here and get them slightly wrong.\n\nRaise it on the free consult. It's a completely reasonable thing to lead with."},
-    {k:['own my website','who owns','ownership','own the domain','domain in my name'],
-     a:"The domain is registered in your name, the Google profile is your account, and the customer list is your data.\n\nThe full ownership language is written into the agreement before work starts, so you'll see it in plain English rather than taking my word for it — and push on it. Anyone who gets vague about domain ownership is telling you something."},
-    {k:['one guy','hit by a bus','solo','just you','one person','get sick','bus'],
-     a:"Fair question, and the answer isn't 'trust us.' Nothing Knox builds is locked in a proprietary box. Your domain, your Google Business Profile and your Workspace are registered in your name and live in your accounts.\n\nSo if you ever had to hand the whole thing to someone else, you could — tomorrow, without asking permission. That's a real difference from an agency that hosts everything under its own account and gives you a login."},
-    {k:['vacation','too busy','other clients','neglected','how many clients'],
-     a:"Straight answer: Knox is taking on new businesses right now, so you'd get real attention rather than a place in a queue. That changes as the book fills, which is exactly why the commitments live in writing rather than in good intentions.\n\nWorth asking on the consult what the support turnaround actually is — and if you don't get a straight answer, that's your answer."},
-    {k:['12 month','twelve month','contract','locked in','trap','commitment','year long'],
-     a:"It's honest about how the work actually lands. The build is front-loaded — site, Google profile, booking, all of it — and the SEO and review side takes months to compound.\n\nMonth-to-month would mean pricing the setup much higher up front to cover that risk, which is worse for you. The 12 months is what lets the setup fee be one month instead of five. What you should press us on is what happens if we don't deliver."},
-    {k:['setup fee','one time','upfront','up front','what is the setup'],
-     a:"The heaviest month of work. Claiming and building out your Google Business Profile, registering the domain, setting up Workspace and your email, and building the actual site — structure, copy, photos, booking, calendar sync.\n\nOn Growth it also covers standing up your CRM, the payment integration and the review automation. It's the same as one month's subscription, which is deliberately low for that amount of build."},
-    {k:['guarantee','first on google','rank first','number one','top of google','seo guarantee'],
-     a:"No. Nobody can, and anyone who tells you otherwise is either lying or doesn't understand how it works — Google doesn't sell placement in local results.\n\nWhat can be done is everything that actually moves it: a claimed and complete Business Profile, a fast site Google can read, real service pages, consistent business details everywhere, and on Growth a steady flow of genuine reviews. That's the honest version."},
-    {k:['how long','results','how soon','timeline','when will i see'],
-     a:"Depends which result. The Google Business Profile work often shows up fastest, because most shops have a profile that's half-empty and fixing it changes what people see almost immediately.\n\nRanking and organic traffic are slower — months, not weeks. I'm not going to hand you a number I can't stand behind; we can be specific about your market on the consult."},
-    {k:['nephew','my son','friend builds','cousin','know a guy'],
-     a:"If he's good and reliable, that's a real option and you should take it.\n\nTwo things to weigh: the website is the smallest part of this — the Google profile, booking, reviews, CRM and someone maintaining it month after month is the actual job. And family work has a way of going quiet around month four. If he wants to build the site, fine; the question is who runs it in February."},
-    {k:['already have a website','got a site','have a site'],
-     a:"Then the question isn't whether you have one, it's whether it's doing anything.\n\nCan a customer book on it from their phone at 9pm? Does it show up when someone searches your trade plus your town? Is your Google profile claimed and complete? If yes to all three, you may not need this. If no, we'll tell you on the free consult whether it's worth rebuilding or just fixing."},
-    {k:['already pay','99 a month','seo company','seo guy','paying someone'],
-     a:"Then ask them one question: which search terms are you ranking for now that you weren't twelve months ago? A good provider answers that in about ten seconds with Search Console open. If you get a PDF full of charts instead, you've got your answer.\n\nWorth noting $99 SEO is usually just SEO — no site, no booking, no reviews, no CRM."},
-    {k:['real client','see your work','portfolio','references','who else','case study','examples'],
-     a:"Knox is new, and we're not going to pad a client list to make it look otherwise.\n\nWhat there is instead is working proof: six complete businesses built and running in the Vault, plus a live CRM you can drive yourself — all clickable, no signup. Open the barbershop on your phone and book yourself a haircut, or order tacos from the taquería and pay for them. You'll learn more in two minutes than from a list of names you can't verify anyway."},
-    {k:['guinea pig','first client','early','test subject'],
-     a:"Early client, yes. Guinea pig, no — the systems are already built and running, which is exactly what the Vault demos and the CRM sandbox are there to prove.\n\nWhat being early gets you is that you're not account #340 at an agency. What it costs you is a long client list to check references against. That's the honest trade."},
-    {k:['housecall','jobber','servicetitan','field service'],
-     a:"Those are good products, and they're software you rent and then run yourself. They don't set up your Google profile, write your service pages, build your website, wire your review automation, or fix things when they break — that's still your evening.\n\nKnox is the other way around: the monthly fee is the work, and the software comes with it. If you're running multiple crews with dispatch and routing, Jobber may genuinely be the better tool."},
-    {k:['vagaro','booksy','square appointments','mindbody','schedulicity','booking app'],
-     a:"Booking is one line on the Foundation list — so you'd be comparing your $30 tool to a fraction of a $250 service.\n\nAlso worth pricing what you'd actually need on those platforms: base plan, per-staff fees, the website add-on, the QuickBooks connector, a separate review tool. It adds up faster than people expect, and you're still the one running it. And on a marketplace like Booksy, the client relationship partly belongs to the platform. Here it's yours."},
-    {k:['data safe','security','where does it live','hosting','breach','secure'],
-     a:"Right thing to ask. The systems run on Cloudflare's network with the security work done at the application level — login lockouts, hashed credentials, rate limiting on public forms.\n\nOn the specifics of hosting region, retention and what's in writing about your data, I'd rather that came from the agreement than from me approximating it. One thing I can tell you flatly: your customer list is yours."},
-    {k:['sell my list','market to my customers','my customer list','share my data'],
-     a:"No. Your customers are your customers — the list is your data and it stays that way."},
-    {k:['change something','update','edit the site','new prices','change hours','two updates','third update'],
-     a:"You text or email us and it gets changed. Two updates a month are included on every plan — new prices, new photos, changed hours, a service added or dropped, a promo up or down.\n\nIt isn't a ticket system with a queue. For the exact turnaround and what happens on a third update in a month, ask on the consult — I don't want to invent a policy."},
-    {k:['review request','google review','gating','trouble','against policy','review automation','asking for reviews'],
-     a:"Good instinct, because plenty of tools do get people in trouble. Google's line is clear: asking every customer for an honest review is allowed and encouraged. Three things are not — filtering so only happy customers get the link (that's review gating), offering anything of value in exchange, and telling people what to write.\n\nKnox sends the same request to every customer, no incentive, no script, linking straight to your Google page. Inside the rules, and it's also what actually works."},
-    {k:['buy reviews','fake reviews','hundred reviews','purchase reviews'],
-     a:"No, and you shouldn't buy them anywhere. Google removes fake reviews and suspends profiles for repeat offences, and a suspended profile costs you far more than the reviews were worth.\n\nThe slow version — asking every customer, every time, automatically — gets you there in months and it stays."},
-    {k:['ai phone','phone agent','answer the phone','24/7','receptionist','after hours','robot answer'],
-     a:"For a defined job, yes: answering common questions, booking an appointment, taking a callback request. It isn't a receptionist and it won't handle a complicated or emotional call — those need you.\n\nThe way to think about it is that it's competing with your voicemail at 8pm on a Sunday, not with you. That's the 24/7 Automated Phone Answering bolt-on \u2014 $100 a month on top of either plan, and every call is recorded and transcribed into your CRM."},
-    {k:['ai says something wrong','wrong answer','ai mistake','liability','bot wrong'],
-     a:"It works from what you give it — your services, prices, hours, policies — and it's built to say \"let me have someone call you back\" rather than guess. Same rule I'm running under right now.\n\nIt can still be wrong, so it gets reviewed and corrected like anything else. If a mistake would be genuinely expensive in your trade — quoting a repair, saying anything medical — the right build refuses those outright and books a callback instead."},
-    {k:['not technical','how much work','my time','learn','complicated','computer'],
-     a:"Not much, and it's front-loaded. Your service list and prices, your hours, some photos of the shop and your work, your logo if you have one, and about an hour answering questions.\n\nAfter that it's whatever you feel like changing. You don't log into anything, you don't maintain anything, and there's nothing to learn — bookings show up in the same Google Calendar that's already on your phone."},
-    {k:['upgrade','downgrade','switch plans','change plan','move up'],
-     a:"We handle tier changes directly, and I don't want to state the mechanics wrong — whether it's mid-term or at renewal, and how the setup fee difference works, is worth confirming on the call.\n\nPractical suggestion: start at the tier that fits today. We'll tell you if you're reaching for more than you need."},
-    {k:['what do you need','to start','get started','begin','onboarding','from me'],
-     a:"Short list:\n\n• Your services and prices\n• Your hours\n• Photos of your shop and your work\n• Your logo, if you have one\n• Access to your domain and Google profile, if they already exist\n• About an hour of your time\n\nThat's the bulk of it. Jeff does the rest."},
-    {k:['outside illinois','out of state','where are you','location','service area','near me','glen ellyn'],
-     a:"Knox is based in Glen Ellyn, Illinois. Almost all of this is remote work anyway — the local piece is mostly whether we can come stand in your shop.\n\nFor whether we're taking clients in your area specifically, ask on the consult. It's a one-minute answer."},
-    {k:['trust a chatbot','why should i trust','are you a bot','you are ai','robot'],
-     a:"You shouldn't trust me, particularly. I'm a bot on the Knox website — I'll tell you that any time you ask.\n\nWhat I'm built not to do is invent a client, quote a price that isn't published, or promise you a Google ranking. When I don't know something I say so. If you want a person, that's the free consult, and it's the better move anyway."},
-    {k:['discount','best price','cheaper','negotiate','deal','lower price','pay yearly','pay up front'],
-     a:"The prices are fixed — $250 and $500 a month, with bolt-ons at $100 and $130 — and they're the same for everyone who walks in. No negotiating means nobody is quietly paying more than you are.\n\nWhat we will do is tell you honestly if a lower tier covers what you actually need."},
-    {k:['just the website','only the website','without the crm','no crm','website only'],
-     a:"That's Foundation — $250 a month plus $250 setup. Website, your own domain and email, Google Business Profile, search setup, and online booking, with two changes a month.\n\nThe CRM, review automation, payments and accounting sync start at Growth."},
-    {k:['what is a crm','crm mean','what does crm'],
-     a:"It just means the place your customer information lives. That's all it means — names, phone numbers, what they bought, and when they're due back.\n\nOn Growth it also handles the bookings, the invoices, and chasing people who've gone quiet."},
-    {k:['what do you do','what is project knox','what is this','explain','who are you','tell me about'],
-     a:"Project Knox is a websites, CRM and automation shop in Glen Ellyn, Illinois. We build your website, your booking, your customer list and your follow-up by hand — then we run all of it for you, for one monthly price.\n\nTwo plans: Foundation $250 and Growth $500, each with a one-time setup fee the same as the monthly price — plus bolt-ons like 24/7 phone answering ($100/mo) and automated Google review replies ($130/mo).\n\nBest thing you can do is open the Vault and drive one of the six live demo sites yourself."},
-    {k:['price','cost','how much','pricing','plans','what are the plans','tiers'],
-     a:"Two plans, and these are the only prices:\n\n• Foundation — $250/mo + $250 setup. Website, your own domain and email, Google Business Profile, SEO, online booking synced to your calendar.\n• Growth — $500/mo + $500 setup. All of Foundation, plus the full CRM, automatic review requests, automated texts and emails, payments, expenses, monthly reports, and QuickBooks sync.\n\nThen bolt on what you need:\n\n• 24/7 Automated Phone Answering — $100/mo. Your line answered and recorded around the clock, messages transcribed into your CRM.\n• Automated Google Review Replies — $130/mo. Every review answered the moment it lands.\n• Custom solutions — tell us what's hard, we design and price it plainly.\n\nEvery plan is a 12-month partnership, billed monthly, everything in writing first. Pay the year up front and take 15% off."},
-    {k:['bolt on','bolt-on','bolt ons','boltons','add on','addon','extras','phone answering','answering service','24/7','answer my phone','miss calls','missed call'],
-     a:"Bolt-ons are extras that wire into the same system, on either plan:\n\n• 24/7 Automated Phone Answering — $100/mo. An A.I. answers your line around the clock, records the call, and drops the transcribed message into your CRM for your review and reply. It's competing with your voicemail at 9pm, not with you.\n• Automated Google Review Replies — $130/mo. Every review gets a considered reply the moment it comes in — and steady responses are one of the signals Google's local ranking rewards.\n• Custom solutions — if something else is eating your week, tell us. If your business needs it and it doesn't exist yet, that's exactly what we build."},
-    {k:['review replies','reply to reviews','answer reviews','respond to reviews','review reply'],
-     a:"Review replies are a bolt-on: $130 a month, and every Google review your business receives is answered the moment it lands — thoughtfully, in your business's voice, around the clock.\n\nWhy it matters: responsiveness is a signal Google's local algorithm rewards, and a wall of answered reviews reads as a shop that cares. The review requests that generate those reviews are already included in Growth."},
-    {k:['vault','demo','demos','see examples','try it','live sites'],
-     a:"The Vault is six complete businesses we built — a barbershop, a taquería, an auto garage, a nail salon, a chiropractor and a lawn crew — plus a working CRM you can drive yourself.\n\nThey're real software, not pictures. Book a haircut, order tacos, price a brake job. You'll get a real confirmation email in about ten seconds. The Vault lives at getprojectknox.com/thevault \u2014 there's an Enter the Vault button on this page that takes you straight there."},
-    {k:['text me','texting','sms','do you text','stop texts','unsubscribe','opt out','text messages'],
-     a:"Only if you tick the box. The SMS box on the form is optional and unticked by default \u2014 leave it alone and we will never text you, and your inquiry gets answered exactly the same.\n\nIf you do tick it: messages come from (331) 291-7400, roughly 2 to 6 a month, and you can reply STOP at any time to end it. Message and data rates may apply. Full detail is on the SMS Terms page linked at the bottom of this site."},
-    {k:['sell my number','share my number','who gets my data','give my info','third parties'],
-     a:"Nobody. Your mobile information is not shared with third parties or affiliates for marketing or promotional purposes \u2014 that is written into the privacy policy on this site, not just said here.\n\nThe only outside services that touch it are the ones needed to actually deliver a message or an email, and they cannot use it for their own marketing."},
-    {k:['book','consult','consultation','talk to jeff','call','speak to someone','contact'],
-     a:"Easiest thing is to call: " + PHONE + ".\n\nOr fill in the form on this page — name, business and a number — and we'll call or text you today. First consultation is free, about twenty minutes, no slide deck."}
-  ];
+/* ═══════════ 8 · the free-consultation overlay ═══════════
+   One glass card, opened over the page from the floating launcher. It posts
+   to the same endpoint as the form at #contact, with its own source tag so
+   the CRM can tell the two apart.
 
-  var OPENERS = [
-    "What do you actually do?",
-    "What does it cost?",
-    "Why the 12-month contract?",
-    "Can I see real work?",
-    "I'm not technical at all."
-  ];
-
-  var panel = document.getElementById('askPanel'),
-      log = document.getElementById('askLog'),
-      chips = document.getElementById('askChips'),
-      form = document.getElementById('askForm'),
-      input = document.getElementById('askInput'),
-      turns = 0, offered = false, greeted = false;
-
-  function add(text, who){
-    var d = document.createElement('div');
-    d.className = 'msg ' + who;
-    d.textContent = text;
-    log.appendChild(d);
-    log.scrollTop = log.scrollHeight;
-  }
-  function setChips(list){
-    chips.innerHTML = '';
-    list.forEach(function(t){
-      var b = document.createElement('button');
-      b.type = 'button'; b.textContent = t;
-      b.addEventListener('click', function(){ ask(t); });
-      chips.appendChild(b);
-    });
-  }
-  function score(q, entry){
-    var s = 0, ql = ' ' + q + ' ';
-    entry.k.forEach(function(kw){ if(ql.indexOf(kw) > -1) s += kw.length; });
-    return s;
-  }
-  function answer(q){
-    var ql = q.toLowerCase().replace(/[^a-z0-9$ ]/g,' ').replace(/\s+/g,' ');
-    var best = null, bestScore = 0;
-    KB.forEach(function(e){
-      var s = score(ql, e);
-      if(s > bestScore){ bestScore = s; best = e; }
-    });
-    if(best && bestScore >= 4) return best.a;
-    return "That's a good question, and I'd rather a person answered it properly than have me guess.\n\nCall " + PHONE + ", or leave your number in the form on this page and we'll get back to you today.\n\nIn the meantime I can cover the plans, what's in each one, the setup fee, the 12-month term, how the build works, or the demos in the Vault.";
-  }
-  function ask(q){
-    add(q, 'me');
-    input.value = '';
-    turns++;
-    setTimeout(function(){
-      add(answer(q), 'bot');
-      if(turns >= 2 && !offered){
-        offered = true;
-        setTimeout(function(){
-          add("Want us to just call you? Easiest is " + PHONE + ", or drop your name and number in the form on this page and we'll ring you today.", 'bot');
-        }, 500);
-      }
-      setChips(OPENERS);
-    }, 260);
-  }
+   Consent NEVER gates submission: a form that refuses without the SMS box
+   ticked fails carrier registration and reads as coerced consent. Same rule
+   as the main form, restated here because it is easy to "fix" by mistake. */
+(function joinOverlay(){
+  var btn    = document.getElementById('joinBtn'),
+      scrim  = document.getElementById('joinScrim'),
+      glass  = document.getElementById('joinGlass'),
+      form   = document.getElementById('joinForm'),
+      submit = document.getElementById('jSubmit'),
+      closeB = document.getElementById('jClose'),
+      RM     = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!btn || !scrim || !glass || !form) return;
 
   function open(){
-    panel.setAttribute('data-open','');
-    if(!greeted){
-      greeted = true;
-      add("Hi — I'm the Knox assistant, not a person. I can tell you what's in each plan, what the setup fee covers, why it's a 12-month deal, or point you at the demos.\n\nWhat would you like to know?", 'bot');
-      setChips(OPENERS);
-    }
-    setTimeout(function(){ input.focus(); }, 60);
+    scrim.setAttribute('data-open','');
+    document.body.style.overflow = 'hidden';
+    var first = glass.querySelector('input:not(.hp)');
+    if(first) first.focus();
   }
-  document.getElementById('askBtn').addEventListener('click', function(){
-    if(panel.hasAttribute('data-open')) panel.removeAttribute('data-open'); else open();
+  function close(){
+    scrim.removeAttribute('data-open');
+    document.body.style.overflow = '';
+    btn.focus();
+  }
+  btn.addEventListener('click', open);
+  closeB.addEventListener('click', close);
+  scrim.addEventListener('click', function(e){ if(e.target === scrim) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!scrim.hasAttribute('data-open')) return;
+    if(e.key === 'Escape'){ close(); return; }
+    /* Keep tab focus inside the card while it is modal. This is now the only
+       document-level Escape handler on the page — the concierge owned the
+       previous one and it went with it. */
+    if(e.key === 'Tab'){
+      var f = [].filter.call(glass.querySelectorAll('a[href],button,input,textarea'),
+                             function(el){ return el.offsetParent !== null; });
+      if(!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
   });
-  document.getElementById('askClose').addEventListener('click', function(){ panel.removeAttribute('data-open'); });
+
+  /* specular tracking — rAF-throttled, one write per frame, off if reduced */
+  if(!RM){
+    var qx = 0, qy = 0, queued = false;
+    glass.addEventListener('pointermove', function(e){
+      var r = glass.getBoundingClientRect();
+      qx = (e.clientX - r.left) / r.width * 100;
+      qy = (e.clientY - r.top) / r.height * 100;
+      if(queued) return; queued = true;
+      requestAnimationFrame(function(){
+        glass.style.setProperty('--mx', qx.toFixed(1) + '%');
+        glass.style.setProperty('--my', qy.toFixed(1) + '%');
+        queued = false;
+      });
+    });
+    glass.addEventListener('pointerleave', function(){
+      glass.style.setProperty('--mx','28%'); glass.style.setProperty('--my','4%');
+    });
+  }
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    var v = input.value.trim();
-    if(v) ask(v);
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') panel.removeAttribute('data-open');
+    if(form.website.value) return;                       /* honeypot */
+    var need = ['name','business','email'];
+    for(var i=0;i<need.length;i++){
+      if(!form[need[i]].value.trim()){ form[need[i]].focus(); return; }
+    }
+    submit.disabled = true; submit.textContent = 'Sending…';
+    var payload = {
+      name: form.name.value.trim(), business: form.business.value.trim(),
+      type: form.type.value.trim(), email: form.email.value.trim(),
+      phone: form.phone.value.trim(), message: form.message.value.trim(),
+      source: 'getprojectknox.com/free-consultation',
+      website: '',
+      sms_consent:   document.getElementById('jSms').checked === true,
+      email_consent: document.getElementById('jEmailOptIn').checked === true
+    };
+    fetch('https://meridianfiling.com/api/leads', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+    }).then(function(r){ return r.json().catch(function(){ return {ok:r.ok}; }); })
+      .then(function(res){ if(!res || res.ok !== true) throw new Error('rejected'); done(); })
+      .catch(function(){
+        /* Never lose a lead silently — fall back to a prefilled email. */
+        var lines = 'Name: '+payload.name+'\nBusiness: '+payload.business+
+          '\nType: '+payload.type+'\nPhone: '+payload.phone+'\nEmail: '+payload.email+
+          '\nOK to text: '+(payload.sms_consent?'yes':'no')+
+          '\nOK to email: '+(payload.email_consent?'yes':'no')+
+          '\nSource: free consultation overlay\n\n'+payload.message;
+        window.location.href = 'mailto:jeffbilbrey@getprojectknox.com?subject='+
+          encodeURIComponent('Free consultation request from getprojectknox.com')+
+          '&body='+encodeURIComponent(lines);
+        done();
+      });
+    function done(){ glass.setAttribute('data-sent',''); }
   });
 })();
 

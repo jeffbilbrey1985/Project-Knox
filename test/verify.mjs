@@ -298,20 +298,47 @@ const ok = (cond, label, extra = '') => {
   // Motion graphics fetched their bytes.
   ok(reqs.some(u => /\.webm|\.mp4/.test(u)), 'motion graphics loaded when in view');
 
-  // Ask Knox.
-  await page.click('#askBtn');
-  await page.waitForTimeout(300);
-  await page.fill('#askInput', 'why the 12 month contract?');
-  await page.press('#askInput', 'Enter');
-  await page.waitForTimeout(700);
-  const botText = await page.$$eval('.msg.bot', els => els.map(e => e.textContent).join(' '));
-  ok(/front-loaded|twelve|12/i.test(botText), 'Ask Knox answers the contract question');
-  await page.screenshot({ path: '/home/claude/shots/m-10-askknox.png' });
+  // The free-consultation overlay, which replaced the Ask Knox concierge.
+  ok(await page.$('#askBtn') === null, 'Ask Knox concierge is fully removed');
+  await page.click('#joinBtn');
+  await page.waitForTimeout(400);
+  const ov = await page.evaluate(() => {
+    const sc = document.getElementById('joinScrim'), g = document.getElementById('joinGlass');
+    const r = g.getBoundingClientRect();
+    // The overlay must paint ABOVE the fixed nav. z-index alone does not prove
+    // it — what proves it is that a hit test inside the card lands on the card.
+    const hit = document.elementFromPoint(r.left + r.width / 2, r.top + 40);
+    return {
+      open: sc.hasAttribute('data-open'),
+      aboveNav: !!(hit && hit.closest('#joinGlass')),
+      focused: document.activeElement.id,
+      scrollLocked: document.body.style.overflow === 'hidden'
+    };
+  });
+  ok(ov.open && ov.aboveNav, 'consultation overlay opens above the nav', JSON.stringify(ov));
+  ok(ov.focused === 'jName', 'overlay focuses the first field', ov.focused);
+  ok(ov.scrollLocked, 'overlay locks background scroll');
+  await page.screenshot({ path: '/home/claude/shots/m-10-consultation.png' });
 
-  // The price guard: the bot must never state a price outside the published set.
-  const prices = [...botText.matchAll(/\$([\d,]+)/g)].map(m => m[1].replace(',', ''));
-  const bad = prices.filter(p => !['250', '500', '100', '130', '2550', '5100', '20', '99', '30'].includes(p));
-  ok(bad.length === 0, 'Ask Knox quotes no invented prices', bad.join(','));
+  // Consent must never gate submission — a form that refuses without the SMS
+  // box ticked fails carrier registration and reads as coerced consent.
+  const gated = await page.$('#jSms[required], #jEmailOptIn[required]');
+  ok(gated === null, 'neither consent box is required in the overlay');
+
+  // It must reach the CRM, not a mail relay, and carry its own source tag.
+  const ovSrc = await page.content();
+  ok(/getprojectknox\.com\/free-consultation/.test(ovSrc), 'overlay tags its own lead source');
+
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(300);
+  ok(await page.evaluate(() => !document.getElementById('joinScrim').hasAttribute('data-open')
+       && document.body.style.overflow === ''),
+     'Escape closes the overlay and restores scroll');
+
+  // Reviews were moved below the contact form.
+  const secOrder = await page.$$eval('main section[id]', els => els.map(e => e.id));
+  ok(secOrder.indexOf('reviews') > secOrder.indexOf('contact'),
+     'Google reviews sit below the signup form', secOrder.join(' > '));
 
   // The ladder is two plans plus bolt-ons now. Enterprise must be gone
   // everywhere — card, chooser, structured data, knowledge base.
