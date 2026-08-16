@@ -1533,10 +1533,11 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
   v.hidden = false;
   v.load();
 
-  var finished = false;
+  var finished = false, watch = null;
   function finish(){
     if(finished) return;
     finished = true;
+    try { clearInterval(watch); } catch(e){}
     reveal();
     v.setAttribute('data-done','');
     ent.setAttribute('data-done','');
@@ -1554,7 +1555,42 @@ var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce
 
   setTimeout(reveal, 1400);              /* copy is ready the moment the curtain lifts */
   setTimeout(function(){ if(v.paused && !v.currentTime) finish(); }, 2200);
-  setTimeout(finish, 15000);             /* hard backstop */
+
+  /* ── the curtain must never outlast the film ────────────────────────
+     The old backstop was a flat 15s. Measured on a phone profile, LCP
+     landed at 15,632ms — i.e. the timer, not 'ended', is what lifted the
+     curtain. A visitor whose film stalls or never fires 'ended' sat on
+     black for fifteen seconds with nothing on screen and no way to know
+     anything was coming.
+
+     Three guards now, all of which leave a normally-playing film alone:
+       1. once metadata is known, the backstop becomes the film's own
+          length plus a second of slack, rather than a guessed constant;
+       2. a stall watchdog — if currentTime stops advancing while the film
+          is supposed to be playing, open the page;
+       3. an absolute ceiling, well under the old one.
+     The happy path is untouched: 'ended' still fires first and finish()
+     is idempotent. */
+  /* The duration-derived backstop must NEVER be clamped below the film's own
+     length — that would truncate a perfectly healthy entrance. The absolute
+     ceiling below is a last resort only, and with the two guards here it
+     should effectively never be what lifts the curtain. */
+  var capped = false;
+  v.addEventListener('loadedmetadata', function(){
+    if(capped || !isFinite(v.duration) || !v.duration) return;
+    capped = true;
+    setTimeout(finish, v.duration * 1000 + 1200);
+  });
+
+  var lastT = 0, stalls = 0;
+  watch = setInterval(function(){
+    if(finished){ clearInterval(watch); return; }
+    if(v.paused || v.ended) return;
+    if(v.currentTime > lastT + 0.05){ lastT = v.currentTime; stalls = 0; return; }
+    if(++stalls >= 5) { clearInterval(watch); finish(); }   /* ~2.5s frozen */
+  }, 500);
+
+  setTimeout(finish, 15000);             /* absolute last resort */
   window.addEventListener('scroll', function once(){
     finish(); window.removeEventListener('scroll', once);
   }, {passive:true, once:true});
