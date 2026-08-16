@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leave a review | Project Knox</title>
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0B1026">
+<link rel="icon" href="/favicon.png" sizes="180x180">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     getprojectknox.com/review
+
+     A permanent, memorable address that forwards to the Google review
+     form. Put THIS on invoices, in texts, on cards and in email
+     signatures — never the raw Google URL.
+
+     Why the indirection is worth a file: Google's review links are long,
+     opaque and can change. Every message you have ever sent points here,
+     so if the destination changes you edit one line below instead of
+     re-sending history.
+
+     TO SET THE DESTINATION: replace the value of DEST. Get it from the
+     Business Profile dashboard — "Ask for reviews" hands you a short
+     g.page/r/... link. The search.google.com form below also works if
+     you have the Place ID.
+
+     noindex: this is a redirect, not content. It should never compete
+     in search results.
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+  /* Set this and nothing else. */
+  var DEST = "";
+
+  /* Fallback while DEST is empty: Google's own "write a review" search,
+     which resolves to the right business from the name and town. It works,
+     it is just one tap longer than the direct form. */
+  var FALLBACK = "https://www.google.com/search?q=Project+Knox+Glen+Ellyn+IL#lrd=,3,,,";
+
+  var target = DEST || FALLBACK;
+  /* replace() so the back button returns to wherever they came from,
+     not into a redirect loop. */
+  location.replace(target);
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=https://www.google.com/search?q=Project+Knox+Glen+Ellyn+IL"></noscript>
+
+<style>
+@font-face{font-family:'Cormorant Garamond';src:url('/assets/fonts/CormorantGaramond-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Inter';src:url('/assets/fonts/Inter-300.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Inter';src:url('/assets/fonts/Inter-500.woff2') format('woff2');font-weight:500;font-display:swap}
+:root{--night:#0B1026;--gold:#C9A961;--struck:#E8CE93;--ivory:#F2EFE8;--steel:#8A93A8;
+  --display:'Cormorant Garamond',Georgia,serif;--ui:'Inter',-apple-system,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
+  background:var(--night);color:var(--ivory);font-family:var(--ui);font-weight:300;
+  text-align:center;-webkit-font-smoothing:antialiased}
+img{width:54px;height:54px;margin:0 auto 22px;display:block}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,6vw,38px);margin:0 0 14px;letter-spacing:-.01em}
+p{color:var(--steel);max-width:46ch;margin:0 auto 26px;line-height:1.6}
+a.btn{display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,var(--struck),var(--gold));color:#241c07;
+  border-radius:999px;padding:15px 30px;min-height:48px;text-decoration:none;
+  font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:0 6px 26px rgba(201,169,97,.22)}
+small{display:block;margin-top:26px;color:var(--steel);font-size:13px}
+small a{color:var(--gold)}
+</style>
+</head>
+<body>
+  <main>
+    <img src="/assets/img/knox-logo.webp" alt="Project Knox">
+    <h1>Thank you.</h1>
+    <p>We're sending you to Google to leave a review. If nothing happens in a
+    couple of seconds, use the button.</p>
+    <a class="btn" id="go" href="https://www.google.com/search?q=Project+Knox+Glen+Ellyn+IL">Leave a review</a>
+    <small>Project Knox &middot; Glen Ellyn, Illinois &middot;
+      <a href="tel:+13312917400">(331)&nbsp;291&#8209;7400</a></small>
+  </main>
+  <script>
+    /* Keep the visible button pointed at the same place as the redirect. */
+    (function(){ var a = document.getElementById('go'); if(a && (DEST || FALLBACK)) a.href = DEST || FALLBACK; })();
+  </script>
+</body>
+</html>

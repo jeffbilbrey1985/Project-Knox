@@ -30,7 +30,7 @@ const SRC = process.env.KNOX_SRC || "/home/claude/build";
 const DIST = process.env.KNOX_DIST || "/home/claude/cf-site/dist";
 
 /** Pages copied with link rewriting. */
-const PAGES = ["index.html", "privacy.html", "sms-terms.html", "thevault.html", "how.html", "getting-found.html", "404.html"];
+const PAGES = ["index.html", "privacy.html", "sms-terms.html", "thevault.html", "how.html", "getting-found.html", "review.html", "404.html"];
 
 /** Copied byte-for-byte. */
 const VERBATIM = ["favicon.png", "knox-logo.png", "robots.txt", "sitemap.xml", "_headers"];
@@ -52,7 +52,7 @@ const TREES = ["assets", "thevaultfilms", "dupage-county", "glen-ellyn", "wheato
 const CLEAN = [
   // Absolute self-references first: canonical, og:url, sitemap entries.
   [/https:\/\/getprojectknox\.com\/index\.html/g, "https://getprojectknox.com/"],
-  [/https:\/\/getprojectknox\.com\/(privacy|sms-terms|thevault|how|getting-found)\.html/g, "https://getprojectknox.com/$1"],
+  [/https:\/\/getprojectknox\.com\/(privacy|sms-terms|thevault|how|getting-found|review)\.html/g, "https://getprojectknox.com/$1"],
   [/href="privacy\.html"/g, 'href="/privacy"'],
   [/href="\/privacy\.html"/g, 'href="/privacy"'],
   [/href="sms-terms\.html"/g, 'href="/sms-terms"'],
@@ -92,7 +92,7 @@ for (const p of PAGES) {
   for (const [re, to] of CLEAN) html = html.replace(re, to);
 
   // A stale .html link left anywhere is a 307 the visitor pays for.
-  const leftover = html.match(/(href|content)="[^"]*(privacy|sms-terms|thevault|how|index|getting-found)\.html(#[a-z-]*)?"/g);
+  const leftover = html.match(/(href|content)="[^"]*(privacy|sms-terms|thevault|how|index|getting-found|review)\.html(#[a-z-]*)?"/g);
   if (leftover) throw new Error(`${p}: unrewritten links ${leftover.join(", ")}`);
 
   fs.writeFileSync(path.join(DIST, p), html);
