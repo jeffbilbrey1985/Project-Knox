@@ -38,6 +38,13 @@ export default {
     const url = new URL(request.url);
     const { pathname } = url;
 
+    // The share link Jeff hands to prospects: short enough to say on a phone
+    // call, permanent home on the film's real page. 301 keeps one canonical URL.
+    if (pathname === "/ledger" || pathname === "/ledger/") {
+      url.pathname = "/thevaultfilms/the-great-ledger";
+      return Response.redirect(url.toString(), 301);
+    }
+
     // The Screening Room moved out of the Vault: /thevault/films* → /thevaultfilms*.
     // 301 so search engines transfer the old URLs' standing to the new home.
     if (pathname === "/thevault/films" || pathname.startsWith("/thevault/films/")) {

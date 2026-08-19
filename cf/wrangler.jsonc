@@ -25,6 +25,8 @@
     // Worker instead. /thevault itself is NOT listed — it is a real static
     // page here and must keep being served from dist.
     "run_worker_first": [
+      "/ledger",
+      "/ledger/",
       "/thevault/films",
       "/thevault/films/*",
       "/thevault/barbershop",

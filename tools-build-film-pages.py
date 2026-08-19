@@ -48,6 +48,22 @@ FILMS = [
  ),
 ]
 
+# The feature presentation — the full Project Knox story. No stats section
+# (it's a story, not a lesson), no caption track yet, its own duration and
+# billing. Shares the same page template through the .get() defaults below.
+LEDGER = dict(slug="the-great-ledger", num="&#9733;", title="The Great Ledger",
+ tag="The whole Project Knox story &mdash; what we build, how it works, and why your shop belongs in the ledger",
+ desc="The full Project Knox story in six and a half minutes. Step inside the vault with the Keeper: the website that's actually yours, the Google profile that gets you found, the bookings, reminders and reviews that keep the ledger full — and what it all costs, in plain English.",
+ upload="2026-08-19",
+ stats=[],
+ cta_line="Everything in the film — the site, the profile, the bookings, the reviews — is one system, built and run by Knox from $250 a month.",
+ eyebrow="The Feature Presentation",
+ iso_dur="PT6M35S",
+ card_label="The Story &middot; 6&frac12; minutes",
+ meta_html="<span><b>6&frac12; minutes</b> &middot; sound on &mdash; anything else playing on the page steps aside</span>\n      <span>Share this page: <b>getprojectknox.com/ledger</b></span>",
+ vtt=False,
+)
+
 HEAD_CSS = """
 @font-face{font-family:'Cinzel';src:url('/assets/fonts/Cinzel-600.woff2') format('woff2');font-weight:600;font-display:swap}
 @font-face{font-family:'Inter';src:url('/assets/fonts/Inter-300.woff2') format('woff2');font-weight:300;font-display:swap}
@@ -191,7 +207,7 @@ def film_page(f, others):
       "thumbnailUrl": poster,
       "contentUrl": mp4,
       "uploadDate": f["upload"],
-      "duration": "PT40S",
+      "duration": f.get("iso_dur", "PT40S"),
       "inLanguage": "en-US",
       "publisher": {"@id": "https://getprojectknox.com/#business"},
       "isPartOf": {"@id": "https://getprojectknox.com/thevaultfilms/#page"},
@@ -201,10 +217,21 @@ def film_page(f, others):
     srcs = "\n".join(
       f'      <li><p>{esc(claim)}</p><a href="{link}" target="_blank" rel="noopener">{esc(label)} &rarr;</a></li>'
       for claim, label, link in f["stats"])
+    sources_html = f"""
+<section class="sources">
+  <div class="wrap">
+    <h2>The receipts</h2>
+    <p class="note">The statistics in this film, with the original research they come from.</p>
+    <ul class="srcList">
+{srcs}
+    </ul>
+  </div>
+</section>
+""" if f["stats"] else ""
     other_cards = "\n".join(f'''      <a class="filmCard" href="/thevaultfilms/{o['slug']}">
         <div class="thumb"><img src="/assets/films/{o['slug']}-poster.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
         <div class="playBadge" aria-hidden="true"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div></div>
-        <div class="cardCopy"><i>Film {o['num']} &middot; 40 seconds</i><b>{esc(o['title'])}</b><span>{esc(o['tag'])}</span></div>
+        <div class="cardCopy"><i>{o.get('card_label', "Film " + o['num'] + " &middot; 40 seconds")}</i><b>{esc(o['title'])}</b><span>{esc(o['tag'])}</span></div>
       </a>''' for o in others)
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -247,7 +274,7 @@ def film_page(f, others):
   <div class="stage" id="cinemaStage" aria-hidden="true"></div>
   <div class="heroInner">
     <div class="wordmark" aria-hidden="true"><span>Project</span><b>KNOX</b></div>
-    <p class="eyebrow">The Vault Films &middot; {f['num']} of 03</p>
+    <p class="eyebrow">{f.get('eyebrow', "The Vault Films &middot; " + f['num'] + " of 03")}</p>
     <h1>{esc(f['title'])}</h1>
     <p class="tag">{esc(f['tag'])}.</p>
   </div>
@@ -256,10 +283,10 @@ def film_page(f, others):
 <section class="screen">
   <div class="wrap">
     <div class="player">
-      <video controls preload="metadata" playsinline crossorigin="anonymous"
+      <video controls preload="metadata" playsinline{' crossorigin="anonymous"' if f.get('vtt', True) else ''}
              poster="/assets/films/{f['slug']}-poster.jpg">
         <source src="/assets/films/{f['slug']}.mp4" type="video/mp4">
-        <track kind="captions" src="/assets/films/{f['slug']}.vtt" srclang="en" label="English">
+        {f'<track kind="captions" src="/assets/films/{f["slug"]}.vtt" srclang="en" label="English">' if f.get('vtt', True) else ''}
         Your browser can&rsquo;t play this video. <a href="/assets/films/{f['slug']}.mp4">Download it instead.</a>
       </video>
       <button class="playCover" id="playCover" hidden aria-label="Play {esc(f['title'])}">
@@ -267,22 +294,11 @@ def film_page(f, others):
       </button>
     </div>
     <div class="filmMeta">
-      <span><b>40 seconds</b> &middot; captions on screen &middot; CC toggle in the player</span>
-      <span>Every number in this film is real research &mdash; the sources are right below.</span>
+      {f.get('meta_html', '<span><b>40 seconds</b> &middot; captions on screen &middot; CC toggle in the player</span>' + chr(10) + '      <span>Every number in this film is real research &mdash; the sources are right below.</span>')}
     </div>
   </div>
 </section>
-
-<section class="sources">
-  <div class="wrap">
-    <h2>The receipts</h2>
-    <p class="note">The statistics in this film, with the original research they come from.</p>
-    <ul class="srcList">
-{srcs}
-    </ul>
-  </div>
-</section>
-
+{sources_html}
 <section class="filmCta">
   <div class="wrap">
     <p>{esc(f['cta_line'])}</p>
@@ -347,13 +363,13 @@ def hub_page():
       "@context": "https://schema.org", "@type": "CollectionPage",
       "@id": "https://getprojectknox.com/thevaultfilms/#page",
       "url": "https://getprojectknox.com/thevaultfilms/",
-      "name": "The Vault Films — three 40-second films on growing a local business",
+      "name": "The Vault Films — the Project Knox story plus three 40-second films",
       "isPartOf": {"@id": "https://getprojectknox.com/#website"},
       "publisher": {"@id": "https://getprojectknox.com/#business"},
       "inLanguage": "en-US",
       "mainEntity": {"@type": "ItemList", "itemListElement": [
         {"@type": "ListItem", "position": i+1, "name": f["title"],
-         "url": f"https://getprojectknox.com/thevaultfilms/{f['slug']}"} for i, f in enumerate(FILMS)]},
+         "url": f"https://getprojectknox.com/thevaultfilms/{f['slug']}"} for i, f in enumerate([LEDGER] + FILMS)]},
     }
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -367,14 +383,14 @@ def hub_page():
   gtag('config', 'G-8LBV2N9FTC');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Vault Films &mdash; Three 40&#8209;Second Films | Project Knox</title>
-<meta name="description" content="Three 40-second films on what actually grows a local business: getting found on Google, text reminders that keep appointments full, and reviews that ring your phone. Real research, cited under every film.">
+<title>The Vault Films &mdash; The Project Knox Story + Three 40&#8209;Second Films</title>
+<meta name="description" content="The Great Ledger — the whole Project Knox story in six and a half minutes — plus three 40-second films on what actually grows a local business: getting found on Google, text reminders, and reviews. Real research, cited under every film.">
 <link rel="canonical" href="https://getprojectknox.com/thevaultfilms/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getprojectknox.com/thevaultfilms/">
 <meta property="og:title" content="The Vault Films | Project Knox">
-<meta property="og:description" content="Three 40-second films on what actually grows a local business — with the research to back every number.">
-<meta property="og:image" content="https://getprojectknox.com/assets/films/get-found-first-poster.jpg">
+<meta property="og:description" content="The whole Project Knox story in six and a half minutes, plus three 40-second films — with the research to back every number.">
+<meta property="og:image" content="https://getprojectknox.com/assets/films/the-great-ledger-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:site_name" content="Project Knox">
 <link rel="icon" href="/favicon.png" sizes="180x180">
@@ -396,14 +412,34 @@ def hub_page():
   <div class="heroInner">
     <div class="wordmark" aria-hidden="true"><span>Project</span><b>KNOX</b></div>
     <p class="eyebrow">The Vault &middot; Screening Room</p>
-    <h1>Three films. Forty seconds each.</h1>
-    <p class="tag">Why customers can&rsquo;t find you, why they don&rsquo;t show up, and why they pick the other shop &mdash; and what fixes all three. Every number cited below its film.</p>
+    <h1>First the story. Then the lessons.</h1>
+    <p class="tag">The Great Ledger tells the whole Project Knox story in six and a half minutes. Below it, three forty-second films on why the work matters &mdash; every number cited.</p>
   </div>
 </section>
 
-<section class="others" style="border-top:0">
+<section class="screen" aria-label="The Great Ledger — the feature presentation">
   <div class="wrap">
-    <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">The three films</h2>
+    <p class="eyebrow" style="text-align:center">The Feature Presentation &middot; 6&frac12; minutes</p>
+    <div class="player">
+      <video controls preload="metadata" playsinline
+             poster="/assets/films/the-great-ledger-poster.jpg">
+        <source src="/assets/films/the-great-ledger.mp4" type="video/mp4">
+        Your browser can&rsquo;t play this video. <a href="/assets/films/the-great-ledger.mp4">Download it instead.</a>
+      </video>
+      <button class="playCover" id="playCover" hidden aria-label="Play The Great Ledger">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
+    </div>
+    <div class="filmMeta">
+      <span><b>The Great Ledger</b> &middot; the whole Project Knox story &middot; sound on</span>
+      <span>Its own page to share: <a href="/thevaultfilms/the-great-ledger"><b>getprojectknox.com/ledger</b></a></span>
+    </div>
+  </div>
+</section>
+
+<section class="others" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <h2>The three lessons &mdash; forty seconds each</h2>
     <div class="filmGrid">
 {cards}
     </div>
@@ -424,6 +460,27 @@ def hub_page():
   Project Knox &middot; Glen Ellyn, Illinois &middot; <a href="tel:+13312917400">(331) 291&#8209;7400</a> &middot;
   <a href="https://getprojectknox.com/">getprojectknox.com</a>
 </footer>
+
+<script>
+(function(){{
+  var v = document.querySelector('.player video');
+  var c = document.getElementById('playCover');
+  if(!v || !c) return;
+  v.removeAttribute('controls');
+  c.hidden = false;
+  function dismiss(){{
+    c.setAttribute('data-gone','');
+    v.setAttribute('controls','');
+    setTimeout(function(){{ c.hidden = true; }}, 420);
+  }}
+  c.addEventListener('click', function(){{
+    dismiss();
+    v.focus();
+    var p = v.play(); if(p && p.catch) p.catch(function(){{}});
+  }});
+  v.addEventListener('play', dismiss);
+}})();
+</script>
 <script>{cinema_js}</script>
 </body>
 </html>
@@ -433,7 +490,9 @@ import os
 here = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'thevaultfilms')
 os.makedirs(here, exist_ok=True)
 for i, f in enumerate(FILMS):
-    others = [o for o in FILMS if o is not f]
+    # each short cross-sells its two siblings, then the feature presentation
+    others = [o for o in FILMS if o is not f] + [LEDGER]
     open(os.path.join(here, f["slug"] + ".html"), "w").write(film_page(f, others))
+open(os.path.join(here, LEDGER["slug"] + ".html"), "w").write(film_page(LEDGER, FILMS))
 open(os.path.join(here, "index.html"), "w").write(hub_page())
-print("wrote", ", ".join(f["slug"] + ".html" for f in FILMS), "and index.html")
+print("wrote", ", ".join(f["slug"] + ".html" for f in FILMS + [LEDGER]), "and index.html")

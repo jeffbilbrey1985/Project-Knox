@@ -343,6 +343,71 @@ html:not([data-js]) .rv{opacity:1;transform:none}
  </div>
 </section>
 
+<!-- ═══ THE GREAT LEDGER — the feature presentation ═══════════════════════ -->
+<style>
+.ledger{padding:clamp(30px,5vw,56px) 0 clamp(26px,4vw,44px);border-bottom:1px solid var(--line)}
+.ledger .eyebrow{text-align:center}
+.ledger h2{font-family:'Cinzel',serif;font-weight:600;text-align:center;margin:0 0 20px;
+ font-size:clamp(21px,3.6vw,30px);letter-spacing:.04em}
+.lplayer{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000;
+ box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 1px rgba(201,169,97,.06)}
+.lplayer video{width:100%;aspect-ratio:16/9;display:block}
+.lcover{position:absolute;inset:0;display:grid;place-items:center;cursor:pointer;border:0;padding:0;
+ background:radial-gradient(80% 80% at 50% 50%,rgba(5,7,15,0) 40%,rgba(5,7,15,.42) 100%);
+ transition:opacity .4s var(--ease)}
+.lcover span{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;
+ background:rgba(11,16,38,.58);border:2px solid var(--gold);backdrop-filter:blur(4px);
+ box-shadow:0 10px 40px rgba(0,0,0,.5),0 0 30px rgba(201,169,97,.35);transition:transform .3s var(--ease)}
+.lcover:hover span,.lcover:focus-visible span{transform:scale(1.1)}
+.lcover svg{width:30px;height:30px;fill:var(--struck);margin-left:5px}
+.lcover[data-gone]{opacity:0;pointer-events:none}
+.lcover[hidden]{display:none}   /* explicit display beats the hidden attribute */
+.ledger-meta{text-align:center;color:var(--steel);font-size:14.5px;margin:14px auto 0;max-width:640px}
+.ledger-meta b{color:var(--struck);font-weight:500}
+@media (prefers-reduced-motion:reduce){.lcover,.lcover span{transition:none}}
+</style>
+<section class="ledger" aria-label="The Great Ledger — the Project Knox story">
+  <div class="wrap">
+    <p class="eyebrow">The Feature Presentation &middot; 6&frac12; minutes</p>
+    <h2>The Great Ledger &mdash; the whole story, told properly.</h2>
+    <div class="lplayer">
+      <video controls preload="metadata" playsinline
+             poster="/assets/films/the-great-ledger-poster.jpg">
+        <source src="/assets/films/the-great-ledger.mp4" type="video/mp4">
+        Your browser can&rsquo;t play this video. <a href="/assets/films/the-great-ledger.mp4">Download it instead.</a>
+      </video>
+      <button class="lcover" id="ledgerCover" hidden aria-label="Play The Great Ledger">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
+    </div>
+    <p class="ledger-meta">What Project Knox builds, how it works, and what it costs &mdash; press play and the
+      vault goes quiet. Send it to anyone: <a href="/thevaultfilms/the-great-ledger"><b>getprojectknox.com/ledger</b></a></p>
+  </div>
+</section>
+<script>
+(function(){
+  /* Same branded click-to-play cover as the Screening Room. knox-audio.js
+     (loaded in <head>) already enforces precedence: this video's audible
+     play pauses the tour narration and anything else with a voice. */
+  var v = document.querySelector('.lplayer video');
+  var c = document.getElementById('ledgerCover');
+  if(!v || !c) return;
+  v.removeAttribute('controls');
+  c.hidden = false;
+  function dismiss(){
+    c.setAttribute('data-gone','');
+    v.setAttribute('controls','');
+    setTimeout(function(){ c.hidden = true; }, 420);
+  }
+  c.addEventListener('click', function(){
+    dismiss();
+    v.focus();
+    var p = v.play(); if(p && p.catch) p.catch(function(){});
+  });
+  v.addEventListener('play', dismiss);
+})();
+</script>
+
 <!-- ═══ THE PROMISE ═══════════════════════════════════════════════════════ -->
 <section class="promise">
   <div class="wrap">
