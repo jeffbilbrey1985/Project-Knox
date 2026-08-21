@@ -53,14 +53,14 @@ FILMS = [
 # billing. Shares the same page template through the .get() defaults below.
 LEDGER = dict(slug="the-great-ledger", num="&#9733;", title="The Great Ledger",
  tag="The whole Project Knox story &mdash; what we build, how it works, and why your shop belongs in the ledger",
- desc="The full Project Knox story in six and a half minutes. Step inside the vault with the Keeper: the website that's actually yours, the Google profile that gets you found, the bookings, reminders and reviews that keep the ledger full — and what it all costs, in plain English.",
+ desc="The full Project Knox story in five minutes. Step inside the vault with the Keeper: the website that's actually yours, the Google profile that gets you found, the bookings, reminders and reviews that keep the ledger full — and what it all costs, in plain English.",
  upload="2026-08-19",
  stats=[],
  cta_line="Everything in the film — the site, the profile, the bookings, the reviews — is one system, built and run by Knox from $250 a month.",
  eyebrow="The Feature Presentation",
- iso_dur="PT6M35S",
- card_label="The Story &middot; 6&frac12; minutes",
- meta_html="<span><b>6&frac12; minutes</b> &middot; sound on &mdash; anything else playing on the page steps aside</span>\n      <span>Share this page: <b>getprojectknox.com/ledger</b></span>",
+ iso_dur="PT5M4S",
+ card_label="The Story &middot; 5 minutes",
+ meta_html="<span><b>5 minutes</b> &middot; sound on &mdash; anything else playing on the page steps aside</span>\n      <span>Share this page: <b>getprojectknox.com/ledger</b></span>",
  vtt=False,
 )
 
@@ -384,12 +384,12 @@ def hub_page():
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Vault Films &mdash; The Project Knox Story + Three 40&#8209;Second Films</title>
-<meta name="description" content="The Great Ledger — the whole Project Knox story in six and a half minutes — plus three 40-second films on what actually grows a local business: getting found on Google, text reminders, and reviews. Real research, cited under every film.">
+<meta name="description" content="The Great Ledger — the whole Project Knox story in five minutes — plus three 40-second films on what actually grows a local business: getting found on Google, text reminders, and reviews. Real research, cited under every film.">
 <link rel="canonical" href="https://getprojectknox.com/thevaultfilms/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getprojectknox.com/thevaultfilms/">
 <meta property="og:title" content="The Vault Films | Project Knox">
-<meta property="og:description" content="The whole Project Knox story in six and a half minutes, plus three 40-second films — with the research to back every number.">
+<meta property="og:description" content="The whole Project Knox story in five minutes, plus three 40-second films — with the research to back every number.">
 <meta property="og:image" content="https://getprojectknox.com/assets/films/the-great-ledger-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:site_name" content="Project Knox">
@@ -413,13 +413,13 @@ def hub_page():
     <div class="wordmark" aria-hidden="true"><span>Project</span><b>KNOX</b></div>
     <p class="eyebrow">The Vault &middot; Screening Room</p>
     <h1>First the story. Then the lessons.</h1>
-    <p class="tag">The Great Ledger tells the whole Project Knox story in six and a half minutes. Below it, three forty-second films on why the work matters &mdash; every number cited.</p>
+    <p class="tag">The Great Ledger tells the whole Project Knox story in five minutes. Below it, three forty-second films on why the work matters &mdash; every number cited.</p>
   </div>
 </section>
 
 <section class="screen" aria-label="The Great Ledger — the feature presentation">
   <div class="wrap">
-    <p class="eyebrow" style="text-align:center">The Feature Presentation &middot; 6&frac12; minutes</p>
+    <p class="eyebrow" style="text-align:center">The Feature Presentation &middot; 5 minutes</p>
     <div class="player">
       <video controls preload="metadata" playsinline
              poster="/assets/films/the-great-ledger-poster.jpg">
